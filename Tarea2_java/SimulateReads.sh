@@ -13,18 +13,14 @@ if [ -z "$1" ]
 fi
 
 
-if [ -z "$2" ]
-  then
-    echo "No error Found"
-    exit 1
-fi
-
 
  for prof in "${Prof[@]}"; 
         do  
         for seqLen in "${SeqLength[@]}"; 
               do
-              TotalReads=$(( $prof*( $TotalLeght / $SeqLength ) ))  # calculate number of reads based on total lenght and seqlenght
+              TotalReads=$(( $prof*( $TotalLeght / $seqLen ) ))  # calculate number of reads based on total lenght and seqlenght
+#	      echo $prof" "$Totalleght" "$
+              echo $TotalReads
               echo "Generating Simulated Read "$prof"X and seqlenght "$seqLen 
               java -Xmx4g -cp lib/NGSEPcore_3.2.0.jar:bin uniandes.algorithms.readsanalyzer.SimpleReadsSimulator $1 $seqLen $TotalReads SimulatedReads/$1$prof"X"_seqLen$seqLen"Error"$error".fastq"  $error
               done

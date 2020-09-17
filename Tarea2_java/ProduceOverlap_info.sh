@@ -1,8 +1,7 @@
 # Generate overlap-Layout-Consensus in files of data directory
 #
 #
-
-minOverlap=10
+minOverlap=20
 for i in data/te*; 
     do
     echo -n $i" | "

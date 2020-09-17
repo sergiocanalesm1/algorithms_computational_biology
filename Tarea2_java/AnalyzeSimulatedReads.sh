@@ -1,16 +1,16 @@
-minOverlap=10
+minOverlap=20
 
 for i in SimulatedReads/*; 
     do
     echo ${i:15}
-    java -Xmx4g -cp lib/NGSEPcore_3.2.0.jar:bin uniandes.algorithms.readsanalyzer.ReadsAnalyzerExample Kmers SimulatedReads/${i:15} 10 > temp
+    java -Xmx4g -cp lib/NGSEPcore_3.2.0.jar:bin uniandes.algorithms.readsanalyzer.ReadsAnalyzerExample Kmers SimulatedReads/${i:15} 20 > temp
     timetable=$(grep "table" temp)
     echo -n $timetable" | "
     totalnumber=$(grep "Total number" temp)
     echo -n $totalnumber"  |"
-    awk '/distribution/,0' temp | tail -n +2 > ProcsData/${i:15}"kmerSize_"10.xvg
+    awk '/distribution/,0' temp | tail -n +2 > ProcsData/${i:15}"kmerSize_"20.xvg
     echo -n "mean abudance = "
-    awk '{ sum += $2 } END { print(sum / NR) }' ProcsData/${i:15}"kmerSize_"10.xvg
+    awk '{ sum += $2 } END { print(sum / NR) }' ProcsData/${i:15}"kmerSize_"20.xvg
 
 
     ### produce overlap-layout.
@@ -27,5 +27,6 @@ for i in SimulatedReads/*;
     MaxSuc=$(grep Max temp | tr -dc '0-9') # extract max number of succesors
     grep succ  -A$((MaxSuc +1)) temp | grep -v "succ" > ProcsData/${i:15}"Overlap_"$minOverlap.xvg # extract overlap distriburion in a file
     echo ""
+    sed -e '1,/Assembly/ d' temp > Assembly/${i:5}"Assembly_Overlap_"$minOverlap.xvg
 
     done
