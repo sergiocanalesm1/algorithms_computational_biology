@@ -44,5 +44,9 @@ Se ejecuta como ./SimulatedReads.sh [fastafile]. En la ejecucion se utilizo el a
 
 ./AnalyzesSimulatedReads.sh 
 Genera las distribuciones de kmers con tamaño de 20 y Grafos de sobrelapes para los archivos generados por SimulatedReads.sh
+Se ejecuta como $ ./AnalyzesSimulatedReads.sh
+el archivo CovidKmersAndOverlapsError0.dat tienes los resultados de esta ejecucion. 
 
 
+FindLimitMemory.sh
+realiza simulaciones de lectura de COVID.fasta con una cantidad de lectura muy grande para buscar el error de memoria. 
