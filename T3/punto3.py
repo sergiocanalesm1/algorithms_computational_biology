@@ -1,46 +1,39 @@
-import numpy as np
+import sys
 
-#leer secuencia
-#coger el string sacarle todos los sufijos
- #ponerle $ al final
- #recorrer letra por letra, invertir el orden desde ahí y meter ese sufijo a una lista
-#ordenar la lista
-def main():
-    pass
-    #leer secuencia enformato fasta
-    #archivos = input() ...
-    #secuencia = fastaReader( archivoFasta )
-    #sufijos, originales = arreglo_sufijos( secuencia )
-    #lecturas = fastqReader( archivoFastq )
-    #posiciones = busqueda_lecturas( lecturas, arreglo_sufijos )
+def fastaReader(filename):
+    '''
+    return a list with all lines of fasta file
+    '''
+    with open("./{}".format(filename),"r") as test1:
+        text_pure =test1.readlines() 
+    seq=""
+    for i in range(1,len(text_pure)):
+        seq = seq + text_pure[i][:-1]
+    return seq
+
+def fastQReader(filename):
+    '''
+    return a list with all lines of fasta file
+    '''
+    with open("./{}".format(filename),"r") as test1:
+        text_pure =test1.readlines()
+    seq=""
+    for i in range(1,len(text_pure),4):
+        seq=seq+text_pure[i][:-1]
+    return seq
 
 def arreglo_sufijos( secuencia ):
-    secuence_list = list(secuencia.upper())
-    sufix =  [ "".join(secuence_list[ i: ]) + "$" for i in range(len(secuencia))] #que hacemos con los uppercase?
-    original_array = {sufix[i]:i for i in range(len(sufix)) }
+    secuence_list = list(secuencia)
+    sufix =  [ "".join(secuence_list[ i: ]) + "$" for i in range(len(secuencia))]
     sufix.append("$")
     sufix.sort()
-    return sufix,original_array
-
-def indiceSecuencia( secuencia ):
-    #buscar la posicion en la que este $
-    # len - indice
-    i = secuencia.find( "$" )
-    return len( secuencia ) - i
-
-def fastqReader(filename):
-    with open("".format(filename),"r") as test1:
-        text_pure =test1.readlines()
-    reads=[]
-    for i in range(1,len(text_pure),4):
-        reads.append(text_pure[i][:-1])
-    return reads
+    return sufix
 
 def busqueda_lecturas( lista_lecturas, arreglo_sufijos ):
     posiciones = []
     for lectura in lista_lecturas:
         posicion = binary_search( lectura , arreglo_sufijos )
-        posiciones.add( posicion )
+        posiciones.append( posicion )
     return posiciones
 
 def binary_search( buscado, arreglo ):
@@ -65,8 +58,12 @@ def BWT( secuencia_original, sufix_array ):
         splitter = sufix_array[ i ].find( "$" )
         arreglo_sufijos.append( sufix_array[ i ] + secuencia_original[ :-splitter ] )
     arreglo_sufijos[ 0 ] += secuencia_original
-    transformada = "".join([ arreglo_sufijos[ i ][ -1 ] for i in range(len(arreglo_sufijos))])
-    return arreglo_sufijos,transformada
+    transformada = "".join( [ arreglo_sufijos[ i ][ -1 ] for i in range(len(arreglo_sufijos)) ] )
+    original = []
+    for sufix in arreglo_sufijos:
+        m = sufix.index("$")
+        original.append(len(sufix)-m)
+    return transformada, original
 
 def matrixBWT( bwt_secuence ):
     ranking_map = {}
@@ -75,8 +72,8 @@ def matrixBWT( bwt_secuence ):
             ranking_map[letter] += 1
         else:
             ranking_map[letter] = 1
-    ranking = {k: v for k, v in sorted(ranking_map.items(), key=lambda item: item)}
-    matrix = [list("-"+bwt_secuence)] + [ [i] for i in list(ranking.keys())]
+    ranking = { k: v for k, v in sorted(ranking_map.items(), key=lambda item: item) }
+    matrix = [ list("-"+bwt_secuence) ] + [ [i] for i in list(ranking.keys()) ]
     #populate first row of indexes
     first = matrix[0][1]
     for i in range( 1, len( matrix ) ):
@@ -95,7 +92,7 @@ def matrixBWT( bwt_secuence ):
                 matrix[j].append(column[i-1])
     return matrix
 
-def lp_mapping( sub_secuence, matrix ):
+def lf_mapping( sub_secuence, matrix, original_array ):
     ranking = [ a[-1] for a in matrix[1:] ]
     cumulative_search = ""
     #ubicar filas
@@ -103,7 +100,7 @@ def lp_mapping( sub_secuence, matrix ):
     index_to_search = []
     for i in range(len(ranking)):
         if matrix[i + 1][0] == sub_secuence[-1]:
-            index_to_search  = [suma + i + 1 for i in range(ranking[i])]
+            index_to_search  = [ suma + i + 1 for i in range(ranking[i]) ]
             cumulative_search = sub_secuence[-1]
             break
         suma += ranking[i]
@@ -111,7 +108,7 @@ def lp_mapping( sub_secuence, matrix ):
     for char in range(len(sub_secuence)-1,-1,-1):
         index_to_search_temp = []
         if cumulative_search == sub_secuence:
-            return True
+            return original[ index_to_search[0] - 1 ]
         char_before = sub_secuence[char - 1]
         for i in index_to_search:
             bwt_char = matrix[0][i]
@@ -123,19 +120,33 @@ def lp_mapping( sub_secuence, matrix ):
         #buscar esos bwt_char en el ranking global
         suma = 0
         if len(index_to_search_temp) > 0:
-            cumulative_search = sub_secuence[char-1] + cumulative_search
+            cumulative_search = sub_secuence[ char - 1 ] + cumulative_search
             for j in range( len(ranking) ):
-                if matrix[ j+1 ][0] < char_before:
+                if matrix[ j + 1 ][0] < char_before:
                     suma += ranking[j]
-            index_to_search = [pos + suma for pos in index_to_search_temp]
+            index_to_search = [ pos + suma for pos in index_to_search_temp ]
         else:
-            return False
-    return False
+            return -1
+    return -1
 
-secuencia = "trestristestigres"
-a,b = arreglo_sufijos(secuencia)
-c,d = BWT(secuencia,a)
-f = matrixBWT(d)
-g = lp_mapping("rest",f)
+option = sys.argv[1]
+#file = sys.argv[2]
+secuencia = fastaReader( "COVID.fasta" )
+sufix = arreglo_sufijos( secuencia )
+if option == "SUFFIX":
+    #fastq_filename = sys.argv[3]
+    lecturas = fastQReader("COVID_seqLen100.fastq")
+    posiciones = busqueda_lecturas( lecturas, sufix )
+    print("Each read was found on the following positions (respectively) \n {}".format(posiciones))
+elif option == "BWT":
+    lookfor = sys.argv[3]
+    transformada, original = BWT( secuencia, sufix )
+    mat = matrixBWT( transformada )
+    index = lf_mapping(lookfor, mat, original)
+    if index != -1 :
+        print(" {} was found in the suffix array at the position: {}".format(lookfor, index))
+    else:
+        print(" {}  was not found".format(lookfor))
 
-print(g)
+
+
