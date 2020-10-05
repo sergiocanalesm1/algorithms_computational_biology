@@ -23,11 +23,23 @@ def fastaReader(filename):
     with open("./{}".format(filename),"r") as test1:
         text_pure =test1.readlines() 
     seq=""
-    reads=[]
-    for i in range(1,len(text_pure),4):
-        reads.append(text_pure[i][:-1])
+    for i in range(1,len(text_pure)):
 	seq=seq+text_pure[i][:-1]
     return seq    
+
+def fastQReader(filename):
+    '''
+    return a list with all lines of fasta file
+    '''
+    with open("./{}".format(filename),"r") as test1:
+        text_pure =test1.readlines()
+    seq=""
+    for i in range(1,len(text_pure),4):
+        seq=seq+text_pure[i][:-1]
+    return seq
+
+
+
 
 
 def arreglo_sufijos( secuencia ):
