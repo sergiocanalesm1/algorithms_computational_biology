@@ -42,7 +42,7 @@ def binary_search( buscado, arreglo ):
     encontrado = - 1
     while min + 1 != max:
         pos = min + int( (max - min) / 2 )
-        if arreglo[ pos ] == buscado:
+        if arreglo[ pos ] == buscado + "$":
             encontrado = pos
             break
         if arreglo[ pos ] > buscado: #buscar abajo
@@ -130,12 +130,12 @@ def lf_mapping( sub_secuence, matrix, original_array ):
     return -1
 
 option = sys.argv[1]
-#file = sys.argv[2]
-secuencia = fastaReader( "COVID.fasta" )
+file_fasta = sys.argv[2]
+secuencia = fastaReader( file_fasta )
 sufix = arreglo_sufijos( secuencia )
 if option == "SUFFIX":
-    #fastq_filename = sys.argv[3]
-    lecturas = fastQReader("COVID_seqLen100.fastq")
+    file_fastq = sys.argv[3]
+    lecturas = fastQReader(file_fastq)
     posiciones = busqueda_lecturas( lecturas, sufix )
     print("Each read was found on the following positions (respectively) \n {}".format(posiciones))
 elif option == "BWT":
