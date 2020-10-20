@@ -1,0 +1,10 @@
+supra attractive:     5.6: 0.47
+attractive:           5.0: 0.47
+almost attractive:    4.5: 0.47
+semi attractive:      4.0: 0.47
+intermediate:         3.5: 0.47
+almost intermediate:  3.1: 0.47
+semi repulsive:       2.7: 0.47
+almost repulsive:     2.3: 0.47
+repulsive:            2.0: 0.47
+super repulsive:      2.0: 0.62
