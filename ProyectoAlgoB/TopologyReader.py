@@ -3,8 +3,8 @@
 """
 Created on Mon Oct 19 21:45:29 2020
 
-@author: David Ricardo Figueora Blanco 
-@email: dr.figueroa10@uniandes.edu.co 
+@author: David Ricardo Figueora Blanco
+@email: dr.figueroa10@uniandes.edu.co
 
    FUNCTION:  a short paragraph stating the purpose of the
               program.
@@ -22,9 +22,9 @@ Created on Mon Oct 19 21:45:29 2020
 
 """
 ## modules
-import numpy as np 
+import numpy as np
 import matplotlib.pyplot as plt
-import os 
+import os
 import sys
 import re
 import subprocess
@@ -33,9 +33,9 @@ Read martini.itp to identify character and creat matrix of LJ parameters
 
 '''
 with open("./informartiniff.itp", "r") as file_handle:
-    file_contents = file_handle.readlines()
+    martini = file_handle.readlines()
 martff = []
-for line in file_contents:
+for line in martini:
     martff.append(re.split(r"(\s+)", line))
 
 
@@ -49,9 +49,9 @@ for i in martff:
             count += 1
 
 with open("./LJ_interac.txt", "r") as file_handle:
-    file_contents = file_handle.readlines()
+    LJ_contents = file_handle.readlines()
 LJ_level = []
-for line in file_contents:
+for line in LJ_contents:
     LJ_level.append(line.split(":"))
 
 LJ_info = dict()
@@ -75,30 +75,46 @@ for i in martff:
                 # print(inttype)
                 # print(LJ_info[inttype])
                 matrixLJ[idx1][idx2] = LJ_info[inttype]
-                
+
+
 
 
 '''
-read protein itp  and extract bonds and atoms information. 
+read protein itp  and extract bonds and atoms information.
 return dictionary with connectivity and atom names based on atom index
+
 '''
-                
-with open("./Protein_A.itp","r")  as Prot_itpfile:
-        file_contents = Prot_itpfile.readlines()
-# get lines of bonds, angle and atoms creat dictionaries.   
-atominit = subprocess.getoutput("grep  -n '\[ atoms \]' Protein_A.itp").split(":")[0]
-bondsinit = subprocess.getoutput("grep  -n '\[ bonds \]' Protein_A.itp").split(":")[0]
-anglinit = subprocess.getoutput("grep  -n '\[ angles \]' Protein_A.itp").split(":")[0]   
+class TopologyReader():
+    def __init__(self,atoms_dict,bonds_dict,protein_itp):
+        self.atoms_dict = atoms_dict
+        self.bonds_dict = bonds_dict
+        self.protein_itp = protein_itp
 
-atoms_def=dict()
-bonds_def=dict()
-for i  in range(len(file_contents)):
-    if(i>=int(atominit) and i< int(bondsinit)-2 ):
-        line = re.split(r"(\s+)",file_contents[i])
-        atoms_def[line[12]]=[line[4],line[14]]
-    if(i>int(bondsinit) and i < int(anglinit)-2 ):
-        line = re.split(r"(\s+)",file_contents[i])
-        if(len(line)>8):
-            bonds_def[line[2]]=line[4]
-    i += 1
 
+    def get_atoms_dict(self):
+        return self.atoms_dict
+    def get_bonds_dict(self):
+        return self.bonds_dict
+    def get_protein_itp_name(self):
+        return self.protein_itp
+
+
+    def create_dicts(self):
+        with open("./{}".format(self.protein_itp),"r")  as Prot_itpfile:
+            file_contents = Prot_itpfile.readlines()
+        # get lines of bonds, angle and atoms creat dictionaries.
+        atominit = subprocess.getoutput(r"grep  -n '\[ atoms \]'  {}".format(self.protein_itp)).split(":")[0]
+        bondsinit = subprocess.getoutput(r"grep  -n '\[ bonds \]' {}".format(self.protein_itp)).split(":")[0]
+        anglinit = subprocess.getoutput(r"grep  -n '\[ angles \]' {}".format(self.protein_itp)).split(":")[0]
+
+        atoms_def=dict()
+        bonds_def=dict()
+        for linenum  in range(len(file_contents)):
+            if( int(atominit) <= i< int(bondsinit)-2 ):
+                line = re.split(r"(\s+)",file_contents[linenum])
+                atoms_def[line[12]]=[line[4],line[14]]
+            if( int(bondsinit) < i < int(anglinit)-2 ):
+                line = re.split(r"(\s+)",file_contents[linenum])
+                if(len(line)>8):
+                    bonds_def[line[2]]=line[4]
+            linenum += 1
