@@ -29,7 +29,7 @@ Created on Thu Oct  8 18:10:48 2020
 import time 
 import numpy as np
 from Atom import Atom
-import TopologyReader as topr
+import TopologyReader  as topr
 
 class Graph():
     def __init__(self,nodes,edges):
@@ -63,6 +63,7 @@ def _createNodes( content ):
     '''
     nodes are not nodes per se, they are a dictionary mapping an atom id with its respective atom
     '''
+    atoms,bonds  = topr.create_dicts(protein_itp="./Protein_A.itp")
     nodes = {}
     for lines in content:
 
@@ -71,7 +72,8 @@ def _createNodes( content ):
             #print("remarkline")
             # if line are REMARK then pass
             continue
-        A1 = Atom( aaline1[1],aaline1[3],aaline1[2],aaline1[4],aaline1[5],aaline1[6:9] )
+        atom_type_temp=atoms[aaline1[1]][0] ## map atomtype from topology
+        A1 = Atom( aaline1[1],aaline1[2],atom_type_temp,aaline1[3],aaline1[5],aaline1[6:9] )
         nodes[ A1.atom_id ] = { A1.atom_id : A1 }
     return nodes
 
