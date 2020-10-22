@@ -31,9 +31,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import time
-from rdkit import Chem
-from rdkit.Chem import ChemicalFeatures
-from rdkit import RDConfig
+#from rdkit import Chem
+#from rdkit.Chem import ChemicalFeatures
+#from rdkit import RDConfig
 from Graph import createGraph, calcDist
 #%%
 
@@ -41,15 +41,16 @@ with open("./1UBQ-CG.pdb","r") as pdbfile:
     content = pdbfile.readlines()
 
 
-overlap = createGraph(content,16)
+first_graph = createGraph( content, 16 )
 
+'''
 for k,v in overlap.items():
     print(k.get_Name(),k.get_resName(),k.get_resNum())
     for inter in v:
         print(inter[0].get_Name())
     print()
 
-'''
+
 with open("aminoacids.raw","r") as aadata:
     content = aadata.readlines()
 

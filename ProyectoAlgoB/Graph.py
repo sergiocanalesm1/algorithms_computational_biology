@@ -49,42 +49,53 @@ def calcDist(coord1,coord2):
 
 
 def createGraph(content,cutoff):
-    t0 = time.time()
-    nodes=dict()
-    overlaps=dict()
+    '''
+    Create graph with {Atom : [[Atom2,r][Atom3,r]]}
+    values are list with pairs Atom2,r
+    '''
+    nodes = _createNodes( content )
+    edges = _createEdges( nodes, cutoff )
+    return Graph( nodes, edges )
+        
+    #print(f"Time of graph building : {time.time()-t0:.4f} s")
+
+def _createNodes( content ):
+    '''
+    nodes are not nodes per se, they are a dictionary mapping an atom id with its respective atom
+    '''
+    nodes = {}
     for lines in content:
-        '''
-        Create graph with {Atom : [[Atom2,r][Atom3,r]]}
-        values are list with pairs Atom2,r
-        '''
+
         aaline1=lines.split()
         if(aaline1[0]!="ATOM" ):
             #print("remarkline")
             # if line are REMARK then pass
             continue
-        interactions=[]
-        A1=Atom(aaline1[2],aaline1[3],aaline1[4],aaline1[5:8])
+        A1 = Atom( aaline1[1],aaline1[3],aaline1[2],aaline1[4],aaline1[5],aaline1[6:9] )
+        nodes[ A1.atom_id ] = { A1.atom_id : A1 }
+    return nodes
 
-        for otherlines in content:
-            aaline2=otherlines.split()
-            if(aaline1 == aaline2):
-                # if line are the same then pass
-                continue
-            if(aaline1[0]!="ATOM" or aaline2[0]!="ATOM"  ):
-                #print("remarkline")
-                # if line are REMARK then pass
-                continue
-            c1=aaline1[6:9]
-            c2=aaline2[6:9]
-            dist_aa1_aa2=calcDist(c1,c2)
-            # crear atom con (atomname,atom_id,res_name,res_num,coords)
-            A2=Atom(aaline2[2],aaline2[3],aaline2[5],aaline2[6:9])
-            if(dist_aa1_aa2<cutoff): ## nodos conectados 
-                interactions.append([A2,dist_aa1_aa2])
-                #overlaps[A1]=[A2,dist_aa1_aa2]
-        overlaps[A1]=interactions
-    return overlaps
-        
-    print(f"Time of graph building : {time.time()-t0:.4f} s")
-        
-            
+def _createEdges( atoms, cutoff ):
+    '''
+
+    '''
+    edges = {}
+    ids = list( atoms.keys() )
+    for i in range( len( ids ) ):
+        for j in range( i + 1, len( ids ) ):
+            if i != j:
+                distance = calcDist( atoms[ ids[i] ][ ids[i] ].coords, atoms[ ids[j] ][ ids[j] ].coords )
+                if distance <= cutoff:
+                    '''
+                    inserts tuple : (id of connected node, distance ) in both nodes
+                    '''
+                    if ids[i] in edges:
+                        edges[ ids[i] ].append( ( ids[j], distance ) )
+                    else:
+                        edges[ ids[i] ] = [ ( ids[j], distance ) ]
+
+                    if ids[j] in edges:
+                        edges[ ids[j] ].append( ( ids[i], distance ) )
+                    else:
+                        edges[ ids[j] ] = [ ( ids[i], distance ) ]
+    return  edges

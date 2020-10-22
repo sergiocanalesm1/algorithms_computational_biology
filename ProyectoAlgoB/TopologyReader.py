@@ -125,3 +125,5 @@ class TopologyReader():
 
 test= TopologyReader(protein_itp="./Protein_A.itp")
 atoms,bonds = test.create_dicts()
+print(atoms)
+print(bonds)

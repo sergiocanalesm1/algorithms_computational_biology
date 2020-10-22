@@ -29,7 +29,8 @@ import sys
 
 class Atom:
 
-    def __init__(self,atom_name,atom_type,atom_id,res_name,res_num,coords):
+#atom name?
+    def __init__(self,atom_id,atom_name,atom_type,res_name,res_num,coords):
         """
         Parameters
         ----------
@@ -65,6 +66,7 @@ class Atom:
 
         """
         return self.atom_name
+
     
     def get_atom_type(self):
         return self.atom_type
@@ -80,6 +82,7 @@ class Atom:
 
         """
         return self.res_name
+
     def get_resNum(self):
         """
 
