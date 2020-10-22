@@ -28,6 +28,7 @@ import os
 import sys
 import re
 import subprocess
+import collections
 '''
 Read martini.itp to identify character and creat matrix of LJ parameters
 
@@ -65,7 +66,6 @@ for i in martff:
         if(len(i) > 14):
             idx1 = atomtypes[i[2]][1]
             idx2 = atomtypes[i[4]][1]
-            print(atomtypes[i[2]],atomtypes[i[4]])
             inttype = ("".join(i[14:-2])).split(",")[0]
             if(inttype[0:2] == "75"):
                 # print(LJ_info[inttype[2:]][0]*0.75,LJ_info[inttype[2:]][1]-0.04)
@@ -85,21 +85,13 @@ return dictionary with connectivity and atom names based on atom index
 
 '''
 class TopologyReader():
-    def __init__(self,atoms_dict,bonds_dict,protein_itp):
-        self.atoms_dict = atoms_dict
-        self.bonds_dict = bonds_dict
+    def __init__(self,protein_itp):
+
         self.protein_itp = protein_itp
 
 
-    def get_atoms_dict(self):
-        return self.atoms_dict
-    def get_bonds_dict(self):
-        return self.bonds_dict
-    def get_protein_itp_name(self):
-        return self.protein_itp
-
-
     def create_dicts(self):
+
         with open("./{}".format(self.protein_itp),"r")  as Prot_itpfile:
             file_contents = Prot_itpfile.readlines()
         # get lines of bonds, angle and atoms creat dictionaries.
@@ -107,14 +99,29 @@ class TopologyReader():
         bondsinit = subprocess.getoutput(r"grep  -n '\[ bonds \]' {}".format(self.protein_itp)).split(":")[0]
         anglinit = subprocess.getoutput(r"grep  -n '\[ angles \]' {}".format(self.protein_itp)).split(":")[0]
 
-        atoms_def=dict()
-        bonds_def=dict()
+        atoms_def = dict()
+        bonds_def = collections.defaultdict(list)
         for linenum  in range(len(file_contents)):
-            if( int(atominit) <= i< int(bondsinit)-2 ):
+            if( int(atominit) <= linenum< int(bondsinit)-2 ):
                 line = re.split(r"(\s+)",file_contents[linenum])
                 atoms_def[line[12]]=[line[4],line[14]]
-            if( int(bondsinit) < i < int(anglinit)-2 ):
+            if( int(bondsinit) < linenum < int(anglinit)-2 ):
                 line = re.split(r"(\s+)",file_contents[linenum])
                 if(len(line)>8):
-                    bonds_def[line[2]]=line[4]
+                    bonds_def[line[2]].append(line[4])
             linenum += 1
+        return atoms_def,dict(bonds_def)
+
+
+    '''
+    def get_atoms_dict(self):
+        return self.atoms_dict
+    def get_bonds_dict(self):
+        return self.bonds_dict
+    '''
+    def get_protein_itp_name(self):
+        return self.protein_itp
+
+
+test= TopologyReader(protein_itp="./Protein_A.itp")
+atoms,bonds = test.create_dicts()
