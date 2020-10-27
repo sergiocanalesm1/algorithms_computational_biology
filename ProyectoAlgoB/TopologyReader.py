@@ -71,10 +71,13 @@ for i in martff:
                 # print(LJ_info[inttype[2:]][0]*0.75,LJ_info[inttype[2:]][1]-0.04)
                 matrixLJ[idx1][idx2] = [LJ_info[inttype[2:]]
                                         [0]*0.75, LJ_info[inttype[2:]][1]-0.04]
+                matrixLJ[idx2][idx1] = [LJ_info[inttype[2:]]
+                                        [0]*0.75, LJ_info[inttype[2:]][1]-0.04]
             else:
                 # print(inttype)
                 # print(LJ_info[inttype])
                 matrixLJ[idx1][idx2] = LJ_info[inttype]
+                matrixLJ[idx2][idx1] = LJ_info[inttype]
 
 
 
@@ -125,7 +128,7 @@ def get_bonds_dict(self):
 #        return self.protein_itp
 
 
-#test= TopologyReader(protein_itp="./Protein_A.itp")
+atomdef,bonds= create_dicts(protein_itp="./Protein_A.itp")
 #atoms,bonds = test.create_dicts()
 #print(atoms)
 #print(bonds)

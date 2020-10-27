@@ -3,8 +3,8 @@
 """
 Created on Thu Oct  8 18:10:48 2020
 
-@author: David Ricardo Figueora Blanco 
-@email: dr.figueroa10@uniandes.edu.co 
+@author: David Ricardo Figueora Blanco
+@email: dr.figueroa10@uniandes.edu.co
 
 
    PROGRAM:   program name
@@ -26,21 +26,22 @@ Created on Thu Oct  8 18:10:48 2020
               additional help to someone looking at the program
 
 """
-import time 
+import time
 import numpy as np
 from Atom import Atom
-import TopologyReader  as topr
+import TopologyReader as topr
 
-class Graph():
-    def __init__(self,nodes,edges):
+class Graph():  
+    def __init__(self , nodes , edges):
         self.nodes = nodes
         self.edges = edges
-        
+
+
 def calcDist(coord1,coord2):
     '''
-    Calculate distance between two coordinates 
+    Calculate distance between two coordinates
     coord1, coord2 = tuples (x,y,z)
-    
+
     '''
     xs=(float(coord2[0])-float(coord1[0]))
     ys=(float(coord2[1])-float(coord1[1]))
@@ -56,7 +57,7 @@ def createGraph(content,cutoff):
     nodes = _createNodes( content )
     edges = _createEdges( nodes, cutoff )
     return Graph( nodes, edges )
-        
+
     #print(f"Time of graph building : {time.time()-t0:.4f} s")
 
 def _createNodes( content ):
@@ -66,7 +67,6 @@ def _createNodes( content ):
     atoms,bonds  = topr.create_dicts(protein_itp="./Protein_A.itp")
     nodes = {}
     for lines in content:
-
         aaline1=lines.split()
         if(aaline1[0]!="ATOM" ):
             #print("remarkline")

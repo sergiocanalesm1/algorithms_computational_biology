@@ -41,7 +41,7 @@ with open("./1UBQ-CG.pdb","r") as pdbfile:
     content = pdbfile.readlines()
 
 
-first_graph = createGraph( content, 16 )
+first_graph = createGraph(content, 16 )
 
 '''
 for k,v in overlap.items():
