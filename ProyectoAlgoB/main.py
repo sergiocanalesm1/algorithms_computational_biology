@@ -31,17 +31,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import time
+import TopologyReader as topr
+import Graph as G
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
 #from rdkit import RDConfig
-from Graph import createGraph, calcDist
 #%%
 
 with open("./1UBQ-CG.pdb","r") as pdbfile:
     content = pdbfile.readlines()
 
 
-first_graph = createGraph(content, 16 )
+
+G_class = G.Graph( content )
+distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
+lj_graph = G_class.createEdges( G_class.LJ, 15 )
+
 
 '''
 for k,v in overlap.items():
