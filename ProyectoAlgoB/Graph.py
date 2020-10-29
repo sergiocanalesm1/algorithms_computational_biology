@@ -72,27 +72,43 @@ class Graph():
         edges = {}
         weight = 0
         ids = list( self.nodes.keys() )
-        for i in range(len(ids)):
-            for j in range(i + 1, len(ids)):
-                if i != j:
-                    if g_type == self.cartesian:
-                        weight = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
-                    elif g_type == self.LJ:
+        # if cartesian, then create bonds based on bons dictionary from topology
+        if g_type == self.cartesian:
+            for k,v in self.bonds.items():
+                print(k,v)
+                for con_a in v:
+                     #k=int(k)
+                     #con_a=int(con_a)
+                     weight = self._calcDist(self.nodes[k][k].coords, self.nodes[con_a][con_a].coords)
+                     if k in edges:
+                         edges[k].append((con_a, weight))
+                     else:
+                         edges[k] = [(con_a, weight)]
+    
+                     if con_a in edges:
+                        edges[con_a].append((k, weight))
+                     else:
+                        edges[con_a] = [(k, weight)]
+        if g_type == self.LJ:
+            for i in range(len(ids)):
+                for j in range(i + 1, len(ids)):
+                    if i != j:
+                            #weight = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
                         weight = self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
                         print(weight)
-                    if weight >= cutoff:
-                        '''
-                        inserts tuple : ( id of connected node, distance ) in both nodes
-                        '''
-                        if ids[i] in edges:
-                            edges[ids[i]].append((ids[j], weight))
-                        else:
-                            edges[ids[i]] = [(ids[j], weight)]
-
-                        if ids[j] in edges:
-                            edges[ids[j]].append((ids[i], weight))
-                        else:
-                            edges[ids[j]] = [(ids[i], weight)]
+                        if weight <= cutoff and g_type == self.LJ :
+                            '''
+                            inserts tuple : ( id of connected node, distance ) in both nodes
+                            '''
+                            if ids[i] in edges:
+                                edges[ids[i]].append((ids[j], weight))
+                            else:
+                                edges[ids[i]] = [(ids[j], weight)]
+    
+                            if ids[j] in edges:
+                                edges[ids[j]].append((ids[i], weight))
+                            else:
+                                edges[ids[j]] = [(ids[i], weight)]
         return edges
 
     def _calcDist(self, coord1, coord2):

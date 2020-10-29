@@ -33,6 +33,7 @@ import os
 import time
 import TopologyReader as topr
 import Graph as G
+import networkx as nx
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
 #from rdkit import RDConfig
@@ -47,7 +48,23 @@ G_class = G.Graph( content )
 distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
 lj_graph = G_class.createEdges( G_class.LJ, 15 )
 
-
+def RepresentGrap(graph_data):
+    G =nx.Graph()
+    for k,v in graph_data.items():
+        for bonds in v:
+            G.add_edge(k, bonds[0], weight=bonds[1])      
+    pos = nx.fruchterman_reingold_layout(G)
+    plt.figure(figsize=(10,5))
+    nx.draw_networkx_nodes(G, pos, node_size=50)
+    nx.draw_networkx_edges(G, pos, width=0.1,arrowsize=10)
+    #nx.draw_networkx_labels(G, pos, font_size=12, font_family="sans-serif")
+    #labels = nx.get_edge_attributes(G,'weight')
+    #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
+    plt.axis("off")
+    plt.show()
+    
+#RepresentGrap(distance_graph)
+#RepresentGrap(lj_graph)
 '''
 for k,v in overlap.items():
     print(k.get_Name(),k.get_resName(),k.get_resNum())
