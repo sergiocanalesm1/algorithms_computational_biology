@@ -75,7 +75,7 @@ class Graph():
         # if cartesian, then create bonds based on bons dictionary from topology
         if g_type == self.cartesian:
             for k,v in self.bonds.items():
-                print(k,v)
+                #print(k,v)
                 for con_a in v:
                      #k=int(k)
                      #con_a=int(con_a)
@@ -89,26 +89,29 @@ class Graph():
                         edges[con_a].append((k, weight))
                      else:
                         edges[con_a] = [(k, weight)]
+                        
         if g_type == self.LJ:
             for i in range(len(ids)):
                 for j in range(i + 1, len(ids)):
                     if i != j:
-                            #weight = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
-                        weight = self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
-                        print(weight)
-                        if weight <= cutoff and g_type == self.LJ :
+                        dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
+                        lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
+                        q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
+                        energy =(lj_w,q_w)
+                        #print(weight)
+                        if dist <= cutoff and g_type == self.LJ :
                             '''
                             inserts tuple : ( id of connected node, distance ) in both nodes
                             '''
                             if ids[i] in edges:
-                                edges[ids[i]].append((ids[j], weight))
+                                edges[ids[i]].append((ids[j], energy))
                             else:
-                                edges[ids[i]] = [(ids[j], weight)]
+                                edges[ids[i]] = [(ids[j], energy)]
     
                             if ids[j] in edges:
-                                edges[ids[j]].append((ids[i], weight))
+                                edges[ids[j]].append((ids[i], energy))
                             else:
-                                edges[ids[j]] = [(ids[i], weight)]
+                                edges[ids[j]] = [(ids[i], energy)]
         return edges
 
     def _calcDist(self, coord1, coord2):
@@ -129,3 +132,6 @@ class Graph():
         sigmaij, epsilonij = self.LJmatrix[ self.atomtypes[atom1.atom_type][1] ][ self.atomtypes[atom2.atom_type][1] ]
         rij = self._calcDist( atom1.coords, atom2.coords )
         return 4 * epsilonij * ( ( sigmaij / rij)**12 - ( sigmaij / rij)**6 )
+    
+    def _calcCoulb(self , q1 , q2 , dist):
+        return float(q1)*float(q2)/(4*np.pi*15*dist)
