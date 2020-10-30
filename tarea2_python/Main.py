@@ -50,7 +50,12 @@ plt.rc('figure', titlesize=TITLES)
 plt.rc('xtick.major', pad=7) 
 #######################################################################
 
-from KmerTable import list_Kmers, create_KmersTable,kmers_distri,GenerateDistriPlot,kmer_mean_abundance
+from KmerTable import *
+from SimulateReads import SimulateReads
+from OverlapGraph import *
+import networkx as nx
+
+
 
 def fastaReader2(filename):
     '''
@@ -70,6 +75,12 @@ files_fastas = ["test100x.fastq","test10x.fastq","test20x.fastq","test50x.fastq"
 kmers_sizes_vales=[5,10,15,20,50,75]
 colors=["b","g","r","c","k","a"]
 
+
+
+   
+
+
+'''
 for name in files_fastas:
     print(name)
     for kmersize in kmers_sizes_vales:
@@ -81,42 +92,6 @@ for name in files_fastas:
         print("number of kmers = ",a)
         print("mean abundance =",kmer_mean_abundance(kmertab))
     print()        
-'''
-
-comprative analisis of kmersize 
+    '''
 
 
-name="test100x.fastq"
-lineword=fastaReader2(name)
-kmertab= create_KmersTable(lineword,kmersize)
-distr=kmers_distri(kmertab)
-GenerateDistriPlot("test100x.fastq",5)
-'''
-#%%
-'''
-Plot generation
-
-'''
-for name in files_fastas:
-    plt.figure()
-    for kmersize in kmers_sizes_vales:
-        print(name,kmersize)
-        GenerateDistriPlot(name,kmersize)
-        plt.title(name)
-
-#%%
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        

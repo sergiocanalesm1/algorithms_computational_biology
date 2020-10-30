@@ -31,7 +31,7 @@ Created on Wed Sep  9 19:22:29 2020
 import numpy as np 
 import matplotlib.pyplot as plt
 import time
-
+import networkx as nx
 Fontsize=16
 AX=16
 TICKS=14
@@ -60,6 +60,10 @@ def fastaReader2(filename):
     return reads
 
 def find_overlap(source ,destination ):
+    '''
+    
+    return overlap
+    '''
     i = 0;
     j = 0;
     if(source == destination):
@@ -74,133 +78,45 @@ def find_overlap(source ,destination ):
     return j
 
 
-a1=' Muy pronto ha de sobrarnos oro para empedrar la casa replico su marido. Durante varios meses se emp'
-b='os oro para empedrar la casa replico su marido. Durante varios meses se empenho en demostrar el acie'
-c="dirlo. Muy pronto ha de sobrarnos oro para empedrar la casa replico su marido. Durante varios meses"
-num=find_overlap(c,a1)
-print(num)
-
-reads = fastaReader2("test100x.fastq")
-'''
-for i in reads:
-    if("sobrarnos" in i[:40] ):
-        print(i)
-'''
-
 #%%
-#def ProccessRead(minOverlap=10):
-minOverlap=10
-readCounts=dict()
-father=dict()
-overlaps=dict()
-for line in (reads):
-    if("Muchos" in line):
-        print(line)
-    if(line not in readCounts): # seq no existe
-        readCounts[line] = 1
-        father[line] = True
-    else: # seq ya existe
-        readCounts[line] += 1
+def ProccessReadOverlap(reads,minOverlap=10):
+    readCounts=dict()
+    father=dict()
+    overlaps=dict()
+    for line in (reads):
+        if("Muchos" in line):
+            print(line)
+        if(line not in readCounts): # seq no existe
+            readCounts[line] = 1
+            father[line] = True
+        else: # seq ya existe
+            readCounts[line] += 1
+            
         
+        #paso 2. Encontrar los hijos de line que ya esten guardados
     
-    #paso 2. Encontrar los hijos de line que ya esten guardados
-
-for line in reads:   
-    Prefixes=[]
-    for seq_inreadC in readCounts.keys():
-        overlap_new_saved=find_overlap(line,seq_inreadC)
-        if(overlap_new_saved>minOverlap): # si el overlap es mayor a min
-            Prefixes.append((seq_inreadC,overlap_new_saved))# agregue
-    overlaps[line]=Prefixes
-    
-    
-    for seq_inOverlap in overlaps.keys():
-        overlap_save_new=find_overlap(seq_inOverlap,line)
-        if(overlap_save_new> minOverlap): # line es hijo de alguien
-            overlaps[seq_inOverlap].append((line,overlap_save_new))
-            if(" Muy pronto ha" in line[:14]):
-                print(line)
-            if(father[line]==False):
-                pass
-            else:
-                father[line]=False
-    
+       
+        Prefixes=[]
+        for seq_inreadC in readCounts.keys():
+            overlap_new_saved=find_overlap(line,seq_inreadC)
+            if(overlap_new_saved>minOverlap): # si el overlap es mayor a min
+                Prefixes.append((line,seq_inreadC,overlap_new_saved))# agregue
+                father[seq_inreadC]=False
+        overlaps[line]=Prefixes
         
-#ProccessRead()
-    
-        
-    
-
-
-
-
-
-#%%
-
-
-MaxSuc = 0 
-distriovelap = np.zeros(200)
-for i in overlaps.values():
-    distriovelap[len(i)] += 1
-print(distriovelap)
-
-
-
-
-
-
-def proccess_read_to_overlap(kmertable,minOverlap):
-    '''
-    Generate 2 hash maps that containns readCounts and overlap graph 
-
-    '''
-    sequence = list(kmertable.keys())
-    readCounts = dict()
-    overlaps = dict()
-    for seq in sequence:
-
-        '''
-        add new sequence in the readcount
-        if seq existence
-        '''
-        if (seq not in readCounts):
-            readCounts[seq] = 1 
-        else:
-            readCounts[seq] += 1
-            continue
-    '''
-    create list with (sq_source,sq_dest,val) wiht sq_source as new seq
-    load the dictionary
-    '''
-    for seq_rc in readCounts.keys():
-        overlaplist=[]
-        for i_rc in readCounts.keys():
-            if(i_rc==seq_rc):
-                pass
-            else:       
-                val=find_overlap_lengt(seq_rc,i_rc)
-                if(val > minOverlap):
-                    overlaplist.append((seq_rc,i_rc,val))
-        overlaps[seq_rc]=(overlaplist)
-    '''
-    complete overlap dict() with cases with sqe_dest as new seq
-
-    '''
-    for i in overlaps.keys():
-        inv_overlap_lis=[]
-        for k in overlaps.keys():
-            if(i==k):
-                pass
-            else: 
-                val= find_overlap_lengt(k,i)
-                if(val>minOverlap):
-                    inv_overlap_lis.append((k,i,val))
-        if(len(inv_overlap_lis)>minOverlap):
-            for invovs in inv_overlap_lis:
-                overlaps[i].append(invovs)
-
-    return readCounts,overlaps
-
+        #paso 3. Encontrar si line es hijo de alguien guardado
+        for seq_inOverlap in overlaps.keys():
+            overlap_save_new=find_overlap(seq_inOverlap,line)
+            if(overlap_save_new> minOverlap): # line es hijo de alguien
+                overlaps[seq_inOverlap].append((seq_inOverlap,line,overlap_save_new))
+                if(father[line]==False):
+                    pass
+                else:
+                    father[line]=False
+    return readCounts,overlaps,father
+            
+def getDistintcSequeces(readcounts):
+    return readcounts.keys()
 
 def overlap_distribution(overlaps):
     '''
@@ -210,3 +126,67 @@ def overlap_distribution(overlaps):
     for i in overlaps.values():
         values[len(i)] += 1 
     return values
+
+def getSource(father):
+    for key,val in father.items():
+        if(val==True):
+            return key
+def getAssembly(overlap,father):
+    visitedseq=[]
+    initial = getSource(father)
+    complete=initial
+    InitialOverlap=overlap[initial]
+    Control=True
+    while(Control==True):
+        maxOverlap=0
+        for i in (InitialOverlap):
+            tempMaxOv=i[2]
+            if(tempMaxOv>maxOverlap):
+                maxOverlap=tempMaxOv
+                Next=i
+        if(len(Next)==0):
+            break
+        newSeq=Next[1]
+        overlNex=Next[2]
+        finalSeqnoOv=newSeq[overlNex:]
+        if(newSeq in visitedseq):
+            break
+        visitedseq.append(newSeq)
+        complete=complete+finalSeqnoOv
+        InitialOverlap = overlap[newSeq]
+    return complete    
+
+
+def PlotGraph(overlap):
+    G =nx.DiGraph()
+    for i in overlap.values():
+        if(len(i)==0):
+            continue
+        if(len(i)>1):
+            for j in i:
+                G.add_edge(j[0],j[1],weight=j[2])
+        else:
+            G.add_edge(i[0][0],i[0][1],weight=i[0][2])
+            
+    pos = nx.circular_layout(G)
+    plt.figure(figsize=(10,5))
+    nx.draw_networkx_nodes(G, pos, node_size=500)
+    nx.draw_networkx_edges(G, pos, width=1,arrowsize=20)
+    nx.draw_networkx_labels(G, pos, font_size=12, font_family="sans-serif")
+    labels = nx.get_edge_attributes(G,'weight')
+    nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
+    plt.axis("off")
+    plt.show()
+
+#data10x=fastaReader2("./test10x.fastq")
+#readC,overlap,father=ProccessReadOverlap(data10x,40)  
+#print(getAssembly(overlap,father))
+    
+    
+    
+    
+    
+
+
+
+

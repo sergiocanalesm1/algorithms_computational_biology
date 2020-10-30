@@ -1,0 +1,75 @@
+D-Xylulose 5-phosphate	Glyceraldehyde 3-phosphate	4
+Phosphate	Coenzyme A	4
+Nicotinamide adenine dinucleotide	Nicotinamide adenine dinucleotide - reduced	6
+Pyruvate	Pyruvate	4
+H2O	H2O	1
+Phosphate	H+	9
+Phosphoenolpyruvate	Pyruvate	4
+D-Fructose 6-phosphate	H+	6
+D-Fructose 1,6-bisphosphate	Glyceraldehyde 3-phosphate	2
+Nicotinamide adenine dinucleotide phosphate	Nicotinamide adenine dinucleotide phosphate - reduced	6
+Dihydroxyacetone phosphate	Glyceraldehyde 3-phosphate	1
+D-Glycerate 2-phosphate	Phosphoenolpyruvate	2
+Nicotinamide adenine dinucleotide phosphate	Ammonium	12
+Alpha-D-Ribose 5-phosphate	D-Ribulose 5-phosphate	1
+Isocitrate	Succinate	2
+L-Malate	L-Malate	4
+Oxaloacetate	Phosphoenolpyruvate	6
+Nicotinamide adenine dinucleotide phosphate	Pyruvate	6
+Acetaldehyde	Acetaldehyde	1
+Succinate	Succinate	4
+H2O	Isocitrate	2
+Ubiquinol-8	Succinate	4
+Nicotinamide adenine dinucleotide	Nicotinamide adenine dinucleotide - reduced	9
+Ammonium	Phosphate	12
+Nicotinamide adenine dinucleotide phosphate	Nicotinamide adenine dinucleotide phosphate - reduced	6
+Sedoheptulose 7-phosphate	D-Fructose 6-phosphate	4
+Phosphate	Phosphate	4
+H+	H+	4
+Nicotinamide adenine dinucleotide	Pyruvate	6
+H2O	Phosphate	12
+D-Lactate	D-Lactate	4
+Nicotinamide adenine dinucleotide phosphate - reduced	Nicotinamide adenine dinucleotide phosphate	4
+Pyruvate	Nicotinamide adenine dinucleotide - reduced	9
+Ammonium	Ammonium	1
+Nicotinamide adenine dinucleotide	Succinyl-CoA	9
+Ubiquinol-8	Ubiquinone-8	9
+Succinate	Succinate	4
+H2O	Phosphate	4
+Nicotinamide adenine dinucleotide	Pyruvate	6
+H2O	H+	4
+H+	H+	4
+Phosphoenolpyruvate	Phosphate	9
+O2	O2	1
+D-Xylulose 5-phosphate	Sedoheptulose 7-phosphate	4
+H+	H+	4
+ATP	ADP	4
+H+	H+	4
+Pyruvate	Phosphate	12
+Succinate	Succinyl-CoA	9
+H2O	L-Malate	9
+D-Ribulose 5-phosphate	D-Xylulose 5-phosphate	1
+CO2	CO2	1
+Phosphoenolpyruvate	Pyruvate	4
+Pyruvate	Formate	4
+ATP	ADP	2
+H2O	Ammonium	4
+H+	H+	4
+H+	H+	4
+H2O	L-Malate	2
+D-Glucose 6-phosphate	D-Fructose 6-phosphate	1
+Phosphate	Nicotinamide adenine dinucleotide - reduced	9
+D-Glycerate 2-phosphate	3-Phospho-D-glycerate	1
+Formate	Formate	1
+Alpha-D-Ribose 5-phosphate	Phosphate	112
+Nicotinamide adenine dinucleotide phosphate	D-Ribulose 5-phosphate	6
+Oxaloacetate	H+	9
+Nicotinamide adenine dinucleotide	Oxaloacetate	6
+Citrate	H2O	2
+Ubiquinone-8	Ubiquinol-8	9
+ATP	ADP	4
+Succinate	Ubiquinol-8	4
+Phosphoenolpyruvate	Pyruvate	6
+Nicotinamide adenine dinucleotide phosphate	Nicotinamide adenine dinucleotide phosphate - reduced	9
+H2O	Phosphate	6
+Nicotinamide adenine dinucleotide phosphate - reduced	Nicotinamide adenine dinucleotide phosphate	8

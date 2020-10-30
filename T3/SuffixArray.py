@@ -1,7 +1,7 @@
 import sys
 import numpy as np
-#s=sys.argv[1]
-s="Banana$"
+s=sys.argv[1]
+#s="Banana$"
 from collections import Counter
 SuffixArray=([t[1] for t in sorted((s[i:],i) for i in range(len(s)))])
 print("Suffix array")
