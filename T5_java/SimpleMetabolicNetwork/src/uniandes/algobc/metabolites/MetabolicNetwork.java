@@ -20,13 +20,17 @@ import java.io.FileWriter;   // Import the FileWriter class
  */
 public class MetabolicNetwork {
 
-	private Map<String,Enzyme> enzymes = new TreeMap<String,Enzyme>(); 
-	private Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
+	private Map<String,Enzyme> enzymes = new TreeMap<String,Enzyme>();
 	private Set<String> compartments = new TreeSet<String>();
 	private Map<String,Reaction> reactions = new TreeMap<String,Reaction>();
+	/*
+	This is the graph
+	 */
+	private Map<String,Metabolite> metabolites = new TreeMap<String,Metabolite>();
+	private HashMap<String,List<HashMap<String,Integer>>> edges = new HashMap<>();
 	/**
 	 * Adds a new gene product that can catalyze reactions
-	 * @param product New gene product
+	 * @param enzyme New gene product
 	 */
 	public void addEnzyme(Enzyme enzyme) {
 		enzymes.put(enzyme.getId(), enzyme);
@@ -75,83 +79,97 @@ public class MetabolicNetwork {
 	public List<Reaction> getReactionsList () {
 		return new ArrayList<Reaction>(reactions.values());
 	}
-	
-	public ArrayList<Metabolite> getOnlySubstrates() {
-		
-		ArrayList<Metabolite> Substrate  = new ArrayList<>();
-		List<Reaction> RxnList = getReactionsList();
-		List<Metabolite> Metabolitos = getMetabolitesList();
-		for (Metabolite metabol : Metabolitos) {
-			boolean var=false;
-			for (Reaction reaction : RxnList) {
-				if(reaction.getProducts().contains(metabol)) {
-					var=true;
-					break;
-						}
-				}
-			if(var==false) {
-				Substrate.add(metabol);
-			}
-		}
-		return Substrate ;
-	}
-	
-	public ArrayList<Metabolite> getOnlyProducs() {
-		
-		ArrayList<Metabolite> Substrate  = new ArrayList<>();
-		List<Reaction> RxnList = getReactionsList();
-		List<Metabolite> Metabolitos = getMetabolitesList();
-		for (Metabolite metabol : Metabolitos) {
-			boolean var=false;
-			for (Reaction reaction : RxnList) {
-				if(reaction.getReactants().contains(metabol)) {
-					var=true;
-					break;
-						}
-				}
-			if(var==false) {
-				Substrate.add(metabol);
-			}
-			
-		}
-	
-		return Substrate ;
-	}
-	public Map<Metabolite[], Integer> createGraph() {
-		//Map<Metabolite,Integer> Nodes = new HashMap<>();
-		Map<Metabolite[], Integer> rxn_counts = new HashMap<>();
-		
-		List<Reaction> Rxns = getReactionsList();
-		for (Reaction rxn : Rxns) {
-			List<ReactionComponent> substrates = rxn.getReactants();
-			List<ReactionComponent> producs = rxn.getProducts();
-			Metabolite[] sub_prod = new Metabolite[2]; 
-			for (ReactionComponent rxnComp : substrates) {
-					sub_prod[0]=(rxnComp.getMetabolite());
-					for (ReactionComponent rxnCompProd : producs) { //  buscar todos los productos asociados al metabolito i 
-			
-						sub_prod[1]=(rxnCompProd.getMetabolite());	
-		
-						if (!rxn_counts.containsKey(sub_prod)) { // si rxn_counts no tienen el arreglo [reac,prod]
-							rxn_counts.put(sub_prod, 1); // agregelo con 1
-							//System.out.println(sub_prod[0].getName()+"+"+sub_prod[1].getName());
 
-						}else { // si rnx_counts contiene al arreglo 
-							int numrxn = rxn_counts.get(sub_prod); 
-							rxn_counts.put(sub_prod, numrxn+1); // adicionar uno al valor 
-							
+	public ArrayList<Metabolite> getOnlySubstrates() {
+		ArrayList<Metabolite> onlySubstrate  = new ArrayList<>();
+		List<Reaction> RxnList = getReactionsList();
+		List<Metabolite> Metabolitos = getMetabolitesList();
+		for (Metabolite metabol : Metabolitos) {
+			boolean var=false;
+			for (Reaction reaction : RxnList) {
+				if(reaction.getProductsMap().containsKey( metabol.getId() )) {
+					var=true;
+					break;
 						}
-						
-		
-					}
-	
-				
+				}
+			if(!var) {
+				onlySubstrate.add(metabol);
 			}
 		}
-		
-		return rxn_counts;	
-		
-		
+		return onlySubstrate ;
+	}
+
+	public ArrayList<Metabolite> getOnlyProducs() {
+		ArrayList<Metabolite> onlyProducts  = new ArrayList<>();
+		List<Reaction> RxnList = getReactionsList();
+		List<Metabolite> Metabolitos = getMetabolitesList();
+		for (Metabolite metabol : Metabolitos) {
+			boolean var=false;
+			for (Reaction reaction : RxnList) {
+				if(reaction.getReactantsMap().containsKey( metabol.getId() )) {
+					var=true;
+					break;
+						}
+				}
+			if(!var) {
+				onlyProducts.add(metabol);
+			}
+		}
+		return onlyProducts ;
+	}
+	public Map<String, HashMap<String,Integer>> createGraph() {
+		Map<String, HashMap<String,Integer>> edges = new HashMap<>();
+		List<Reaction> Rxns = getReactionsList();
+		Metabolite sustrate;
+		Metabolite product;
+		List<ReactionComponent> substrates;
+		List<ReactionComponent> products;
+		HashMap<String,Integer> tempEdge;
+		for (Reaction rxn : Rxns) {
+			 substrates = rxn.getReactants();
+			 products = rxn.getProducts();
+			for (ReactionComponent rxnComp : substrates) {
+				sustrate = rxnComp.getMetabolite();
+				for (ReactionComponent rxnCompProd : products) { //  buscar todos los productos asociados al metabolito i
+					product = rxnCompProd.getMetabolite();
+					if( sustrate.getId().equals("M_atp_c") && product.getId().equals("M_adp_c"))
+					{
+						System.out.println("stopo");
+					}
+					if (!edges.containsKey( sustrate.getId() )) {
+						tempEdge = new HashMap<>();
+						tempEdge.put(product.getId(), 1);
+						edges.put( sustrate.getId(), tempEdge );
+					}
+					else if (!edges.get(sustrate.getId()).containsKey(product.getId())){ //si el producto no existe dentro del sustrato
+						tempEdge = new HashMap<>();
+						tempEdge.put(product.getId(), 1);
+						edges.put( sustrate.getId(), tempEdge );
+					}
+					else {
+						tempEdge = edges.get( sustrate.getId() );
+						int i = tempEdge.get( product.getId() ) + 1;
+						tempEdge.put( product.getId(), tempEdge.get( product.getId() ) + 1);
+						edges.put( sustrate.getId(), tempEdge ); // adicionar uno al valor
+					}
+				}
+			}
+		}
+		return edges;
+	}
+
+	public void fileWriter(Map<String, HashMap<String,Integer>> graph) throws IOException {
+		FileWriter myWriter = new FileWriter("MetabolicNetwork_ecoli.txt");
+		for (String sustrateId : graph.keySet()) {
+			Metabolite sustrate = this.metabolites.get(sustrateId);
+			for(String productId : graph.get( sustrateId ).keySet()){
+				Metabolite product = this.metabolites.get(productId);
+				System.out.println(sustrate.getName()+"\n"+product.getName()+"\n"+graph.get(sustrateId).get(productId)+"\n ------ \n");
+				myWriter.write(sustrate.getName()+"\t"+product.getName()+"\t"+graph.get(sustrateId).get(productId)+"\n ------ \n");
+			}
+
+		}
+		myWriter.close();
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -173,17 +191,21 @@ public class MetabolicNetwork {
 		System.out.println("Loaded "+reactions.size()+" reactions");
 		for(Reaction r:reactions) {
 			System.out.println(r.getId()+" "+r.getName()+" "+r.getReactants().size()+" "+r.getProducts().size()+" "+r.getEnzymes().size()+" "+r.getLowerBoundFlux()+" "+r.getUpperBoundFlux());
+			//System.out.println(r.getReactantsMap().size() + "------------------" + r.getProductsMap().size());
 		}
-		System.out.println("file information \n");
-		
-		Map<Metabolite[], Integer> graph = network.createGraph();
-		FileWriter myWriter = new FileWriter("MetabolicNetwork_ecoli.txt");
-		for (Metabolite[]  pair : graph.keySet()) {
-			Metabolite reac = pair[0];
-			Metabolite produc = pair[1];
-			System.out.println(reac.getName()+"\t"+produc.getName()+"\t"+graph.get(pair));
-			myWriter.write(reac.getName()+"\t"+produc.getName()+"\t"+graph.get(pair)+"\n");
+		System.out.println("\nThese are the metabolites that are only substrates");
+		ArrayList<Metabolite> substrates = network.getOnlySubstrates();
+		for(Metabolite metabolite: substrates){
+			System.out.println(metabolite.getId());
 		}
-		myWriter.close();
+		System.out.println("\nThese are the metabolites that are only products");
+		ArrayList<Metabolite> products = network.getOnlyProducs();
+		for(Metabolite metabolite: products){
+			System.out.println(metabolite.getId());
+		}
+		System.out.println("\nFILE INFORMATION \n");
+
+		Map<String, HashMap<String,Integer>> graph = network.createGraph();
+		network.fileWriter( graph );
 	}
 }

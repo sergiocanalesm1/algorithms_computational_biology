@@ -1,5 +1,6 @@
 package uniandes.algobc.metabolites;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -11,6 +12,8 @@ public class Reaction {
 	private String name;
 	private List<ReactionComponent> reactants;
 	private List<ReactionComponent> products;
+	private HashMap<String,Integer> reactantsMap;
+	private HashMap<String,Integer> productsMap;
 	private boolean reversible = false;
 	private double lowerBoundFlux = -1000;
 	private double upperBoundFlux = 1000;
@@ -22,12 +25,14 @@ public class Reaction {
 	 * @param reactants Metabolites that serve as input of the reaction
 	 * @param products Metabolites that serve as output of the reaction
 	 */
-	public Reaction(String id, String name, List<ReactionComponent> reactants, List<ReactionComponent> products) {
+	public Reaction(String id, String name, List<ReactionComponent> reactants, List<ReactionComponent> products, HashMap<String,Integer> reactantsMap, HashMap<String,Integer> productsMap ) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.reactants = reactants;
 		this.products = products;
+		this.reactantsMap = reactantsMap;
+		this.productsMap = productsMap;
 	}
 	/**
 	 * @return true if the reaction is reversible, false otherwise
@@ -104,6 +109,13 @@ public class Reaction {
 	 */
 	public void setUpperBoundFlux(double upperBound) {
 		this.upperBoundFlux = upperBound;
+	}
+
+	public HashMap<String,Integer> getReactantsMap(){
+		return this.reactantsMap;
+	}
+	public HashMap<String,Integer> getProductsMap(){
+		return this.productsMap;
 	}
 	
 	

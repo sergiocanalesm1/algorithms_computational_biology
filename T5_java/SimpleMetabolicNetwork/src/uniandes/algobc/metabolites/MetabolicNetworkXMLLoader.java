@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -143,7 +144,8 @@ public class MetabolicNetworkXMLLoader {
 	}
 
 	private void loadReactions(Element listElem, MetabolicNetwork network) throws IOException {
-		NodeList offspring = listElem.getChildNodes(); 
+		NodeList offspring = listElem.getChildNodes();
+		Tuple<List<ReactionComponent>, HashMap<String,Integer>> tuple = new Tuple<>(new ArrayList<>(),new HashMap<>());
 		for(int i=0;i<offspring.getLength();i++){  
 			Node node = offspring.item(i);
 			if (node instanceof Element){ 
@@ -157,6 +159,8 @@ public class MetabolicNetworkXMLLoader {
 					List<Enzyme> enzymes = new ArrayList<Enzyme>();
 					List<ReactionComponent> reactants = new ArrayList<ReactionComponent>();
 					List<ReactionComponent> products = new ArrayList<ReactionComponent>();
+					HashMap<String,Integer> reactantsMap = new HashMap<>();
+					HashMap<String,Integer> productsMap = new HashMap<>();
 					String lbCode = elem.getAttribute(ATTRIBUTE_FBC_LOWERBOUND);
 					String ubCode = elem.getAttribute(ATTRIBUTE_FBC_UPPERBOUND);
 					
@@ -170,10 +174,14 @@ public class MetabolicNetworkXMLLoader {
 								enzymes = loadEnzymes(id, elem2,network);
 							}
 							if(ELEMENT_LISTREACTANTS.equals(elem2.getNodeName())) {
-								reactants = loadReactionComponents(id, elem2,network);
+								 tuple = loadReactionComponents(id, elem2,network);
+								 reactants = tuple.x;
+								reactantsMap = tuple.y;
 							}
 							if(ELEMENT_LISTMETABPRODUCTS.equals(elem2.getNodeName())) {
-								products = loadReactionComponents(id, elem2,network);
+								tuple = loadReactionComponents(id, elem2,network);
+								products = tuple.x;
+								productsMap = tuple.y;
 							}
 						}
 					}
@@ -182,7 +190,7 @@ public class MetabolicNetworkXMLLoader {
 						//System.err.println("No products found for reaction "+id);
 						continue;
 					}
-					Reaction r = new Reaction(id, name, reactants, products);
+					Reaction r = new Reaction( id, name, reactants, products,reactantsMap,productsMap );
 					if("true".equals(reversibleStr)) r.setReversible(true);
 					r.setEnzymes(enzymes);
 					//TODO: Load bounds
@@ -216,8 +224,12 @@ public class MetabolicNetworkXMLLoader {
 		return answer;
 	}
 
-	private List<ReactionComponent> loadReactionComponents(String reactionId, Element listElem, MetabolicNetwork network) throws IOException {
-		List<ReactionComponent> answer = new ArrayList<ReactionComponent>();
+	/*
+		return a list of compartiments and a hash of counts of compartiments
+	 */
+	private Tuple<List<ReactionComponent>, HashMap<String,Integer>> loadReactionComponents(String reactionId, Element listElem, MetabolicNetwork network) throws IOException {
+		List<ReactionComponent> compartiments = new ArrayList<ReactionComponent>();
+		HashMap<String,Integer> hash = new HashMap<>();
 		NodeList offspring = listElem.getChildNodes(); 
 		for(int i=0;i<offspring.getLength();i++){  
 			Node node = offspring.item(i);
@@ -226,6 +238,12 @@ public class MetabolicNetworkXMLLoader {
 				if(ELEMENT_METABREF.equals(elem.getNodeName())) {
 					String metabId = elem.getAttribute(ELEMENT_METABOLITE);
 					if(metabId==null || metabId.length()==0) throw new IOException("Invalid metabolite association for reaction "+reactionId);
+					if ( hash.containsKey( metabId ) ){
+						hash.put( metabId, hash.get( metabId ) + 1 );
+					}
+					else{
+						hash.put( metabId, 1 );
+					}
 					Metabolite m = network.getMetabolite(metabId);
 					if(m==null) throw new IOException("Metabolite "+metabId+" not found for reaction "+reactionId);
 					
@@ -238,10 +256,10 @@ public class MetabolicNetworkXMLLoader {
 						throw new IOException("Invalid stoichiometry "+stchmStr+" for metabolite "+metabId+" in reaction "+reactionId,e);
 					}
 					ReactionComponent component = new ReactionComponent(m, stoichiometry);
-					answer.add(component);
+					compartiments.add(component);
 				}
 			}
 		}
-		return answer;
+		return new Tuple( compartiments, hash );
 	}
 }
