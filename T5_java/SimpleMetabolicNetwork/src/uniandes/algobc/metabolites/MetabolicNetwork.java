@@ -118,7 +118,7 @@ public class MetabolicNetwork {
 		return onlyProducts ;
 	}
 	public Map<String, HashMap<String,Integer>> createGraph() {
-		Map<String, HashMap<String,Integer>> edges = new HashMap<>();
+		HashMap<String, HashMap<String,Integer>> edges = new HashMap<>();
 		List<Reaction> Rxns = getReactionsList();
 		Metabolite sustrate;
 		Metabolite product;
@@ -132,23 +132,18 @@ public class MetabolicNetwork {
 				sustrate = rxnComp.getMetabolite();
 				for (ReactionComponent rxnCompProd : products) { //  buscar todos los productos asociados al metabolito i
 					product = rxnCompProd.getMetabolite();
-					if( sustrate.getId().equals("M_atp_c") && product.getId().equals("M_adp_c"))
-					{
-						System.out.println("stopo");
-					}
-					if (!edges.containsKey( sustrate.getId() )) {
+					if ( !edges.containsKey( sustrate.getId() )) {
 						tempEdge = new HashMap<>();
 						tempEdge.put(product.getId(), 1);
 						edges.put( sustrate.getId(), tempEdge );
 					}
-					else if (!edges.get(sustrate.getId()).containsKey(product.getId())){ //si el producto no existe dentro del sustrato
-						tempEdge = new HashMap<>();
-						tempEdge.put(product.getId(), 1);
+					else if ( !edges.get(sustrate.getId()).containsKey(product.getId())){ //si el producto no existe dentro del sustrato
+						tempEdge = edges.get( sustrate.getId() );
+						tempEdge.put( product.getId(), 1);
 						edges.put( sustrate.getId(), tempEdge );
 					}
 					else {
 						tempEdge = edges.get( sustrate.getId() );
-						int i = tempEdge.get( product.getId() ) + 1;
 						tempEdge.put( product.getId(), tempEdge.get( product.getId() ) + 1);
 						edges.put( sustrate.getId(), tempEdge ); // adicionar uno al valor
 					}
@@ -159,13 +154,13 @@ public class MetabolicNetwork {
 	}
 
 	public void fileWriter(Map<String, HashMap<String,Integer>> graph) throws IOException {
-		FileWriter myWriter = new FileWriter("MetabolicNetwork_ecoli.txt");
+		FileWriter myWriter = new FileWriter("docs/MetabolicNetwork_ecoli.txt");
 		for (String sustrateId : graph.keySet()) {
 			Metabolite sustrate = this.metabolites.get(sustrateId);
 			for(String productId : graph.get( sustrateId ).keySet()){
 				Metabolite product = this.metabolites.get(productId);
 				System.out.println(sustrate.getName()+"\n"+product.getName()+"\n"+graph.get(sustrateId).get(productId)+"\n ------ \n");
-				myWriter.write(sustrate.getName()+"\t"+product.getName()+"\t"+graph.get(sustrateId).get(productId)+"\n ------ \n");
+				myWriter.write(sustrate.getName()+"\n"+product.getName()+"\n"+graph.get(sustrateId).get(productId)+"\n ------ \n");
 			}
 
 		}
