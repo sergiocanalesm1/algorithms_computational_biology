@@ -159,8 +159,8 @@ public class MetabolicNetwork {
 			Metabolite sustrate = this.metabolites.get(sustrateId);
 			for(String productId : graph.get( sustrateId ).keySet()){
 				Metabolite product = this.metabolites.get(productId);
-				System.out.println(sustrate.getName()+"\n"+product.getName()+"\n"+graph.get(sustrateId).get(productId)+"\n ------ \n");
-				myWriter.write(sustrate.getName()+"\n"+product.getName()+"\n"+graph.get(sustrateId).get(productId)+"\n ------ \n");
+				System.out.println(sustrate.getName()+"\t"+product.getName()+"\t"+graph.get(sustrateId).get(productId)+"\n");
+				myWriter.write(sustrate.getName()+"\t"+product.getName()+"\t"+graph.get(sustrateId).get(productId)+"\n");
 			}
 
 		}
@@ -184,10 +184,24 @@ public class MetabolicNetwork {
 		System.out.println();
 		List<Reaction> reactions = network.getReactionsList();
 		System.out.println("Loaded "+reactions.size()+" reactions");
+		/**
+		System.out.println("ALL REACT VS PRODS");
 		for(Reaction r:reactions) {
-			System.out.println(r.getId()+" "+r.getName()+" "+r.getReactants().size()+" "+r.getProducts().size()+" "+r.getEnzymes().size()+" "+r.getLowerBoundFlux()+" "+r.getUpperBoundFlux());
+			//System.out.println(r.getId()+" "+r.getName()+" "+r.getReactants().size()+" "+r.getProducts().size()+" "+r.getEnzymes().size()+" "+r.getLowerBoundFlux()+" "+r.getUpperBoundFlux());
 			//System.out.println(r.getReactantsMap().size() + "------------------" + r.getProductsMap().size());
+			List<ReactionComponent> reactants = r.getReactants();
+			List<ReactionComponent> prods = r.getProducts();
+			for (ReactionComponent rC : reactants) {
+				//System.out.println(rC.getMetabolite().getName()+"\t");
+				for (ReactionComponent pC : prods) {
+					System.out.println(rC.getMetabolite().getName()+"\t"+pC.getMetabolite().getName());
+					
+				}
+				
+			}
+			
 		}
+		*/
 		System.out.println("\nThese are the metabolites that are only substrates");
 		ArrayList<Metabolite> substrates = network.getOnlySubstrates();
 		for(Metabolite metabolite: substrates){
