@@ -1,0 +1,1400 @@
+Pyruvate
+H+
+1
+ ------ 
+Pyruvate
+Pyruvate
+1
+ ------ 
+3-Phospho-D-glycerate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+3-Phospho-D-glycerate
+H+
+1
+ ------ 
+3-Phospho-D-glycerate
+Coenzyme A
+1
+ ------ 
+3-Phospho-D-glycerate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+3-Phospho-D-glycerate
+3-Phospho-D-glyceroyl phosphate
+1
+ ------ 
+3-Phospho-D-glycerate
+2-Oxoglutarate
+1
+ ------ 
+3-Phospho-D-glycerate
+Phosphate
+1
+ ------ 
+3-Phospho-D-glycerate
+ADP
+2
+ ------ 
+Pyruvate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+Pyruvate
+AMP
+1
+ ------ 
+Pyruvate
+H+
+2
+ ------ 
+Pyruvate
+Coenzyme A
+1
+ ------ 
+Pyruvate
+Formate
+1
+ ------ 
+Pyruvate
+Nicotinamide adenine dinucleotide - reduced
+2
+ ------ 
+Pyruvate
+2-Oxoglutarate
+1
+ ------ 
+Pyruvate
+CO2
+1
+ ------ 
+Pyruvate
+Phosphate
+2
+ ------ 
+Pyruvate
+Phosphoenolpyruvate
+1
+ ------ 
+Pyruvate
+ADP
+1
+ ------ 
+Pyruvate
+Acetyl-CoA
+2
+ ------ 
+Ubiquinol-8
+H+
+1
+ ------ 
+Ubiquinol-8
+H2O
+1
+ ------ 
+Ubiquinol-8
+Ubiquinone-8
+2
+ ------ 
+Ubiquinol-8
+Succinate
+1
+ ------ 
+Phosphate
+H+
+1
+ ------ 
+Phosphate
+Phosphate
+1
+ ------ 
+D-Xylulose 5-phosphate
+D-Fructose 6-phosphate
+1
+ ------ 
+D-Xylulose 5-phosphate
+Sedoheptulose 7-phosphate
+1
+ ------ 
+D-Xylulose 5-phosphate
+Glyceraldehyde 3-phosphate
+2
+ ------ 
+D-Glycerate 2-phosphate
+3-Phospho-D-glycerate
+1
+ ------ 
+D-Glycerate 2-phosphate
+H2O
+1
+ ------ 
+D-Glycerate 2-phosphate
+Phosphoenolpyruvate
+1
+ ------ 
+L-Glutamate
+H+
+1
+ ------ 
+L-Glutamate
+L-Glutamate
+1
+ ------ 
+D-Glucose
+D-Glucose 6-phosphate
+1
+ ------ 
+D-Glucose
+Pyruvate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+D-Fructose 6-phosphate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+H+
+2
+ ------ 
+Glyceraldehyde 3-phosphate
+Coenzyme A
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+D-Erythrose 4-phosphate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+Nicotinamide adenine dinucleotide - reduced
+2
+ ------ 
+Glyceraldehyde 3-phosphate
+3-Phospho-D-glyceroyl phosphate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+2-Oxoglutarate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+Phosphate
+1
+ ------ 
+Glyceraldehyde 3-phosphate
+ADP
+1
+ ------ 
+L-Glutamate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+L-Glutamate
+H+
+3
+ ------ 
+L-Glutamate
+Coenzyme A
+1
+ ------ 
+L-Glutamate
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+L-Glutamate
+Ammonium
+1
+ ------ 
+L-Glutamate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+L-Glutamate
+2-Oxoglutarate
+2
+ ------ 
+L-Glutamate
+Phosphate
+2
+ ------ 
+L-Glutamate
+L-Glutamine
+1
+ ------ 
+L-Glutamate
+ADP
+2
+ ------ 
+D-Erythrose 4-phosphate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+D-Erythrose 4-phosphate
+D-Fructose 6-phosphate
+1
+ ------ 
+D-Erythrose 4-phosphate
+H+
+1
+ ------ 
+D-Erythrose 4-phosphate
+Coenzyme A
+1
+ ------ 
+D-Erythrose 4-phosphate
+Glyceraldehyde 3-phosphate
+1
+ ------ 
+D-Erythrose 4-phosphate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+D-Erythrose 4-phosphate
+2-Oxoglutarate
+1
+ ------ 
+D-Erythrose 4-phosphate
+Phosphate
+1
+ ------ 
+D-Erythrose 4-phosphate
+ADP
+1
+ ------ 
+Phosphate
+H+
+2
+ ------ 
+Phosphate
+Coenzyme A
+1
+ ------ 
+Phosphate
+ATP
+1
+ ------ 
+Phosphate
+3-Phospho-D-glyceroyl phosphate
+1
+ ------ 
+Phosphate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Phosphate
+H2O
+1
+ ------ 
+Phosphate
+Acetyl phosphate
+1
+ ------ 
+6-phospho-D-glucono-1,5-lactone
+H+
+1
+ ------ 
+6-phospho-D-glucono-1,5-lactone
+6-Phospho-D-gluconate
+1
+ ------ 
+Cis-Aconitate
+Isocitrate
+1
+ ------ 
+D-Lactate
+D-Lactate
+1
+ ------ 
+D-Lactate
+H+
+1
+ ------ 
+D-Lactate
+H+
+1
+ ------ 
+D-Lactate
+Pyruvate
+1
+ ------ 
+D-Lactate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Coenzyme A
+H+
+1
+ ------ 
+Coenzyme A
+Formate
+1
+ ------ 
+Coenzyme A
+Nicotinamide adenine dinucleotide - reduced
+3
+ ------ 
+Coenzyme A
+Succinyl-CoA
+2
+ ------ 
+Coenzyme A
+CO2
+2
+ ------ 
+Coenzyme A
+Phosphate
+1
+ ------ 
+Coenzyme A
+Acetyl-CoA
+3
+ ------ 
+Coenzyme A
+ADP
+1
+ ------ 
+Oxaloacetate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+Oxaloacetate
+Citrate
+1
+ ------ 
+Oxaloacetate
+H+
+2
+ ------ 
+Oxaloacetate
+Coenzyme A
+2
+ ------ 
+Oxaloacetate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Oxaloacetate
+2-Oxoglutarate
+1
+ ------ 
+Oxaloacetate
+CO2
+1
+ ------ 
+Oxaloacetate
+Phosphate
+1
+ ------ 
+Oxaloacetate
+Phosphoenolpyruvate
+1
+ ------ 
+Oxaloacetate
+ADP
+2
+ ------ 
+D-Ribulose 5-phosphate
+D-Xylulose 5-phosphate
+1
+ ------ 
+ATP
+Coenzyme A
+1
+ ------ 
+ATP
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+ATP
+2-Oxoglutarate
+1
+ ------ 
+ATP
+L-Glutamine
+2
+ ------ 
+ATP
+D-Fructose 1,6-bisphosphate
+1
+ ------ 
+ATP
+Acetyl phosphate
+1
+ ------ 
+ATP
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+ATP
+AMP
+1
+ ------ 
+ATP
+H+
+6
+ ------ 
+ATP
+3-Phospho-D-glyceroyl phosphate
+1
+ ------ 
+ATP
+Succinyl-CoA
+1
+ ------ 
+ATP
+CO2
+1
+ ------ 
+ATP
+Phosphate
+6
+ ------ 
+ATP
+Phosphoenolpyruvate
+2
+ ------ 
+ATP
+ADP
+10
+ ------ 
+Nicotinamide adenine dinucleotide - reduced
+H+
+1
+ ------ 
+Nicotinamide adenine dinucleotide - reduced
+Nicotinamide adenine dinucleotide
+2
+ ------ 
+Nicotinamide adenine dinucleotide - reduced
+Ubiquinol-8
+1
+ ------ 
+Nicotinamide adenine dinucleotide - reduced
+H+
+1
+ ------ 
+Nicotinamide adenine dinucleotide - reduced
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+O2
+O2
+1
+ ------ 
+L-Glutamine
+H+
+1
+ ------ 
+L-Glutamine
+L-Glutamine
+1
+ ------ 
+L-Glutamine
+Phosphate
+1
+ ------ 
+L-Glutamine
+ADP
+1
+ ------ 
+O2
+H+
+1
+ ------ 
+O2
+H2O
+1
+ ------ 
+O2
+Ubiquinone-8
+1
+ ------ 
+L-Glutamine
+Nicotinamide adenine dinucleotide phosphate
+2
+ ------ 
+L-Glutamine
+H+
+1
+ ------ 
+L-Glutamine
+Coenzyme A
+1
+ ------ 
+L-Glutamine
+L-Glutamate
+2
+ ------ 
+L-Glutamine
+Ammonium
+1
+ ------ 
+L-Glutamine
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+L-Glutamine
+2-Oxoglutarate
+1
+ ------ 
+L-Glutamine
+Phosphate
+1
+ ------ 
+L-Glutamine
+ADP
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+H+
+3
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+Pyruvate
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+Nicotinamide adenine dinucleotide
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+Nicotinamide adenine dinucleotide phosphate - reduced
+6
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+D-Ribulose 5-phosphate
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+Ammonium
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+2-Oxoglutarate
+2
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+CO2
+3
+ ------ 
+Nicotinamide adenine dinucleotide phosphate
+6-phospho-D-glucono-1,5-lactone
+1
+ ------ 
+Acetaldehyde
+Acetaldehyde
+1
+ ------ 
+Acetaldehyde
+H+
+1
+ ------ 
+Acetaldehyde
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Acetaldehyde
+Acetyl-CoA
+1
+ ------ 
+H+
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+H+
+Nicotinamide adenine dinucleotide
+1
+ ------ 
+H+
+Ubiquinol-8
+1
+ ------ 
+H+
+Pyruvate
+1
+ ------ 
+H+
+H+
+2
+ ------ 
+H+
+L-Glutamate
+1
+ ------ 
+H+
+ATP
+1
+ ------ 
+H+
+H2O
+1
+ ------ 
+H+
+Ubiquinone-8
+1
+ ------ 
+Ammonium
+Ammonium
+1
+ ------ 
+H+
+Fumarate
+1
+ ------ 
+H+
+L-Malate
+1
+ ------ 
+H+
+D-Lactate
+1
+ ------ 
+H+
+Ethanol
+1
+ ------ 
+H+
+Pyruvate
+1
+ ------ 
+H+
+ATP
+1
+ ------ 
+H+
+2-Oxoglutarate
+1
+ ------ 
+H+
+H+
+14
+ ------ 
+H+
+Nicotinamide adenine dinucleotide
+1
+ ------ 
+H+
+Acetate
+1
+ ------ 
+H+
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+H+
+Formate
+1
+ ------ 
+H+
+L-Glutamate
+1
+ ------ 
+H+
+H2O
+1
+ ------ 
+H+
+Phosphate
+1
+ ------ 
+H+
+Succinate
+1
+ ------ 
+H+
+Succinate
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+Nicotinamide adenine dinucleotide phosphate
+3
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+H+
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+Coenzyme A
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+L-Glutamate
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+Nicotinamide adenine dinucleotide - reduced
+2
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+2-Oxoglutarate
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+Phosphate
+1
+ ------ 
+Nicotinamide adenine dinucleotide phosphate - reduced
+ADP
+1
+ ------ 
+Ammonium
+H+
+1
+ ------ 
+Ammonium
+L-Glutamine
+1
+ ------ 
+Ammonium
+Phosphate
+1
+ ------ 
+Ammonium
+ADP
+1
+ ------ 
+H2O
+H2O
+1
+ ------ 
+CO2
+CO2
+1
+ ------ 
+H2O
+Isocitrate
+1
+ ------ 
+H2O
+Citrate
+1
+ ------ 
+H2O
+D-Fructose 6-phosphate
+1
+ ------ 
+H2O
+L-Malate
+2
+ ------ 
+H2O
+Coenzyme A
+3
+ ------ 
+H2O
+Oxaloacetate
+1
+ ------ 
+H2O
+6-Phospho-D-gluconate
+1
+ ------ 
+H2O
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+H2O
+2-Oxoglutarate
+2
+ ------ 
+H2O
+L-Glutamine
+1
+ ------ 
+H2O
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+H2O
+AMP
+1
+ ------ 
+H2O
+H+
+9
+ ------ 
+H2O
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+H2O
+Ammonium
+2
+ ------ 
+H2O
+L-Glutamate
+1
+ ------ 
+H2O
+Phosphate
+6
+ ------ 
+H2O
+Phosphoenolpyruvate
+1
+ ------ 
+H2O
+ADP
+3
+ ------ 
+CO2
+H+
+1
+ ------ 
+CO2
+Oxaloacetate
+1
+ ------ 
+CO2
+Phosphate
+1
+ ------ 
+ADP
+H+
+1
+ ------ 
+ADP
+Pyruvate
+1
+ ------ 
+ADP
+ATP
+2
+ ------ 
+ADP
+H2O
+1
+ ------ 
+Acetyl-CoA
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+Acetyl-CoA
+Citrate
+1
+ ------ 
+Acetyl-CoA
+L-Malate
+1
+ ------ 
+Acetyl-CoA
+H+
+3
+ ------ 
+Acetyl-CoA
+Coenzyme A
+4
+ ------ 
+Acetyl-CoA
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Acetyl-CoA
+2-Oxoglutarate
+1
+ ------ 
+Acetyl-CoA
+Phosphate
+1
+ ------ 
+Acetyl-CoA
+ADP
+1
+ ------ 
+Acetyl-CoA
+Acetyl phosphate
+1
+ ------ 
+Dihydroxyacetone phosphate
+Glyceraldehyde 3-phosphate
+1
+ ------ 
+Citrate
+Cis-Aconitate
+1
+ ------ 
+Citrate
+H2O
+1
+ ------ 
+Fumarate
+L-Malate
+1
+ ------ 
+Fumarate
+Ubiquinone-8
+1
+ ------ 
+Fumarate
+Succinate
+1
+ ------ 
+D-Fructose 6-phosphate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+D-Fructose 6-phosphate
+H+
+2
+ ------ 
+D-Fructose 6-phosphate
+Coenzyme A
+1
+ ------ 
+D-Fructose 6-phosphate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+D-Fructose 6-phosphate
+2-Oxoglutarate
+1
+ ------ 
+D-Fructose 6-phosphate
+Phosphate
+1
+ ------ 
+D-Fructose 6-phosphate
+D-Fructose 1,6-bisphosphate
+1
+ ------ 
+D-Fructose 6-phosphate
+ADP
+2
+ ------ 
+Fumarate
+Fumarate
+1
+ ------ 
+Fumarate
+H+
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+H+
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+Coenzyme A
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+D-Ribulose 5-phosphate
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+Sedoheptulose 7-phosphate
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+Glyceraldehyde 3-phosphate
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+2-Oxoglutarate
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+Phosphate
+1
+ ------ 
+Alpha-D-Ribose 5-phosphate
+ADP
+1
+ ------ 
+Ethanol
+Acetaldehyde
+1
+ ------ 
+Ethanol
+H+
+1
+ ------ 
+Ethanol
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+6-Phospho-D-gluconate
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+6-Phospho-D-gluconate
+D-Ribulose 5-phosphate
+1
+ ------ 
+6-Phospho-D-gluconate
+CO2
+1
+ ------ 
+2-Oxoglutarate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+2-Oxoglutarate
+L-Glutamate
+1
+ ------ 
+2-Oxoglutarate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+2-Oxoglutarate
+Succinyl-CoA
+1
+ ------ 
+2-Oxoglutarate
+CO2
+1
+ ------ 
+D-Fructose 1,6-bisphosphate
+D-Fructose 6-phosphate
+1
+ ------ 
+D-Fructose 1,6-bisphosphate
+Glyceraldehyde 3-phosphate
+1
+ ------ 
+D-Fructose 1,6-bisphosphate
+Phosphate
+1
+ ------ 
+D-Fructose 1,6-bisphosphate
+Dihydroxyacetone phosphate
+1
+ ------ 
+AMP
+ADP
+1
+ ------ 
+Formate
+H+
+1
+ ------ 
+Formate
+Formate
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+Coenzyme A
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+Pyruvate
+2
+ ------ 
+Nicotinamide adenine dinucleotide
+Oxaloacetate
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+Nicotinamide adenine dinucleotide - reduced
+10
+ ------ 
+Nicotinamide adenine dinucleotide
+2-Oxoglutarate
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+Nicotinamide adenine dinucleotide phosphate
+2
+ ------ 
+Nicotinamide adenine dinucleotide
+H+
+6
+ ------ 
+Nicotinamide adenine dinucleotide
+Acetaldehyde
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+3-Phospho-D-glyceroyl phosphate
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+Succinyl-CoA
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+CO2
+3
+ ------ 
+Nicotinamide adenine dinucleotide
+Phosphate
+1
+ ------ 
+Nicotinamide adenine dinucleotide
+Acetyl-CoA
+2
+ ------ 
+Nicotinamide adenine dinucleotide
+ADP
+1
+ ------ 
+2-Oxoglutarate
+H+
+1
+ ------ 
+2-Oxoglutarate
+2-Oxoglutarate
+1
+ ------ 
+Formate
+Formate
+1
+ ------ 
+Succinate
+H+
+1
+ ------ 
+Succinate
+Succinate
+1
+ ------ 
+Glyoxylate
+L-Malate
+1
+ ------ 
+Glyoxylate
+H+
+1
+ ------ 
+Glyoxylate
+Coenzyme A
+1
+ ------ 
+Succinate
+Fumarate
+1
+ ------ 
+Succinate
+H+
+1
+ ------ 
+Succinate
+Ubiquinol-8
+1
+ ------ 
+Succinate
+Succinyl-CoA
+1
+ ------ 
+Succinate
+Phosphate
+1
+ ------ 
+Succinate
+Succinate
+1
+ ------ 
+Succinate
+ADP
+1
+ ------ 
+Isocitrate
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+Isocitrate
+2-Oxoglutarate
+1
+ ------ 
+Isocitrate
+CO2
+1
+ ------ 
+Isocitrate
+Glyoxylate
+1
+ ------ 
+Isocitrate
+Succinate
+1
+ ------ 
+L-Malate
+H+
+1
+ ------ 
+L-Malate
+Oxaloacetate
+1
+ ------ 
+L-Malate
+Pyruvate
+2
+ ------ 
+L-Malate
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+L-Malate
+Nicotinamide adenine dinucleotide - reduced
+2
+ ------ 
+L-Malate
+CO2
+2
+ ------ 
+L-Malate
+L-Malate
+1
+ ------ 
+L-Malate
+H+
+1
+ ------ 
+Ubiquinone-8
+Fumarate
+1
+ ------ 
+Ubiquinone-8
+Nicotinamide adenine dinucleotide
+1
+ ------ 
+Ubiquinone-8
+Ubiquinol-8
+2
+ ------ 
+Ubiquinone-8
+H+
+1
+ ------ 
+D-Glucose 6-phosphate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+D-Glucose 6-phosphate
+D-Fructose 6-phosphate
+1
+ ------ 
+D-Glucose 6-phosphate
+H+
+2
+ ------ 
+D-Glucose 6-phosphate
+Coenzyme A
+1
+ ------ 
+D-Glucose 6-phosphate
+Nicotinamide adenine dinucleotide phosphate - reduced
+1
+ ------ 
+D-Glucose 6-phosphate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+D-Glucose 6-phosphate
+2-Oxoglutarate
+1
+ ------ 
+D-Glucose 6-phosphate
+Phosphate
+1
+ ------ 
+D-Glucose 6-phosphate
+ADP
+1
+ ------ 
+D-Glucose 6-phosphate
+6-phospho-D-glucono-1,5-lactone
+1
+ ------ 
+D-Fructose
+D-Fructose 6-phosphate
+1
+ ------ 
+D-Fructose
+Pyruvate
+1
+ ------ 
+Acetate
+ADP
+1
+ ------ 
+Acetate
+Acetyl phosphate
+1
+ ------ 
+Sedoheptulose 7-phosphate
+D-Fructose 6-phosphate
+1
+ ------ 
+Sedoheptulose 7-phosphate
+D-Erythrose 4-phosphate
+1
+ ------ 
+Acetate
+H+
+1
+ ------ 
+Acetate
+Acetate
+1
+ ------ 
+Ethanol
+H+
+1
+ ------ 
+Ethanol
+Ethanol
+1
+ ------ 
+Phosphoenolpyruvate
+Nicotinamide adenine dinucleotide phosphate
+1
+ ------ 
+Phosphoenolpyruvate
+D-Fructose 6-phosphate
+1
+ ------ 
+Phosphoenolpyruvate
+D-Glucose 6-phosphate
+1
+ ------ 
+Phosphoenolpyruvate
+H+
+2
+ ------ 
+Phosphoenolpyruvate
+Coenzyme A
+1
+ ------ 
+Phosphoenolpyruvate
+Pyruvate
+3
+ ------ 
+Phosphoenolpyruvate
+Oxaloacetate
+1
+ ------ 
+Phosphoenolpyruvate
+ATP
+1
+ ------ 
+Phosphoenolpyruvate
+Nicotinamide adenine dinucleotide - reduced
+1
+ ------ 
+Phosphoenolpyruvate
+2-Oxoglutarate
+1
+ ------ 
+Phosphoenolpyruvate
+Phosphate
+2
+ ------ 
+Phosphoenolpyruvate
+ADP
+1
+ ------ 
