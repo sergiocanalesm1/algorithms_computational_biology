@@ -153,8 +153,8 @@ public class MetabolicNetwork {
 		return edges;
 	}
 
-	public void fileWriter(Map<String, HashMap<String,Integer>> graph) throws IOException {
-		FileWriter myWriter = new FileWriter("docs/MetabolicNetwork_ecoli.txt");
+	public void fileWriter(Map<String, HashMap<String,Integer>> graph, String fileName ) throws IOException {
+		FileWriter myWriter = new FileWriter("docs/" + fileName + ".txt");
 		for (String sustrateId : graph.keySet()) {
 			Metabolite sustrate = this.metabolites.get(sustrateId);
 			for(String productId : graph.get( sustrateId ).keySet()){
@@ -168,8 +168,12 @@ public class MetabolicNetwork {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		String fileName = "e_coli_core";
+		if (args.length > 0){
+			fileName = args[0];
+		}
 		MetabolicNetworkXMLLoader loader = new MetabolicNetworkXMLLoader();
-		MetabolicNetwork network = loader.loadNetwork("data/e_coli_core.xml");
+		MetabolicNetwork network = loader.loadNetwork("data/" + fileName + ".xml" );
 		System.out.println("Enzymes");
 		for(Enzyme enzyme:network.enzymes.values()) {
 			System.out.println(enzyme.getId()+" "+enzyme.getName());
@@ -215,6 +219,6 @@ public class MetabolicNetwork {
 		System.out.println("\nFILE INFORMATION \n");
 
 		Map<String, HashMap<String,Integer>> graph = network.createGraph();
-		network.fileWriter( graph );
+		network.fileWriter( graph, fileName );
 	}
 }

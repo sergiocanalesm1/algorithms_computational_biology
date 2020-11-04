@@ -41,17 +41,21 @@ import Analysis_Networks as antx
 #from rdkit import RDConfig
 #%%
 
-with open("./1UBQ-CG.pdb","r") as pdbfile:
-    content = pdbfile.readlines()
+if __name__ == "__main__":
+    filename = "1UBQ-CG"
+    with open("./{}.pdb".format(filename),"r") as pdbfile:
+        content = pdbfile.readlines()
 
 
 
-G_class = G.Graph( content )
-distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
-lj_graph = G_class.createEdges( G_class.LJ, 15 )
+    G_class = G.Graph( content )
+    distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
+    lj_graph = G_class.createEdges( G_class.LJ, 15 )
 
-
-ld_1 = antx.local_density(lj_graph,1)
+    degrees = antx.nodes_degree( lj_graph, filename )
+    global_density = antx.global_density( lj_graph )
+    local_densities = [ antx.local_density( node ) for node in lj_graph ]
+    antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
 
 
 '''    
