@@ -27,13 +27,15 @@ Created on Wed Oct  7 14:45:45 2020
 
 """
 
-import numpy as np
+#import numpy as np
 import matplotlib.pyplot as plt
-import os
-import time
-import TopologyReader as topr
+#import os
+#import time
+#import TopologyReader as topr
 import Graph as G
-import networkx as nx
+import Analysis_Networks as antx
+#import networkx as nx
+
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
 #from rdkit import RDConfig
@@ -48,11 +50,16 @@ G_class = G.Graph( content )
 distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
 lj_graph = G_class.createEdges( G_class.LJ, 15 )
 
+
+ld_1 = antx.local_density(lj_graph,1)
+
+
+'''    
 def RepresentGrap(graph_data):
     G =nx.Graph()
     for k,v in graph_data.items():
         for bonds in v:
-            G.add_edge(k, bonds[0], weight=bonds[1])      
+            G.add_edge(k, bonds[0], weight=bonds[1])
     pos = nx.fruchterman_reingold_layout(G)
     plt.figure(figsize=(10,5))
     nx.draw_networkx_nodes(G, pos, node_size=50)
@@ -62,24 +69,7 @@ def RepresentGrap(graph_data):
     #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
     plt.axis("off")
     plt.show()
-    
+
 #RepresentGrap(distance_graph)
 #RepresentGrap(lj_graph)
-'''
-for k,v in overlap.items():
-    print(k.get_Name(),k.get_resName(),k.get_resNum())
-    for inter in v:
-        print(inter[0].get_Name())
-    print()
-
-
-with open("aminoacids.raw","r") as aadata:
-    content = aadata.readlines()
-
-
-#fdefName = os.path.join(RDConfig.RDDataDir,'BaseFeatures.fdef')
-#factory = ChemicalFeatures.BuildFeatureFactory(fdefName)
-
-#m=Chem.MolFromSmiles(content[0].split("\t")[4])
-#feat = factory.GetFeaturesForMol(m)
 '''

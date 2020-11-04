@@ -26,7 +26,7 @@ Created on Thu Oct  8 18:10:48 2020
               additional help to someone looking at the program
 
 """
-import time
+#import time
 import numpy as np
 from Atom import Atom
 import TopologyReader as topr
