@@ -37,14 +37,14 @@ class Graph():
     The class Graph has no attribute edges, instead, call the function createEdges to obtain the connected graph you wish for
     '''
 
-
     def __init__( self, content ):
         self.LJ = "LJ"
         self.cartesian = 'CARTESIANA'
+        self.water = "WATER"
         self.content = content
         self.atoms, self.bonds = topr.create_dicts( protein_itp="./Protein_A.itp" )
         self.nodes = self._createNodes()
-        self.LJmatrix, self.atomtypes = topr.getLJmatrix()#esto deberia ir en el main? y pasarselo a _calculateLJ por parametro?
+        self.LJmatrix, self.atomtypes = topr.getLJmatrix()
 
 
     def _createNodes( self ):
@@ -89,29 +89,38 @@ class Graph():
                         edges[con_a].append((k, weight))
                      else:
                         edges[con_a] = [(k, weight)]
-                        
-        if g_type == self.LJ:
+        water = False
+        if g_type in [ self.LJ, self.water ]:
             for i in range(len(ids)):
-                for j in range(i + 1, len(ids)):
-                    if i != j:
-                        dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
-                        lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
-                        q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
-                        energy =(lj_w,q_w)
-                        #print(weight)
-                        if dist <= cutoff and g_type == self.LJ :
-                            '''
-                            inserts tuple : ( id of connected node, distance ) in both nodes
-                            '''
-                            if ids[i] in edges:
-                                edges[ids[i]].append((ids[j], energy))
+                water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
+                if not water:
+                    for j in range(i + 1, len(ids)):
+                        if i != j:
+                            dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
+
+                            water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
+                            if not water:
+                                lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
+                                q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
+                                energy = (lj_w,q_w)
                             else:
-                                edges[ids[i]] = [(ids[j], energy)]
-    
-                            if ids[j] in edges:
-                                edges[ids[j]].append((ids[i], energy))
-                            else:
-                                edges[ids[j]] = [(ids[i], energy)]
+                                #TODO calculate equivalent of energy in water
+                                energy = ()
+                            if dist <= cutoff :
+                                '''
+                                inserts tuple : ( id of connected node, distance ) in source and destination node
+                                if water, just from source to destination
+                                '''
+                                if ids[i] in edges:
+                                    edges[ids[i]].append((ids[j], energy))
+                                else:
+                                    edges[ids[i]] = [(ids[j], energy)]
+                                if not water:
+                                    if ids[j] in edges:
+                                        edges[ids[j]].append((ids[i], energy))
+                                    else:
+                                        edges[ids[j]] = [(ids[i], energy)]
+
         return edges
 
     def _calcDist(self, coord1, coord2):

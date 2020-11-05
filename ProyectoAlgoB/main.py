@@ -42,21 +42,23 @@ import Analysis_Networks as antx
 #%%
 
 if __name__ == "__main__":
+    #filename = "water_prot"
     filename = "1UBQ-CG"
+
     with open("./{}.pdb".format(filename),"r") as pdbfile:
         content = pdbfile.readlines()
-
-
-
     G_class = G.Graph( content )
-    distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
-    lj_graph = G_class.createEdges( G_class.LJ, 15 )
+    #distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
+    #lj_graph = G_class.createEdges( G_class.LJ, 15 )
+    water_graph = G_class.createEdges( G_class.water, 15 )
+    print()
 
-    degrees = antx.nodes_degree( lj_graph, filename )
-    global_density = antx.global_density( lj_graph )
-    local_densities = [ antx.local_density( lj_graph, node ) for node in lj_graph ]
-    #antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
 
+def analyze( filename, graph ):
+    degrees = antx.nodes_degree( graph, filename )
+    global_density = antx.global_density( graph )
+    local_densities = [ antx.local_density( graph, node ) for node in graph ]
+    # antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
 
 '''    
 def RepresentGrap(graph_data):
