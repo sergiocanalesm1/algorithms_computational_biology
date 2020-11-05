@@ -54,8 +54,8 @@ if __name__ == "__main__":
 
     degrees = antx.nodes_degree( lj_graph, filename )
     global_density = antx.global_density( lj_graph )
-    local_densities = [ antx.local_density( node ) for node in lj_graph ]
-    antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
+    local_densities = [ antx.local_density( lj_graph, node ) for node in lj_graph ]
+    #antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
 
 
 '''    
