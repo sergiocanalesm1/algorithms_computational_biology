@@ -18,10 +18,7 @@ BUGS
 
 import numpy as np
 import matplotlib.pyplot as plt 
-import os 
-import sys 
-import re
-import Graph
+
 
 def nodes_degree( graph, filename ):
     # graficar distribucion de vertices.
@@ -64,7 +61,7 @@ def global_density( graph ):
 
     return 2 * total_nodes / (total_edges * (total_edges - 1))
 
-
+#@jit(nopython=True)
 def local_density( graph, node ):
     """
 
@@ -85,9 +82,9 @@ def local_density( graph, node ):
     conexions = [i[0] for i in edges_temp]  # nodes conected to node
     for edge in conexions:
         neigh = graph[str(edge)]
-        conexion_neig = [i[0] for i in neigh]  # nodes conected to node i (conected to node:parameter)
-        for neigh_edge in conexion_neig:
-            if neigh_edge in conexions:
+          # nodes conected to node i (conected to node:parameter)
+        for neigh_edge in neigh:
+            if neigh_edge[0] in conexions:
                 count += 1
 
     posible_edges = len(edges_temp) * (len(edges_temp) - 1) / 2
