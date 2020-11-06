@@ -34,7 +34,7 @@ import matplotlib.pyplot as plt
 #import TopologyReader as topr
 import Graph as G
 import Analysis_Networks as antx
-#import networkx as nx
+import networkx as nx
 
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
@@ -48,34 +48,39 @@ if __name__ == "__main__":
     with open("./{}.pdb".format(filename),"r") as pdbfile:
         content = pdbfile.readlines()
     G_class = G.Graph( content )
-    #distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
-    #lj_graph = G_class.createEdges( G_class.LJ, 15 )
+    distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
+    lj_graph = G_class.createEdges( G_class.LJ, 15 )
     water_graph = G_class.createEdges( G_class.water, 15 )
     print()
 
 
 def analyze( filename, graph ):
-    degrees = antx.nodes_degree( graph, filename )
+    #degrees = antx.nodes_degree( graph, filename )
     global_density = antx.global_density( graph )
     local_densities = [ antx.local_density( graph, node ) for node in graph ]
     # antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
 
-'''    
-def RepresentGrap(graph_data):
+analyze(filename, lj_graph)
+
+def RepresentGrap(graph_data,type_g):
+      
     G =nx.Graph()
     for k,v in graph_data.items():
         for bonds in v:
-            G.add_edge(k, bonds[0], weight=bonds[1])
+            if(type_g=="bonds"):
+                G.add_edge(k, bonds[0], weight=bonds[1])
+            else:
+                G.add_edge(k, bonds[0], weight=bonds[1][0]+bonds[1][1])
     pos = nx.fruchterman_reingold_layout(G)
     plt.figure(figsize=(10,5))
     nx.draw_networkx_nodes(G, pos, node_size=50)
-    nx.draw_networkx_edges(G, pos, width=0.1,arrowsize=10)
+    nx.draw_networkx_edges(G, pos, width=0.6,arrowsize=10)
     #nx.draw_networkx_labels(G, pos, font_size=12, font_family="sans-serif")
     #labels = nx.get_edge_attributes(G,'weight')
     #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
     plt.axis("off")
     plt.show()
 
-#RepresentGrap(distance_graph)
-#RepresentGrap(lj_graph)
-'''
+RepresentGrap(distance_graph,"bonds")
+RepresentGrap(lj_graph,"Electric")
+
