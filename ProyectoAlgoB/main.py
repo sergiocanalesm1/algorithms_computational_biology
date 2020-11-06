@@ -80,7 +80,7 @@ def RepresentGrap(graph_data,type_g):
     #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
     plt.axis("off")
     plt.show()
-
+##Holaalskjdh
 RepresentGrap(distance_graph,"bonds")
 RepresentGrap(lj_graph,"Electric")
 
