@@ -43,6 +43,7 @@ class Graph():
         self.water = "WATER"
         self.content = content
         self.atoms, self.bonds = topr.create_dicts( protein_itp="./Protein_A.itp" )
+        self.atoms["W"] = 1
         self.nodes = self._createNodes()
         self.LJmatrix, self.atomtypes = topr.getLJmatrix()
 
@@ -59,7 +60,11 @@ class Graph():
                 # print("remarkline")
                 # if line are REMARK then pass
                 continue
-            atom_type_temp = self.atoms[aaline1[1]][0]  ## map atomtype from topology
+            if aaline1[2] == 'W':
+                atom_type_temp = "P4"
+                #deberiamos agregar esto al map? de self.atoms?
+            else:
+                atom_type_temp = self.atoms[aaline1[1]][0]  ## map atomtype from topology
             A1 = Atom(aaline1[1], aaline1[2], atom_type_temp, aaline1[3], aaline1[5], aaline1[6:9])
             nodes[A1.atom_id] = {A1.atom_id: A1}
         return nodes
@@ -89,37 +94,38 @@ class Graph():
                         edges[con_a].append((k, weight))
                      else:
                         edges[con_a] = [(k, weight)]
-        water = False
         if g_type in [ self.LJ, self.water ]:
             for i in range(len(ids)):
-                water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
-                if not water:
-                    for j in range(i + 1, len(ids)):
-                        if i != j:
-                            dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
+                if self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W":
+                    break
+                for j in range(i + 1, len(ids)):
+                    if ids[i] == 163:
+                        print("hola")
+                    if i != j:
+                        dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
 
-                            water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
-                            if not water:
-                                lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
-                                q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
-                                energy = (lj_w,q_w)
+                        water =  self.nodes[ ids[ j ] ][ ids[ j ] ].atom_type == "W"
+                        if not water:
+                            lj_w = self._calcLJ(self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]])
+                            q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
+                            energy = (lj_w,q_w)
+                        else:
+                            #TODO calculate equivalent of energy in water
+                            energy = ()
+                        if dist <= cutoff :
+                            '''
+                            inserts tuple : ( id of connected node, distance ) in source and destination node
+                            if water, just from source to destination
+                            '''
+                            if ids[i] in edges:
+                                edges[ids[i]].append((ids[j], energy))
                             else:
-                                #TODO calculate equivalent of energy in water
-                                energy = ()
-                            if dist <= cutoff :
-                                '''
-                                inserts tuple : ( id of connected node, distance ) in source and destination node
-                                if water, just from source to destination
-                                '''
-                                if ids[i] in edges:
-                                    edges[ids[i]].append((ids[j], energy))
+                                edges[ids[i]] = [(ids[j], energy)]
+                            if not water:
+                                if ids[j] in edges:
+                                    edges[ids[j]].append((ids[i], energy))
                                 else:
-                                    edges[ids[i]] = [(ids[j], energy)]
-                                if not water:
-                                    if ids[j] in edges:
-                                        edges[ids[j]].append((ids[i], energy))
-                                    else:
-                                        edges[ids[j]] = [(ids[i], energy)]
+                                    edges[ids[j]] = [(ids[i], energy)]
 
         return edges
 

@@ -34,24 +34,13 @@ import matplotlib.pyplot as plt
 #import TopologyReader as topr
 import Graph as G
 import Analysis_Networks as antx
-import networkx as nx
+#import networkx as nx
 
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
 #from rdkit import RDConfig
 #%%
 
-if __name__ == "__main__":
-    #filename = "water_prot"
-    filename = "1UBQ-CG"
-
-    with open("./{}.pdb".format(filename),"r") as pdbfile:
-        content = pdbfile.readlines()
-    G_class = G.Graph( content )
-    distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
-    lj_graph = G_class.createEdges( G_class.LJ, 15 )
-    water_graph = G_class.createEdges( G_class.water, 15 )
-    print()
 
 
 def analyze( filename, graph ):
@@ -60,7 +49,7 @@ def analyze( filename, graph ):
     local_densities = [ antx.local_density( graph, node ) for node in graph ]
     # antx.grouping_spectrum( degrees, local_densities )#no son del mismo tamaño, no se va a graficar
 
-analyze(filename, lj_graph)
+
 
 def RepresentGrap(graph_data,type_g):
       
@@ -80,7 +69,23 @@ def RepresentGrap(graph_data,type_g):
     #nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
     plt.axis("off")
     plt.show()
-##Holaalskjdh
-RepresentGrap(distance_graph,"bonds")
-RepresentGrap(lj_graph,"Electric")
+
+if __name__ == "__main__":
+    filename = "water_prot"
+    #filename = "1UBQ-CG"
+
+    with open("./{}.pdb".format(filename),"r") as pdbfile:
+        content = pdbfile.readlines()
+    G_class = G.Graph( content )
+    #distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
+    #lj_graph = G_class.createEdges( G_class.LJ, 15 )
+    water_graph = G_class.createEdges( G_class.water, 15 )
+    print()
+
+    #analyze(filename, lj_graph)
+
+    #RepresentGrap(distance_graph, "bonds")
+    #RepresentGrap(lj_graph, "Electric")
+
+
 
