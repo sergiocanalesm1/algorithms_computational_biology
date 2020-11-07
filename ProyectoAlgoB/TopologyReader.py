@@ -91,7 +91,7 @@ return dictionary with connectivity and atom names based on atom index
 
 def create_dicts(protein_itp):
 
-       with open("./{}".format(protein_itp),"r")  as Prot_itpfile:
+       with open(protein_itp,"r")  as Prot_itpfile:
            file_contents = Prot_itpfile.readlines()
        # get lines of bonds, angle and atoms creat dictionaries.
        atominit = subprocess.getoutput(r"grep  -n '\[ atoms \]'  {}".format(protein_itp)).split(":")[0]

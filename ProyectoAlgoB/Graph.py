@@ -37,12 +37,12 @@ class Graph():
     The class Graph has no attribute edges, instead, call the function createEdges to obtain the connected graph you wish for
     '''
 
-    def __init__( self, content ):
+    def __init__( self, content,protein_itp ):
         self.LJ = "LJ"
         self.cartesian = 'CARTESIANA'
         self.water = "WATER"
         self.content = content
-        self.atoms, self.bonds = topr.create_dicts( protein_itp="./Protein_A.itp" )
+        self.atoms, self.bonds = topr.create_dicts( protein_itp )
         self.nodes, self.prot_end = self._createNodes()
         self.LJmatrix, self.atomtypes = topr.getLJmatrix()
 
@@ -117,7 +117,7 @@ class Graph():
                         #dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
                         if dist <= cutoff :
                             lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
-                            q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
+                            q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[j]][1],dist)
                             energy = (lj_w,q_w)
                             '''
                             inserts tuple : ( id of connected node, distance ) in source and destination node
