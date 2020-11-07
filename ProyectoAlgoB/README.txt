@@ -6,4 +6,9 @@ Graficas.
 	2. report.txt densidad global, Nod1 \t densid local, top 10  Mas conectads , top 10 menos conectados
 	3. Ponderar.
 
-Correguir Reader 
+Correguir Reader ( las aguas y REMARK MODEL)
+TODO:
+main lea MD_dataset y que entre en todas carpetas y mutantes hasta 1CUN. 
+
+
+

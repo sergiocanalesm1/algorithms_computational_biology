@@ -30,7 +30,7 @@ Created on Thu Oct  8 18:10:48 2020
 import numpy as np
 from Atom import Atom
 import TopologyReader as topr
-
+from dist import calcDist_cython
 
 class Graph():
     '''
@@ -43,7 +43,7 @@ class Graph():
         self.water = "WATER"
         self.content = content
         self.atoms, self.bonds = topr.create_dicts( protein_itp="./Protein_A.itp" )
-        self.nodes = self._createNodes()
+        self.nodes, self.prot_end = self._createNodes()
         self.LJmatrix, self.atomtypes = topr.getLJmatrix()
 
 
@@ -53,16 +53,24 @@ class Graph():
         '''
 
         nodes = {}
+        first_water=False
+        prot_end=0
         for lines in self.content:
             aaline1 = lines.split()
             if (aaline1[0] != "ATOM"):
                 # print("remarkline")
                 # if line are REMARK then pass
                 continue
-            atom_type_temp = self.atoms[aaline1[1]][0]  ## map atomtype from topology
+            if (aaline1[2]=="W"):
+                if(first_water == False):
+                    prot_end=aaline1[1]
+                    first_water =True
+                atom_type_temp="P4"
+            else:
+                atom_type_temp = self.atoms[aaline1[1]][0]  ## map atomtype from topology
             A1 = Atom(aaline1[1], aaline1[2], atom_type_temp, aaline1[3], aaline1[5], aaline1[6:9])
             nodes[A1.atom_id] = {A1.atom_id: A1}
-        return nodes
+        return nodes, int(prot_end)
 
     def createEdges( self, g_type, cutoff ):
 
@@ -79,6 +87,9 @@ class Graph():
                 for con_a in v:
                      #k=int(k)
                      #con_a=int(con_a)
+                     #nodo_1 = self.nodes[ids[k]][ids[k]]
+                     #nodo_2 = self.nodes[ids[con_a]][ids[con_a]]
+                     
                      weight = self._calcDist(self.nodes[k][k].coords, self.nodes[con_a][con_a].coords)
                      if k in edges:
                          edges[k].append((con_a, weight))
@@ -91,35 +102,59 @@ class Graph():
                         edges[con_a] = [(k, weight)]
         water = False
         if g_type in [ self.LJ, self.water ]:
-            for i in range(len(ids)):
-                water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
-                if not water:
-                    for j in range(i + 1, len(ids)):
-                        if i != j:
-                            dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
-
-                            water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
-                            if not water:
-                                lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
-                                q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
-                                energy = (lj_w,q_w)
+            for i in range(self.prot_end+1):
+                #water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
+                #if not water:
+                for j in range(i + 1, len(ids)):
+                    if i != j:
+                        nodo_1 = self.nodes[ids[i]][ids[i]]
+                        nodo_2 = self.nodes[ids[j]][ids[j]]
+                        if(nodo_1.atom_name == "W" and nodo_2.atom_name =="W"):
+                            continue
+                        x_n1=list(map(float,nodo_1.coords))
+                        x_n2=list(map(float,nodo_2.coords))
+                        dist = calcDist_cython(x_n1[0],x_n1[1],x_n1[2],x_n2[0],x_n2[1],x_n2[2])
+                        #dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
+                        if dist <= cutoff :
+                            lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
+                            q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
+                            energy = (lj_w,q_w)
+                            '''
+                            inserts tuple : ( id of connected node, distance ) in source and destination node
+                            if water, just from source to destination
+                            '''
+                            if ids[i] in edges:
+                                edges[ids[i]].append((ids[j], energy))
                             else:
-                                #TODO calculate equivalent of energy in water
-                                energy = ()
-                            if dist <= cutoff :
-                                '''
-                                inserts tuple : ( id of connected node, distance ) in source and destination node
-                                if water, just from source to destination
-                                '''
-                                if ids[i] in edges:
-                                    edges[ids[i]].append((ids[j], energy))
+                                edges[ids[i]] = [(ids[j], energy)]
+                            if nodo_2.atom_name != "W":
+                                if ids[j] in edges:
+                                    edges[ids[j]].append((ids[i], energy))
                                 else:
-                                    edges[ids[i]] = [(ids[j], energy)]
-                                if not water:
-                                    if ids[j] in edges:
-                                        edges[ids[j]].append((ids[i], energy))
-                                    else:
-                                        edges[ids[j]] = [(ids[i], energy)]
+                                    edges[ids[j]] = [(ids[i], energy)]
+                                               
+                           
+                        '''    
+                        else:
+                            #TODO calculate equivalent of energy in water
+                            lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
+                            q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[i]][1],dist)
+                            energy = (lj_w,q_w)
+                        '''   
+                        #if dist <= cutoff :
+                        '''
+                        inserts tuple : ( id of connected node, distance ) in source and destination node
+                        if water, just from source to destination
+                        '''
+                        #    if ids[i] in edges:
+                        #        edges[ids[i]].append((ids[j], energy))
+                        #    else:
+                        #        edges[ids[i]] = [(ids[j], energy)]
+                        #    if not water:
+                        #        if ids[j] in edges:
+                        #            edges[ids[j]].append((ids[i], energy))
+                        #        else:
+                        #            edges[ids[j]] = [(ids[i], energy)]
 
         return edges
 
