@@ -28,13 +28,13 @@ Created on Wed Oct  7 14:45:45 2020
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import os
 #import time
 #import TopologyReader as topr
 import Graph as G
 import Analysis_Networks as antx
-import networkx as nx
+#import networkx as nx
 
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
@@ -44,7 +44,8 @@ import networkx as nx
 if __name__ == "__main__":
     #filename = "water_prot"
     
-    path="/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
+#    path="/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
+    path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
     pdbs = os.listdir(path)
     for  i in pdbs[:2]:
         if(len(i)<5):
