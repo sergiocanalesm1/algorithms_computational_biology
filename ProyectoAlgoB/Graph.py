@@ -42,9 +42,11 @@ class Graph():
         self.cartesian = 'CARTESIANA'
         self.water = "WATER"
         self.content = content
-        self.atoms, self.bonds = topr.create_dicts( protein_itp )
+        self.protein_itp = protein_itp
+        self.atoms, self.bonds = topr.create_dicts( self.protein_itp )
         self.nodes, self.prot_end = self._createNodes()
         self.LJmatrix, self.atomtypes = topr.getLJmatrix()
+        
 
 
     def _createNodes( self ):
@@ -115,9 +117,12 @@ class Graph():
                         x_n2=list(map(float,nodo_2.coords))
                         dist = calcDist_cython(x_n1[0],x_n1[1],x_n1[2],x_n2[0],x_n2[1],x_n2[2])
                         #dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
-                        if dist <= cutoff :
-                            lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] )
-                            q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[j]][1],dist)
+                        if 3 <= dist <= cutoff :
+                            lj_w=self._calcLJ( self.nodes[ids[i]][ids[i]], self.nodes[ids[j]][ids[j]] ,dist)
+                            if(nodo_1.atom_type=="Qd" and nodo_2.atom_type=="Qd" ):
+                                q_w=self._calcCoulb(self.atoms[ids[i]][1],self.atoms[ids[j]][1],dist)
+                            else:
+                                q_w=0
                             energy = (lj_w,q_w)
                             '''
                             inserts tuple : ( id of connected node, distance ) in source and destination node
@@ -171,10 +176,11 @@ class Graph():
 
     # print(f"Time of graph building : {time.time()-t0:.4f} s")
 
-    def _calcLJ( self, atom1 , atom2 ):
+    def _calcLJ( self, atom1 , atom2, dist ):
         #TODO check order of sigma and epsilon
         sigmaij, epsilonij = self.LJmatrix[ self.atomtypes[atom1.atom_type][1] ][ self.atomtypes[atom2.atom_type][1] ]
-        rij = self._calcDist( atom1.coords, atom2.coords )
+        #rij = self._calcDist( atom1.coords, atom2.coords )
+        rij = dist
         return 4 * epsilonij * ( ( sigmaij / rij)**12 - ( sigmaij / rij)**6 )
     
     def _calcCoulb(self , q1 , q2 , dist):

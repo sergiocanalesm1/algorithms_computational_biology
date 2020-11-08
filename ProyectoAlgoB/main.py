@@ -46,7 +46,7 @@ if __name__ == "__main__":
     
     path="/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
     pdbs = os.listdir(path)
-    for  i in pdbs:
+    for  i in pdbs[:2]:
         if(len(i)<5):
             print(i)
             mutants = os.listdir(path+i)
@@ -59,6 +59,8 @@ if __name__ == "__main__":
                     print("avoiding")
                     continue
                 data_energy=np.loadtxt(path+i+"/"+mutval+"/energy.xvg",comments=["@","#"])
+                if(mutval[-2:]=="WT"):
+                    print("avoiding" + mutval)
                 for files_dyn in files_per_mut:
                     file_nm = files_dyn.split("_")
                     if(".pdb" in files_dyn and len(file_nm)>3):
@@ -70,11 +72,16 @@ if __name__ == "__main__":
                         old_aa = mut_coord[-1]
                         with open(path+i+"/"+mutval+"/"+files_dyn,"r") as pdbfile:
                             content = pdbfile.readlines()
-                        G_class = G.Graph( content,path+i+"/"+mutval+"/Protein_A.itp" )
+                        path_itp=path+i+"/"+mutval+"/Protein_A.itp" 
+                        G_class = G.Graph( content,path_itp )
                         distance_graph = G_class.createEdges ( G_class.cartesian, 16 )
                         lj_graph = G_class.createEdges( G_class.LJ, 15 )
-                        global_density = antx.global_density( lj_graph )
-                        loca_densitu = antx.local_densities(lj_graph,pos_mut)
+                        #global_density = antx.global_density( lj_graph )
+                        #loca_density = antx.local_density(lj_graph,pos_mut)
+                        #print(loca_density)
+                        print("final")
+                        
+                
                 #except:
                 #    print("no data")
                         
