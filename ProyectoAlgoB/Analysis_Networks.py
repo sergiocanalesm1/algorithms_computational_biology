@@ -62,7 +62,7 @@ def global_density( graph ):
     return 2 * total_nodes / (total_edges * (total_edges - 1))
 
 #@jit(nopython=True)
-def local_density( graph, node ):
+def local_density( graph, node ,prot_end):
     """
 
     Parameters
@@ -80,7 +80,8 @@ def local_density( graph, node ):
     edges_temp = graph[str(node)]
     count = 0
     conexions = [i[0] for i in edges_temp]  # nodes conected to node
-    prot_num=len(graph)
+    prot_num=prot_end
+    #print(graph.prot_num)
     for edge in conexions :
         if( int(edge)<= prot_num) :
             neigh = graph[str(edge)]

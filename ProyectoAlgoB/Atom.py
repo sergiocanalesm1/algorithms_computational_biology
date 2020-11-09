@@ -3,8 +3,8 @@
 """
 Created on Mon Oct 19 21:29:35 2020
 
-@author: David Ricardo Figueora Blanco 
-@email: dr.figueroa10@uniandes.edu.co 
+@author: David Ricardo Figueora Blanco
+@email: dr.figueroa10@uniandes.edu.co
 
    FUNCTION:  a short paragraph stating the purpose of the
               program.
@@ -21,16 +21,20 @@ Created on Mon Oct 19 21:29:35 2020
               additional help to someone looking at the program
 
 """
-## modules
-import numpy as np 
-import matplotlib.pyplot as plt
-import os 
-import sys
+# modules
+
 
 class Atom:
 
-#atom name?
-    def __init__(self,atom_id,atom_name,atom_type,res_name,res_num,coords):
+    # atom name?
+    def __init__(
+            self,
+            atom_id,
+            atom_name,
+            atom_type,
+            res_name,
+            res_num,
+            coords):
         """
         Parameters
         ----------
@@ -56,7 +60,6 @@ class Atom:
         self.coords = coords
         self.atom_id = atom_id
 
-
     def get_Name(self):
         """
         Returns
@@ -67,10 +70,9 @@ class Atom:
         """
         return self.atom_name
 
-    
     def get_atom_type(self):
         return self.atom_type
-    
+
     def get_resName(self):
         """
 
@@ -94,6 +96,7 @@ class Atom:
 
         """
         return self.res_num
+
     def get_Coords(self):
         """
 
@@ -105,6 +108,6 @@ class Atom:
 
         """
         return self.coords
+
     def get_Atomid(self):
         return self.atom_id
-
