@@ -34,7 +34,7 @@ import time
 #import TopologyReader as topr
 import Graph as G
 import Analysis_Networks as antx
-import networkx as nx
+#import networkx as nx
 
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
@@ -44,15 +44,24 @@ import networkx as nx
 if __name__ == "__main__":
     #filename = "water_prot"
 
-    path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
-    # path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
-    pdbs = ["1A43","1B8E" ]
+    #path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
+    path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
+    #pdbs = ["1A43","1B8E" ]
 
     # file_test='/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/1A43/CA218S/'
     print("begin of the script")
     t0=time.time()
+    #pdbs= os.listdir(path)
+    #pdbs=np.loadtxt("../../MD_Dataset/Proteins_For_Analysis",dtype=string)
+    with open("../../MD_Dataset/Proteins_For_Analysis","r") as prots:
+        pdbs_t=prots.readlines()
+    pdbs=[]
+    for name in pdbs_t:
+        #print(name[:-1])
+        pdbs.append(name[:-1])
+    #print(pdbs)
     with open("results.txt", "w") as results_file:
-        for i in pdbs[:1]:
+        for i in pdbs:
             if(len(i) < 5):
                 results_file.write(i + "\n")
                 print("analyzing " + i)
