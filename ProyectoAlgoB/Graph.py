@@ -108,9 +108,10 @@ class Graph():
                         edges[con_a].append((k, weight))
                     else:
                         edges[con_a] = [(k, weight)]
-        water = False
+        #water = False
         if g_type in [self.LJ, self.water]:
-            for i in range(self.prot_end + 1):
+            #for i in range(self.prot_end + 1):
+            for i in range(len(ids)):
                 #water = self.nodes[ ids[ i ] ][ ids[ i ] ].atom_type == "W"
                 # if not water:
                 for j in range(i + 1, len(ids)):
@@ -124,6 +125,10 @@ class Graph():
                         dist = calcDist_cython(
                             x_n1[0], x_n1[1], x_n1[2], x_n2[0], x_n2[1], x_n2[2])
                         #dist = self._calcDist(self.nodes[ids[i]][ids[i]].coords, self.nodes[ids[j]][ids[j]].coords)
+                        if(nodo_1.atom_type == "W" or nodo_2.atom_type =="W"):
+                            cutoff = cutoff -6
+                        else:
+                            cutoff = cutoff
                         if 3 <= dist <= cutoff:
                             atom1 = self.nodes[ids[i]][ids[i]]
                             atom2 = self.nodes[ids[j]][ids[j]]
@@ -145,11 +150,11 @@ class Graph():
                                 edges[ids[i]].append((ids[j], energy))
                             else:
                                 edges[ids[i]] = [(ids[j], energy)]
-                            if nodo_2.atom_name != "W":
-                                if ids[j] in edges:
-                                    edges[ids[j]].append((ids[i], energy))
-                                else:
-                                    edges[ids[j]] = [(ids[i], energy)]
+                            #if nodo_2.atom_name != "W":
+                            if ids[j] in edges:
+                                edges[ids[j]].append((ids[i], energy))
+                            else:
+                                edges[ids[j]] = [(ids[i], energy)]
 
                         '''
                         else:

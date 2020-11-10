@@ -83,13 +83,13 @@ def local_density( graph, node ,prot_end):
     prot_num=prot_end
     #print(graph.prot_num)
     for edge in conexions :
-        if( int(edge)<= prot_num) :
-            neigh = graph[str(edge)]
-              # nodes conected to node i (conected to node:parameter)
-            for neigh_edge in neigh:
-                # and int(neigh_edge[0])<= prot_num
-                if neigh_edge[0] in conexions :
-                    count += 1
+        #if( int(edge)<= prot_num) :
+        neigh = graph[str(edge)]
+          # nodes conected to node i (conected to node:parameter)
+        for neigh_edge in neigh:
+            # and int(neigh_edge[0])<= prot_num
+            if neigh_edge[0] in conexions :
+                count += 1
 
     posible_edges = len(edges_temp) * (len(edges_temp) - 1) / 2
     return count / posible_edges
