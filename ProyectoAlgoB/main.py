@@ -44,8 +44,8 @@ import Analysis_Networks as antx
 if __name__ == "__main__":
     #filename = "water_prot"
 
-    #path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
-    path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
+    path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
+    #path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
     #pdbs = ["1A43","1B8E" ]
 
     # file_test='/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/1A43/CA218S/'
@@ -53,14 +53,19 @@ if __name__ == "__main__":
     t0=time.time()
     #pdbs= os.listdir(path)
     #pdbs=np.loadtxt("../../MD_Dataset/Proteins_For_Analysis",dtype=string)
-    with open("../../MD_Dataset/Proteins_For_Analysis","r") as prots:
-        pdbs_t=prots.readlines()
-    pdbs=[]
-    for name in pdbs_t:
+    #with open("../../MD_Dataset/Proteins_For_Analysis","r") as prots:
+    #    pdbs_t=prots.readlines()
+    #pdbs=[]
+    #for name in pdbs_t:
         #print(name[:-1])
-        pdbs.append(name[:-1])
+    #    pdbs.append(name[:-1])
     #print(pdbs)
+    pdbs=["1A43"]
+    stop_frame=2
     with open("results.txt", "w") as results_file:
+        results_file.write("Struct(WT-C-Num-new-Nd) global centrality        "+
+                           "local centrality        frame       E_LJ  "+
+                           "      E_C            ET  \n")
         for i in pdbs:
             if(len(i) < 5):
                 results_file.write(i + "\n")
@@ -96,57 +101,74 @@ if __name__ == "__main__":
                         comments=["@", "#"] )
                     if(mutval[-2:] == "WT"):  # analyze wildtype
                         print("analyzing WT of "+i)
-                        
+                        mutants_to_eval = []
                         for no_wt in mutants:  # extract pos mut for local density calc.
                             if(no_wt[-2:] != "WT"):
                                 mut_coord = no_wt[2]
                                 new_aa = no_wt[0]
                                 chain = no_wt[1]
                                 pos_mut = no_wt[2:-1]
+                                mutants_to_eval.append(pos_mut)
                                 old_aa = no_wt[-1]
+                                c_temp=False
+                                lim_frames=0
+                                #print(pos_mut)
+                        for frame_indx in range(0,301,3):
+                            files_dyn ="f_"+str(frame_indx)+"_"+mutval+"_"+i+".pdb"
+                            
+                        #for files_dyn in files_per_mut:
+                            if(lim_frames==stop_frame):
+                                break
+                            lim_frames += 1
+                            file_nm = files_dyn.split("_")
+                            if(".pdb" in files_dyn and len(file_nm) > 3):
+                                with open(path + i + "/" + mutval + "/" + files_dyn, "r") as pdbfile:
+                                    content = pdbfile.readlines()
+                                frame = int(file_nm[1]) / 3
+                                path_itp = path + i + "/" + mutval + "/Protein_A.itp"
+                                t_g=time.time()
+                                G_class = G.Graph(content, path_itp)
+                                if(c_temp==False):
+                                    print(f"size of {i} = {len(G_class.content)-2}")
+                                    print(f"Graph (s) | Centrality (all mutants {len(mutants_to_eval)})(s)")
+                                    c_temp=True
+                                prot_end =G_class.prot_end
+                                #distance_graph = G_class.createEdges(
+                                #    G_class.cartesian, 16)
+                                lj_graph = G_class.createEdges(
+                                    G_class.LJ, 15)
+                                print("  {:.4f}  ".format(time.time()-t_g),end="|")
 
-                                for files_dyn in files_per_mut:
-                                    file_nm = files_dyn.split("_")
-                                    if(".pdb" in files_dyn and len(file_nm) > 3):
-                                        
-                                        with open(path + i + "/" + mutval + "/" + files_dyn, "r") as pdbfile:
-                                            content = pdbfile.readlines()
-                                        frame = int(file_nm[1]) / 3
-                                        path_itp = path + i + "/" + mutval + "/Protein_A.itp"
-                                        t_g=time.time()
-                                        G_class = G.Graph(content, path_itp)
-              
-                                        prot_end =G_class.prot_end
-                                        #distance_graph = G_class.createEdges(
-                                        #    G_class.cartesian, 16)
-                                        lj_graph = G_class.createEdges(
-                                            G_class.LJ, 15)
-                                        #print("time creating graph for {}".format(time.time()-t_g))
-                                        t_c=time.time()
-                                        global_density = antx.global_density(
-                                            lj_graph)
-                                        
-                                        node_mut = convert_index[pos_mut]
-                                        for nodes_to_mut in node_mut:
-                                            loca_density = antx.local_density(
-                                                lj_graph, nodes_to_mut , prot_end -1)
-                                            results_file.write("WT" +
-                                                               new_aa +
-                                                               pos_mut +
-                                                               old_aa +
-                                                               "\t\t" +
-                                                               str(global_density) +
-                                                               "\t" +
-                                                               str(loca_density) +
-                                                               "\t" +
-                                                               str(data_energy[int(frame)][0]) +
-                                                               "\t" +
-                                                               str(data_energy[int(frame)][1:][0]) +
-                                                               "\t" +
-                                                               str(data_energy[int(frame)][1:][1]) +
-                                                               "\t" +
-                                                               str(data_energy[int(frame)][1:][2]) +
-                                                               "\n")
+                                #print("time creating graph for {}".format(time.time()-t_g))
+                                #print("Centrality(s) all pos_mutants")
+                                t_c=time.time()
+                                global_density = antx.global_density(
+                                    lj_graph)
+                                
+                                for pos_mutation in mutants_to_eval:
+                                    node_mut = convert_index[pos_mutation]
+                                    for nodes_to_mut in node_mut:
+                                        loca_density = antx.local_density(
+                                            lj_graph, nodes_to_mut , prot_end -1)
+                                        results_file.write("WT" +
+                                                           #new_aa +
+                                                           pos_mutation +
+                                                           #old_aa +
+                                                           "-"+nodes_to_mut +
+                                                           "\t\t" +
+                                                           str(global_density) +
+                                                           "\t" +
+                                                           str(loca_density) +
+                                                           "\t" +
+                                                           str(data_energy[int(frame)][0]) +
+                                                           "\t" +
+                                                           str(data_energy[int(frame)][1:][0]) +
+                                                           "\t" +
+                                                           str(data_energy[int(frame)][1:][1]) +
+                                                           "\t" +
+                                                           str(data_energy[int(frame)][1:][2]) +
+                                                           "\n")
+                                print(f"  {time.time()-t_c:.4f} ")
                                         #print(f"time calculating centrality {time.time()-t_c}")
 #                                        loca_density = antx.local_density(lj_graph,node_mut)
 
@@ -156,8 +178,15 @@ if __name__ == "__main__":
 
                         print("analzying {}".format(mutval))
                         c_temp=False
-                        
-                        for files_dyn in files_per_mut:
+                        lim_frames=0
+                        for frame_indx in range(0,301,3):
+                            files_dyn ="f_"+str(frame_indx)+"_"+mutval+"_"+i+".pdb"
+                            #print(file_dyn)
+                        #for files_dyn in files_per_mut:
+                            if(lim_frames==stop_frame):
+                                break
+                            lim_frames += 1
+                        #for files_dyn in files_per_mut:
                             file_nm = files_dyn.split("_")
                             if(".pdb" in files_dyn and len(file_nm) > 3):
                                
@@ -173,7 +202,6 @@ if __name__ == "__main__":
                                 t_g=time.time()
                                 G_class = G.Graph(content, path_itp)
                                 if(c_temp==False):
-                                    
                                     print(f"size of {i} = {len(G_class.content)-2}")
                                     print("Graph (s) |  Centrality(s)")
                                     c_temp=True
@@ -191,7 +219,7 @@ if __name__ == "__main__":
                                 for nodes_to_mut in node_mut:
                                     loca_density = antx.local_density(
                                         lj_graph, nodes_to_mut ,prot_end -1 )
-                                    results_file.write(mutval +
+                                    results_file.write(mutval+"-"+nodes_to_mut +
                                                        "\t\t" +
                                                        str(global_density) +
                                                        "\t" +
