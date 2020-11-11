@@ -61,87 +61,7 @@ def read_foldx_results(path):
     return protein_stabilities
 
 def setup_proteins( path ):
-    ''' example result
 
--------------------WILDTYPES---------------------{
-  'WT156': {
-    'max_energy': -68445.21875,
-    'min_energy': -68385.65625,
-    'max_frame': 3.0,
-    'WT156-18': {
-      'local_centrality': 0.3939139505890136,
-      'frame': 3.0,
-      'energy': -68445.21875
-    }
-  },
-  'WT184': {
-    'max_energy': -68445.21875,
-    'min_energy': -68385.65625,
-    'max_frame': 3.0,
-    'WT184-85': {
-      'local_centrality': 0.4609281365357879,
-      'frame': 3.0,
-      'energy': -68445.21875
-    },
-    'WT184-86': {
-      'local_centrality': 0.44337408015568935,
-      'frame': 3.0,
-      'energy': -68445.21875
-    },
-    'WT184-87': {
-      'local_centrality': 0.42975928944322395,
-      'frame': 3.0,
-      'energy': -68445.21875
-    },
-    'WT184-88': {
-      'local_centrality': 0.4740139700499994,
-      'frame': 3.0,
-      'energy': -68445.21875
-    },
-    'WT184-89': {
-      'local_centrality': 0.4773581463236636,
-      'frame': 3.0,
-      'energy': -68445.21875
-    }
-  },
-}-------------------MUTANTS---------------------{
-  'GA156A': {
-    'max_energy': -68220.5625,
-    'min_energy': -67884.367188,
-    'max_frame': 3.0,
-    'GA156A-18': {
-      'local_centrality': 0.41689550513079926,
-      'frame': 3.0,
-      'energy': -67884.367188
-    }
-  },
-  'WA184A': {
-    'max_energy': -66279.210938,
-    'min_energy': -65931.523438,
-    'max_frame': 3.0,
-    'WA184A-85': {
-      'local_centrality': 0.3780765311108319,
-      'frame': 3.0,
-      'energy': -65931.523438
-    }
-  },
-  'CA218S': {
-    'max_energy': -68322.921875,
-    'min_energy': -68128.914062,
-    'max_frame': 3.0,
-    'CA218S-152': {
-      'local_centrality': 0.4293942029666894,
-      'frame': 3.0,
-      'energy': -68128.914062
-    },
-    'CA218S-153': {
-      'local_centrality': 0.4408480074142725,
-      'frame': 3.0,
-      'energy': -68128.914062
-    }
-  },
-}
-    '''
     wt_string = "wild_types"
     mutant_string = "mutants"
 
@@ -191,6 +111,65 @@ def setup_proteins( path ):
                 proteins[ protein_name ][ type ][ prot_name ][ "min_energy" ] = energy
     return proteins
 
+def setup_proteins_all_frames( path ):
+
+    wt_string = "wild_types"
+    mutant_string = "mutants"
+
+    with open( path ) as file:
+        lines = file.readlines()
+    proteins = {}
+    for line in lines[ 1: ]:
+        if len( line ) < 10:
+            protein_name = line.replace("\n", "")
+            proteins[ protein_name ] = { wt_string : {}, mutant_string : {} }
+            continue
+        line = line.split()
+        node = line[ 0 ]
+        local_centrality = float( line[ 2 ] )
+        frame = float( line[ 3 ] )
+        energy = float( line[ 6 ] )
+
+        type = mutant_string
+        if node.startswith( "WT" ):
+            type = wt_string
+        prot_name = node.split( "-" )[ 0 ] #example: from  GA156A-18 to GA156A
+        node_index = node.split( "-" )[ 1 ]
+        if prot_name not in proteins[ protein_name ][ type ]:
+            general_info = {
+                "max_energy": energy,
+                "min_energy": energy,
+                "max_frame": frame,
+                }
+            node = {
+                    "local_centrality" : local_centrality,
+                    "frame" : frame,
+                    "energy" : energy,
+                    "node_index" : node_index
+                }
+            proteins[ protein_name ][ type ][ prot_name ] = [
+                general_info,node 
+            ]
+        else:
+            node = {
+                    "local_centrality" : local_centrality,
+                    "frame" : frame,
+                    "energy" : energy,
+                     "node_index" : node_index
+                }
+            proteins[ protein_name ][ type ][ prot_name ].append(node)
+            current_max_energy = proteins[ protein_name ][ type ][ prot_name ][0][ "max_energy" ]
+            current_min_energy = proteins[ protein_name ][ type ][ prot_name ][0][ "min_energy" ]
+            current_max_frame = proteins[ protein_name ][ type ][ prot_name ][0][ "max_frame" ]
+            if frame > current_max_frame :
+                proteins[ protein_name ][ type ][ prot_name ][0][ "max_frame"] = frame
+            if energy < current_max_energy : #la que se convierte en 100%
+                proteins[ protein_name ][ type ][ prot_name ][0][ "max_energy"] = energy
+            elif energy > current_min_energy : #la que se convierte en 60%
+                proteins[ protein_name ][ type ][ prot_name ][0][ "min_energy" ] = energy
+    return proteins
+
+
 def normalize_nodes( dict_with_nodes ):
     '''
     example result:
@@ -216,9 +195,55 @@ def normalize_nodes( dict_with_nodes ):
         proteins[ re.sub( "[^0-9]", "", protein ) ] =  acumulated_centrality / total_nodes # example: re.sub converts from WT156 to 156
     return proteins
 
+
+def normalize_nodes_all_frames( dict_with_nodes ):
+    '''
+    this is a test to normalize all nodes
+    example result:
+    {
+      '156': 0.3939139505890136,
+      '184': 0.45708672450167287,
+      '218': 0.44125935162094765,
+      '167': 0.3960422035548457,
+      '159': 0.5209813999353262
+    }
+    '''
+    proteins = {}
+    prots = list( dict_with_nodes.keys() )
+    list_info=[ "max_energy", "min_energy", "max_frame" ]
+    total_frame = 0
+    for protein in prots :
+        max = dict_with_nodes[ protein ][0][ "max_energy" ]
+        min = dict_with_nodes[ protein ][0][ "min_energy" ]
+        acumulated_centrality = 0
+        total_nodes = 0
+        
+        acumulated_centrality_dict = {}
+        for node in dict_with_nodes[ protein ] :
+            #if node.co not in [ "max_energy", "min_energy", "max_frame" ]:
+            if not any([i in node for i in list_info]):
+                #acumulated_centrality +=  node[ "local_centrality" ] * local_centrality_percentage( max, min, node[ "energy" ] )
+                if node['node_index'] not in acumulated_centrality_dict:
+                    acumulated_centrality_dict[node["node_index"]] = node[ "local_centrality" ] * local_centrality_percentage( max, min, node[ "energy" ] )
+                    total_nodes += 1
+                    total_frame += 1
+                else:
+                    acumulated_centrality_dict[node["node_index"]] += node[ "local_centrality" ] * local_centrality_percentage( max, min, node[ "energy" ] )
+                    total_frame += 1
+        total_frame = total_frame/total_nodes 
+ 
+        acumulated_centrality = 0
+        for k in acumulated_centrality_dict.values():
+            acumulated_centrality += k
+        acumulated_centrality = acumulated_centrality/total_frame
+        proteins[ re.sub( "[^0-9]", "", protein ) ] =  acumulated_centrality / total_nodes # example: re.sub converts from WT156 to 156
+    return proteins
+
+
+
 def read_graph_results( path ):
     graph_stability = {}
-    proteins = setup_proteins( path )
+    proteins = setup_proteins_all_frames( path )
     wt_string = "wild_types"
     mutant_string = "mutants"
     for protein_name, types in proteins.items():
