@@ -269,7 +269,7 @@ def print_matrix( name, true_positives, false_positives, false_negatives, true_n
     print( "{} Confusion Matrix \nTrue Positives: {}, False Negatives: {} \nFalse Positives: {}, True Negatives: {}".format( name, true_positives, false_positives, false_negatives, true_negatives ) )
 
 def bar_graph( graph_results, foldx_results ):
-    labels = [ "True Positives", "False Negatives", "False Positives", "True Negatives" ]
+    labels = [ "True\nPositives", "False\nNegatives", "False\nPositives", "True\nNegatives" ]
     x = np.arange( len( labels ) )
     width = 0.4
     fig, ax = plt.subplots()
@@ -278,7 +278,7 @@ def bar_graph( graph_results, foldx_results ):
     ax.set_ylabel( "# of results" )
     ax.set_title( "FoldX and Graph Result Comparison" )
     ax.set_xticks( x )
-    ax.set_xticklabels( labels )
+    ax.set_xticklabels( labels , rotation=0 , fontsize=14 )
     ax.legend()
     fig.tight_layout()
     plt.show()
@@ -292,7 +292,7 @@ def bar_stats_graph( graph_stats, foldx_stats ):
     ax.bar( x + width / 2, foldx_stats, width, label='FoldX' )
     ax.set_title( "Statistics Comparison" )
     ax.set_xticks( x )
-    ax.set_xticklabels( labels )
+    ax.set_xticklabels( labels)
     ax.set_ylim( [ 0, 1 ] )
     ax.legend()
     fig.tight_layout()
@@ -315,9 +315,9 @@ def statistics( true_positives, false_positives, false_negatives, true_negatives
 
 if __name__ == "__main__":
     # rutas en cluster
-    real_data_path = "../../../FoldX/RealData.txt"
-    foldX_data_path = "../../../FoldX/ddg_protein_analysis_FOLDX_RESULTS.txt"
-    graph_data_path = "results.txt"
+    real_data_path = "./Results/RealData.txt"#"../../../FoldX/RealData.txt"
+    foldX_data_path = "./Results/ddg_protein_analysis_FOLDX_RESULTS.txt"#"../../../FoldX/ddg_protein_analysis_FOLDX_RESULTS.txt"
+    graph_data_path = "./Results/graph_results.txt"#"results.txt"
 
     real_data_results = read_real_results( real_data_path )
     foldX_data_results = read_foldx_results( foldX_data_path )
