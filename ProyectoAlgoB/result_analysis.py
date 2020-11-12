@@ -94,6 +94,7 @@ def setup_proteins( path ):
                     "energy" : energy
                 }
             }
+        #TODO : hacer que solo obtenga el primer frame de cada nodo para compara frame 0 con frame 57.
         else:
             proteins[ protein_name ][ type ][ prot_name ][ node ] = {
                 "local_centrality": local_centrality,
@@ -184,13 +185,13 @@ def normalize_nodes( dict_with_nodes ):
     proteins = {}
     prots = list( dict_with_nodes.keys() )
     for protein in prots :
-        max = dict_with_nodes[ protein ][ "max_energy" ]
-        min = dict_with_nodes[ protein ][ "min_energy" ]
+        #max = dict_with_nodes[ protein ][ "max_energy" ]
+        #min = dict_with_nodes[ protein ][ "min_energy" ]
         acumulated_centrality = 0
         total_nodes = 0
         for node in dict_with_nodes[ protein ] :
             if node not in [ "max_energy", "min_energy", "max_frame" ]:
-                acumulated_centrality += dict_with_nodes[ protein ][ node ][ "local_centrality" ] * local_centrality_percentage( max, min, dict_with_nodes[ protein ][ node ][ "energy" ] )
+                acumulated_centrality += dict_with_nodes[ protein ][ node ][ "local_centrality" ] #* local_centrality_percentage( max, min, dict_with_nodes[ protein ][ node ][ "energy" ] )
                 total_nodes += 1
         proteins[ re.sub( "[^0-9]", "", protein ) ] =  acumulated_centrality / total_nodes # example: re.sub converts from WT156 to 156
     return proteins
@@ -239,11 +240,9 @@ def normalize_nodes_all_frames( dict_with_nodes ):
         proteins[ re.sub( "[^0-9]", "", protein ) ] =  acumulated_centrality / total_nodes # example: re.sub converts from WT156 to 156
     return proteins
 
-
-
 def read_graph_results( path ):
     graph_stability = {}
-    proteins = setup_proteins_all_frames( path )
+    proteins = setup_proteins( path )
     wt_string = "wild_types"
     mutant_string = "mutants"
     for protein_name, types in proteins.items():
@@ -252,6 +251,24 @@ def read_graph_results( path ):
         mutants_dict_with_nodes = types[ mutant_string ]
         wild_types = normalize_nodes( wild_types_dict_with_nodes )
         mutants = normalize_nodes( mutants_dict_with_nodes )
+        for protein_number, mutant_centrality in mutants.items():
+            if protein_number in wild_types :
+                graph_stability[ protein_name ][ protein_number ] = mutant_centrality - wild_types[ protein_number ]
+            else:
+                print( "graph error: la mutante no se encuentra en el WT" )
+    return graph_stability
+
+def read_graph_results_all_frames( path ):
+    graph_stability = {}
+    proteins = setup_proteins_all_frames( path )
+    wt_string = "wild_types"
+    mutant_string = "mutants"
+    for protein_name, types in proteins.items():
+        graph_stability[ protein_name ] = {}
+        wild_types_dict_with_nodes = types[ wt_string ]
+        mutants_dict_with_nodes = types[ mutant_string ]
+        wild_types = normalize_nodes_all_frames( wild_types_dict_with_nodes )
+        mutants = normalize_nodes_all_frames( mutants_dict_with_nodes )
         for protein_number, mutant_centrality in mutants.items():
             if protein_number in wild_types :
                 graph_stability[ protein_name ][ protein_number ] = mutant_centrality - wild_types[ protein_number ]
@@ -293,7 +310,7 @@ def create_confusion_matrix( real_data_results, data_results ) :
 def print_matrix( name, true_positives, false_positives, false_negatives, true_negatives ):
     print( "{} Confusion Matrix \nTrue Positives: {}, False Negatives: {} \nFalse Positives: {}, True Negatives: {}".format( name, true_positives, false_positives, false_negatives, true_negatives ) )
 
-def bar_graph( graph_results, foldx_results ):
+def bar_graph( graph_results, foldx_results , title ):
     labels = [ "True\nPositives", "False\nNegatives", "False\nPositives", "True\nNegatives" ]
     x = np.arange( len( labels ) )
     width = 0.4
@@ -301,25 +318,26 @@ def bar_graph( graph_results, foldx_results ):
     ax.bar( x - width / 2, graph_results, width, label = 'Graph' )
     ax.bar( x + width / 2, foldx_results, width, label = 'FoldX' )
     ax.set_ylabel( "# of results" )
-    ax.set_title( "FoldX and Graph Result Comparison" )
+    ax.set_title(f"FoldX and Graph Result Comparison \n {title}" )
     ax.set_xticks( x )
     ax.set_xticklabels( labels , rotation=0 , fontsize=14 )
     ax.legend()
     fig.tight_layout()
     plt.show()
 
-def bar_stats_graph( graph_stats, foldx_stats ):
+def bar_stats_graph( graph_stats, foldx_stats , title ):
     labels = [ "sensitivity", "specificity", "precision" ]
     x = np.arange( len( labels ) )
     width = 0.4
     fig, ax = plt.subplots()
     ax.bar( x - width / 2, graph_stats, width, label='Graph' )
     ax.bar( x + width / 2, foldx_stats, width, label='FoldX' )
-    ax.set_title( "Statistics Comparison" )
+    ax.set_title(f"Statistics Comparison {title}" )
     ax.set_xticks( x )
     ax.set_xticklabels( labels)
     ax.set_ylim( [ 0, 1 ] )
     ax.legend()
+    
     fig.tight_layout()
     plt.show()
 
@@ -343,20 +361,107 @@ if __name__ == "__main__":
     real_data_path = "./Results/RealData.txt"#"../../../FoldX/RealData.txt"
     foldX_data_path = "./Results/ddg_protein_analysis_FOLDX_RESULTS.txt"#"../../../FoldX/ddg_protein_analysis_FOLDX_RESULTS.txt"
     graph_data_path = "./Results/graph_results.txt"#"results.txt"
-
+    i_mut_data_path = "./Results/i_Mut_final_data.txt"
+    
+    
     real_data_results = read_real_results( real_data_path )
     foldX_data_results = read_foldx_results( foldX_data_path )
-
-
+    i_mut_data_results = read_foldx_results(i_mut_data_path)
+    
+    print("Only last frame")
     graph_data_results = read_graph_results( graph_data_path )
     true_positives, false_positives, false_negatives, true_negatives = create_confusion_matrix( real_data_results, graph_data_results )
     print_matrix( "Graph", true_positives, false_positives, false_negatives, true_negatives )
     print()
-    foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives = create_confusion_matrix( real_data_results, foldX_data_results )
-    print_matrix( "FoldX", foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
-
-    bar_graph( [ true_positives, false_positives, false_negatives, true_negatives ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] )
+    
+    g_sensitivity, g_specificity, g_precision = statistics( true_positives, false_positives, false_negatives, true_negatives )
+    
+    print("Sensitivity" , " Specificity", "Precision")
+    print("   {:.4f},    {:.4f} ,   {:.4f}".format(g_sensitivity, g_specificity, g_precision))
+    
+    print()
+   
+    
     #statistics
     g_sensitivity, g_specificity, g_precision = statistics( true_positives, false_positives, false_negatives, true_negatives )
+    
+
+
+    
+    
+    
+    
+    print("All frames")
+    graph_data_results = read_graph_results_all_frames( graph_data_path )
+    true_positives, false_positives, false_negatives, true_negatives = create_confusion_matrix( real_data_results, graph_data_results )
+    print_matrix( "Graph", true_positives, false_positives, false_negatives, true_negatives )
+    print()
+    #foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives = create_confusion_matrix( real_data_results, foldX_data_results )
+    #print_matrix( "FoldX", foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
+    
+   
+    #statistics
+    g_sensitivity, g_specificity, g_precision = statistics( true_positives, false_positives, false_negatives, true_negatives )
+    print("Sensitivity" , " Specificity", "Precision")
+    print("   {:.4f},    {:.4f} ,   {:.4f}".format(g_sensitivity, g_specificity, g_precision))
+    
+    print()
+    foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives = create_confusion_matrix( real_data_results, foldX_data_results )
+
     foldx_sensitivity, foldx_specificity, foldx_precision = statistics( foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
-    bar_stats_graph( [ g_sensitivity, g_specificity, g_precision ], [ foldx_sensitivity, foldx_specificity, foldx_precision ] )
+    bar_stats_graph( [ g_sensitivity, g_specificity, g_precision ], [ foldx_sensitivity, foldx_specificity, foldx_precision ] , "All frames")
+    bar_graph( [ true_positives, false_positives, false_negatives, true_negatives ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , "All frames")
+    
+    
+    print_matrix( "FoldX", foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
+    
+    
+    foldx_sensitivity, foldx_specificity, foldx_precision = statistics( foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
+    bar_stats_graph( [ g_sensitivity, g_specificity, g_precision ], [ foldx_sensitivity, foldx_specificity, foldx_precision ] , "Only last frame")
+    bar_graph( [ true_positives, false_positives, false_negatives, true_negatives ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , "Only last frame" )
+    
+    print("Sensitivity" , " Specificity", "Precision")
+    print("   {:.4f},    {:.4f} ,   {:.4f}".format(foldx_sensitivity, foldx_specificity, foldx_precision))
+    
+    print()    
+    data_perf=np.genfromtxt("./Results/Size_timeG_time_Cent")
+    plt.scatter(data_perf[:,0],data_perf[:,1])
+    plt.title("Time graph construction vs N atoms")
+    plt.ylabel("Time (s)")
+    plt.xlabel("# Atoms")
+    
+    
+    
+    i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives = create_confusion_matrix( real_data_results, i_mut_data_results )
+    i_mut_sensitivity, i_mut_specificity, i_mut_precision = statistics( i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives )
+    
+    print_matrix( "i_mut", i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives )
+    
+    print("Sensitivity" , " Specificity", "Precision")
+    print("   {:.4f},    {:.4f} ,   {:.4f}".format(i_mut_sensitivity, i_mut_specificity, i_mut_precision))
+    #TODO add imut to bar plots
+    '''
+    with open("./Results/Size_proteins","r") as size_file:
+        size = size_file.readlines()
+    sizes = {}
+    for i in size :
+        line = i.split()
+        if(line[0] not in sizes ):
+            sizes[line[0]] = line[1]
+    with open("./Results/TIME_FOLDX","r") as foldx_time:
+        fold_perf = foldx_time.readlines()    
+    plt.figure()
+    data_per_foldx=[]
+    for i in fold_perf:
+        line = i.split("." or "," or " ")
+        plt.scatter(sizes[line[0]],float(line[-1]),c="orange")
+        plt.ylabel("Time (s)")
+    plt.xlabel("# Atoms")
+    
+    #plt.xticks(np.arange(2400,8000,1000),np.arange(2400,8000,1000))
+    #plt.scatter(data_perf[:,0],data_perf[:,2])
+    #plt.title("Time local density vs N atoms")
+    #plt.ylabel("Time (s)")
+    #plt.xlabel("# Atoms")
+    '''
+    

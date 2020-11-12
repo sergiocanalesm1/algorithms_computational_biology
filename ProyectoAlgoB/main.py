@@ -34,7 +34,7 @@ import time
 #import TopologyReader as topr
 import Graph as G
 import Analysis_Networks as antx
-#import networkx as nx
+import networkx as nx
 
 #from rdkit import Chem
 #from rdkit.Chem import ChemicalFeatures
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     #    pdbs.append(name[:-1])
     #print(pdbs)
     pdbs=["1A43"]
-    stop_frame=2
+    stop_frame=1
     with open("results.txt", "w") as results_file:
         results_file.write("Struct(WT-C-Num-new-Nd) global centrality        "+
                            "local centrality        frame       E_LJ  "+
@@ -206,8 +206,8 @@ if __name__ == "__main__":
                                     print("Graph (s) |  Centrality(s)")
                                     c_temp=True
                                 prot_end =G_class.prot_end
-                                #distance_graph = G_class.createEdges(
-                                #    G_class.cartesian, 16)
+                                distance_graph = G_class.createEdges(
+                                    G_class.cartesian, 16)
                                 lj_graph = G_class.createEdges(G_class.LJ, 15)
                                 
                                 print("  {:.4f}  ".format(time.time()-t_g),end="|")
@@ -277,12 +277,12 @@ def RepresentGrap(graph_data, type_g):
     pos = nx.fruchterman_reingold_layout(G)
     plt.figure(figsize=(10, 5))
     nx.draw_networkx_nodes(G, pos, node_size=50)
-    nx.draw_networkx_edges(G, pos, width=0.6, arrowsize=10)
+    nx.draw_networkx_edges(G, pos, width=0, arrowsize=10)
     #nx.draw_networkx_labels(G, pos, font_size=12, font_family="sans-serif")
     #labels = nx.get_edge_attributes(G,'weight')
     # nx.draw_networkx_edge_labels(G,pos,edge_labels=labels)
     plt.axis("off")
     plt.show()
 # Holaalskjdh
-# RepresentGrap(distance_graph,"bonds")
-# RepresentGrap(lj_graph,"Electric")
+RepresentGrap(distance_graph,"bonds")
+#epresentGrap(lj_graph,"Electric")

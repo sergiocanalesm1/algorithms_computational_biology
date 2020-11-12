@@ -1,7 +1,3 @@
-Corri el:
-mar nov 10 00:18:35 -05 2020
-begin of the script
-['1A43', '1A5E', '1AEP', '1AG2', '1AKY', '1B8E', '1BLC', '1BOY', '1CAH', '1CSE', '1G4I', '1HK0', '1IET', '1IMQ', '1LVE', '1MSI', '1ONC', '1P2P', '1PDO', '1QND', '1SSO']
 analyzing 1A43
 analzying WA184A
 size of 1A43 = 2411
