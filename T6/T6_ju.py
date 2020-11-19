@@ -105,15 +105,16 @@ degrees=df.sum(axis=1).values
 
 
 from collections import Counter
-degres_allprot=dict(Counter(degrees))
-"""
-plt.figure()
-plt.title("Degree Distribution")
-plt.xlabel("degree")
-plt.ylabel("# of nodes")
-plt.bar(degres_allprot.keys(),degres_allprot.values(),)
-plt.show()
-"""
+
+def plot_degrees():
+    degres_allprot = dict(Counter(degrees))
+    plt.figure()
+    plt.title("Degree Distribution")
+    plt.xlabel("degree")
+    plt.ylabel("# of nodes")
+    plt.bar(degres_allprot.keys(),degres_allprot.values(),)
+    plt.show()
+
 
 # In[119]:
 
