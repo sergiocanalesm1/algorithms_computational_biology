@@ -92,6 +92,8 @@ def local_density( graph, node ,prot_end):
                 count += 1
 
     posible_edges = len(edges_temp) * (len(edges_temp) - 1) / 2
+    if(posible_edges==0):
+        return 0
     return count / posible_edges
 
 #def average_density_per_degree( degree, densities ):

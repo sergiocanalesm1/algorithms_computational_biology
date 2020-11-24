@@ -1,0 +1,580 @@
+; MARTINI (martini22) Coarse Grained topology file for "Protein_A"
+; Created by py version 2.6 
+; Using the following options:  -f 1A43.pdb -o 1A43_CG.top -x 1A43_CG.pdb -p backbone -ff martini22
+; Sequence:
+; TSILDIRQGPKEPFRDYVDRFYKTLRAEQASQEVKNWMTETLLVQNANPDCKTILKALGPGATLEEMMTACQ
+; Secondary Structure:
+; CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+[ moleculetype ]
+; Name         Exclusions
+Protein_A         1
+
+[ atoms ]
+    1    Qd     1   THR    BB     1  1.0000 ; C
+    2    P1     1   THR   SC1     2  0.0000 ; C
+    3    P5     2   SER    BB     3  0.0000 ; C
+    4    P1     2   SER   SC1     4  0.0000 ; C
+    5    P5     3   ILE    BB     5  0.0000 ; C
+    6   AC1     3   ILE   SC1     6  0.0000 ; C
+    7    P5     4   LEU    BB     7  0.0000 ; C
+    8   AC1     4   LEU   SC1     8  0.0000 ; C
+    9    P5     5   ASP    BB     9  0.0000 ; C
+   10    Qa     5   ASP   SC1    10 -1.0000 ; C
+   11    P5     6   ILE    BB    11  0.0000 ; C
+   12   AC1     6   ILE   SC1    12  0.0000 ; C
+   13    P5     7   ARG    BB    13  0.0000 ; C
+   14    N0     7   ARG   SC1    14  0.0000 ; C
+   15    Qd     7   ARG   SC2    15  1.0000 ; C
+   16    P5     8   GLN    BB    16  0.0000 ; C
+   17    P4     8   GLN   SC1    17  0.0000 ; C
+   18    P5     9   GLY    BB    18  0.0000 ; C
+   19    P4    10   PRO    BB    19  0.0000 ; C
+   20    C3    10   PRO   SC1    20  0.0000 ; C
+   21    P5    11   LYS    BB    21  0.0000 ; C
+   22    C3    11   LYS   SC1    22  0.0000 ; C
+   23    Qd    11   LYS   SC2    23  1.0000 ; C
+   24    P5    12   GLU    BB    24  0.0000 ; C
+   25    Qa    12   GLU   SC1    25 -1.0000 ; C
+   26    P4    13   PRO    BB    26  0.0000 ; C
+   27    C3    13   PRO   SC1    27  0.0000 ; C
+   28    P5    14   PHE    BB    28  0.0000 ; C
+   29   SC5    14   PHE   SC1    29  0.0000 ; C
+   30   SC5    14   PHE   SC2    30  0.0000 ; C
+   31   SC5    14   PHE   SC3    31  0.0000 ; C
+   32    P5    15   ARG    BB    32  0.0000 ; C
+   33    N0    15   ARG   SC1    33  0.0000 ; C
+   34    Qd    15   ARG   SC2    34  1.0000 ; C
+   35    P5    16   ASP    BB    35  0.0000 ; C
+   36    Qa    16   ASP   SC1    36 -1.0000 ; C
+   37    P5    17   TYR    BB    37  0.0000 ; C
+   38   SC4    17   TYR   SC1    38  0.0000 ; C
+   39   SC4    17   TYR   SC2    39  0.0000 ; C
+   40   SP1    17   TYR   SC3    40  0.0000 ; C
+   41    P5    18   VAL    BB    41  0.0000 ; C
+   42   AC2    18   VAL   SC1    42  0.0000 ; C
+   43    P5    19   ASP    BB    43  0.0000 ; C
+   44    Qa    19   ASP   SC1    44 -1.0000 ; C
+   45    P5    20   ARG    BB    45  0.0000 ; C
+   46    N0    20   ARG   SC1    46  0.0000 ; C
+   47    Qd    20   ARG   SC2    47  1.0000 ; C
+   48    P5    21   PHE    BB    48  0.0000 ; C
+   49   SC5    21   PHE   SC1    49  0.0000 ; C
+   50   SC5    21   PHE   SC2    50  0.0000 ; C
+   51   SC5    21   PHE   SC3    51  0.0000 ; C
+   52    P5    22   TYR    BB    52  0.0000 ; C
+   53   SC4    22   TYR   SC1    53  0.0000 ; C
+   54   SC4    22   TYR   SC2    54  0.0000 ; C
+   55   SP1    22   TYR   SC3    55  0.0000 ; C
+   56    P5    23   LYS    BB    56  0.0000 ; C
+   57    C3    23   LYS   SC1    57  0.0000 ; C
+   58    Qd    23   LYS   SC2    58  1.0000 ; C
+   59    P5    24   THR    BB    59  0.0000 ; C
+   60    P1    24   THR   SC1    60  0.0000 ; C
+   61    P5    25   LEU    BB    61  0.0000 ; C
+   62   AC1    25   LEU   SC1    62  0.0000 ; C
+   63    P5    26   ARG    BB    63  0.0000 ; C
+   64    N0    26   ARG   SC1    64  0.0000 ; C
+   65    Qd    26   ARG   SC2    65  1.0000 ; C
+   66    P4    27   ALA    BB    66  0.0000 ; C
+   67    P5    28   GLU    BB    67  0.0000 ; C
+   68    Qa    28   GLU   SC1    68 -1.0000 ; C
+   69    P5    29   GLN    BB    69  0.0000 ; C
+   70    P4    29   GLN   SC1    70  0.0000 ; C
+   71    P4    30   ALA    BB    71  0.0000 ; C
+   72    P5    31   SER    BB    72  0.0000 ; C
+   73    P1    31   SER   SC1    73  0.0000 ; C
+   74    P5    32   GLN    BB    74  0.0000 ; C
+   75    P4    32   GLN   SC1    75  0.0000 ; C
+   76    P5    33   GLU    BB    76  0.0000 ; C
+   77    Qa    33   GLU   SC1    77 -1.0000 ; C
+   78    P5    34   VAL    BB    78  0.0000 ; C
+   79   AC2    34   VAL   SC1    79  0.0000 ; C
+   80    P5    35   LYS    BB    80  0.0000 ; C
+   81    C3    35   LYS   SC1    81  0.0000 ; C
+   82    Qd    35   LYS   SC2    82  1.0000 ; C
+   83    P5    36   ASN    BB    83  0.0000 ; C
+   84    P5    36   ASN   SC1    84  0.0000 ; C
+   85    P5    37   TRP    BB    85  0.0000 ; C
+   86   SC4    37   TRP   SC1    86  0.0000 ; C
+   87   SNd    37   TRP   SC2    87  0.0000 ; C
+   88   SC5    37   TRP   SC3    88  0.0000 ; C
+   89   SC5    37   TRP   SC4    89  0.0000 ; C
+   90    P5    38   MET    BB    90  0.0000 ; C
+   91    C5    38   MET   SC1    91  0.0000 ; C
+   92    P5    39   THR    BB    92  0.0000 ; C
+   93    P1    39   THR   SC1    93  0.0000 ; C
+   94    P5    40   GLU    BB    94  0.0000 ; C
+   95    Qa    40   GLU   SC1    95 -1.0000 ; C
+   96    P5    41   THR    BB    96  0.0000 ; C
+   97    P1    41   THR   SC1    97  0.0000 ; C
+   98    P5    42   LEU    BB    98  0.0000 ; C
+   99   AC1    42   LEU   SC1    99  0.0000 ; C
+  100    P5    43   LEU    BB   100  0.0000 ; C
+  101   AC1    43   LEU   SC1   101  0.0000 ; C
+  102    P5    44   VAL    BB   102  0.0000 ; C
+  103   AC2    44   VAL   SC1   103  0.0000 ; C
+  104    P5    45   GLN    BB   104  0.0000 ; C
+  105    P4    45   GLN   SC1   105  0.0000 ; C
+  106    P5    46   ASN    BB   106  0.0000 ; C
+  107    P5    46   ASN   SC1   107  0.0000 ; C
+  108    P4    47   ALA    BB   108  0.0000 ; C
+  109    P5    48   ASN    BB   109  0.0000 ; C
+  110    P5    48   ASN   SC1   110  0.0000 ; C
+  111    P4    49   PRO    BB   111  0.0000 ; C
+  112    C3    49   PRO   SC1   112  0.0000 ; C
+  113    P5    50   ASP    BB   113  0.0000 ; C
+  114    Qa    50   ASP   SC1   114 -1.0000 ; C
+  115    P5    51   CYS    BB   115  0.0000 ; C
+  116    C5    51   CYS   SC1   116  0.0000 ; C
+  117    P5    52   LYS    BB   117  0.0000 ; C
+  118    C3    52   LYS   SC1   118  0.0000 ; C
+  119    Qd    52   LYS   SC2   119  1.0000 ; C
+  120    P5    53   THR    BB   120  0.0000 ; C
+  121    P1    53   THR   SC1   121  0.0000 ; C
+  122    P5    54   ILE    BB   122  0.0000 ; C
+  123   AC1    54   ILE   SC1   123  0.0000 ; C
+  124    P5    55   LEU    BB   124  0.0000 ; C
+  125   AC1    55   LEU   SC1   125  0.0000 ; C
+  126    P5    56   LYS    BB   126  0.0000 ; C
+  127    C3    56   LYS   SC1   127  0.0000 ; C
+  128    Qd    56   LYS   SC2   128  1.0000 ; C
+  129    P4    57   ALA    BB   129  0.0000 ; C
+  130    P5    58   LEU    BB   130  0.0000 ; C
+  131   AC1    58   LEU   SC1   131  0.0000 ; C
+  132    P5    59   GLY    BB   132  0.0000 ; C
+  133    P4    60   PRO    BB   133  0.0000 ; C
+  134    C3    60   PRO   SC1   134  0.0000 ; C
+  135    P5    61   GLY    BB   135  0.0000 ; C
+  136    P4    62   ALA    BB   136  0.0000 ; C
+  137    P5    63   THR    BB   137  0.0000 ; C
+  138    P1    63   THR   SC1   138  0.0000 ; C
+  139    P5    64   LEU    BB   139  0.0000 ; C
+  140   AC1    64   LEU   SC1   140  0.0000 ; C
+  141    P5    65   GLU    BB   141  0.0000 ; C
+  142    Qa    65   GLU   SC1   142 -1.0000 ; C
+  143    P5    66   GLU    BB   143  0.0000 ; C
+  144    Qa    66   GLU   SC1   144 -1.0000 ; C
+  145    P5    67   MET    BB   145  0.0000 ; C
+  146    C5    67   MET   SC1   146  0.0000 ; C
+  147    P5    68   MET    BB   147  0.0000 ; C
+  148    C5    68   MET   SC1   148  0.0000 ; C
+  149    P5    69   THR    BB   149  0.0000 ; C
+  150    P1    69   THR   SC1   150  0.0000 ; C
+  151    P4    70   ALA    BB   151  0.0000 ; C
+  152    P5    71   CYS    BB   152  0.0000 ; C
+  153    C5    71   CYS   SC1   153  0.0000 ; C
+  154    Qa    72   GLN    BB   154 -1.0000 ; C
+  155    P4    72   GLN   SC1   155  0.0000 ; C
+
+[ bonds ]
+; Backbone bonds
+    1     3      1   0.35000  1250 ; THR(C)-SER(C)
+    3     5      1   0.35000  1250 ; SER(C)-ILE(C)
+    5     7      1   0.35000  1250 ; ILE(C)-LEU(C)
+    7     9      1   0.35000  1250 ; LEU(C)-ASP(C)
+    9    11      1   0.35000  1250 ; ASP(C)-ILE(C)
+   11    13      1   0.35000  1250 ; ILE(C)-ARG(C)
+   13    16      1   0.35000  1250 ; ARG(C)-GLN(C)
+   16    18      1   0.35000  1250 ; GLN(C)-GLY(C)
+   18    19      1   0.35000  1250 ; GLY(C)-PRO(C)
+   19    21      1   0.35000  1250 ; PRO(C)-LYS(C)
+   21    24      1   0.35000  1250 ; LYS(C)-GLU(C)
+   24    26      1   0.35000  1250 ; GLU(C)-PRO(C)
+   26    28      1   0.35000  1250 ; PRO(C)-PHE(C)
+   28    32      1   0.35000  1250 ; PHE(C)-ARG(C)
+   32    35      1   0.35000  1250 ; ARG(C)-ASP(C)
+   35    37      1   0.35000  1250 ; ASP(C)-TYR(C)
+   37    41      1   0.35000  1250 ; TYR(C)-VAL(C)
+   41    43      1   0.35000  1250 ; VAL(C)-ASP(C)
+   43    45      1   0.35000  1250 ; ASP(C)-ARG(C)
+   45    48      1   0.35000  1250 ; ARG(C)-PHE(C)
+   48    52      1   0.35000  1250 ; PHE(C)-TYR(C)
+   52    56      1   0.35000  1250 ; TYR(C)-LYS(C)
+   56    59      1   0.35000  1250 ; LYS(C)-THR(C)
+   59    61      1   0.35000  1250 ; THR(C)-LEU(C)
+   61    63      1   0.35000  1250 ; LEU(C)-ARG(C)
+   63    66      1   0.35000  1250 ; ARG(C)-ALA(C)
+   66    67      1   0.35000  1250 ; ALA(C)-GLU(C)
+   67    69      1   0.35000  1250 ; GLU(C)-GLN(C)
+   69    71      1   0.35000  1250 ; GLN(C)-ALA(C)
+   71    72      1   0.35000  1250 ; ALA(C)-SER(C)
+   72    74      1   0.35000  1250 ; SER(C)-GLN(C)
+   74    76      1   0.35000  1250 ; GLN(C)-GLU(C)
+   76    78      1   0.35000  1250 ; GLU(C)-VAL(C)
+   78    80      1   0.35000  1250 ; VAL(C)-LYS(C)
+   80    83      1   0.35000  1250 ; LYS(C)-ASN(C)
+   83    85      1   0.35000  1250 ; ASN(C)-TRP(C)
+   85    90      1   0.35000  1250 ; TRP(C)-MET(C)
+   90    92      1   0.35000  1250 ; MET(C)-THR(C)
+   92    94      1   0.35000  1250 ; THR(C)-GLU(C)
+   94    96      1   0.35000  1250 ; GLU(C)-THR(C)
+   96    98      1   0.35000  1250 ; THR(C)-LEU(C)
+   98   100      1   0.35000  1250 ; LEU(C)-LEU(C)
+  100   102      1   0.35000  1250 ; LEU(C)-VAL(C)
+  102   104      1   0.35000  1250 ; VAL(C)-GLN(C)
+  104   106      1   0.35000  1250 ; GLN(C)-ASN(C)
+  106   108      1   0.35000  1250 ; ASN(C)-ALA(C)
+  108   109      1   0.35000  1250 ; ALA(C)-ASN(C)
+  109   111      1   0.35000  1250 ; ASN(C)-PRO(C)
+  111   113      1   0.35000  1250 ; PRO(C)-ASP(C)
+  113   115      1   0.35000  1250 ; ASP(C)-CYS(C)
+  115   117      1   0.35000  1250 ; CYS(C)-LYS(C)
+  117   120      1   0.35000  1250 ; LYS(C)-THR(C)
+  120   122      1   0.35000  1250 ; THR(C)-ILE(C)
+  122   124      1   0.35000  1250 ; ILE(C)-LEU(C)
+  124   126      1   0.35000  1250 ; LEU(C)-LYS(C)
+  126   129      1   0.35000  1250 ; LYS(C)-ALA(C)
+  129   130      1   0.35000  1250 ; ALA(C)-LEU(C)
+  130   132      1   0.35000  1250 ; LEU(C)-GLY(C)
+  132   133      1   0.35000  1250 ; GLY(C)-PRO(C)
+  133   135      1   0.35000  1250 ; PRO(C)-GLY(C)
+  135   136      1   0.35000  1250 ; GLY(C)-ALA(C)
+  136   137      1   0.35000  1250 ; ALA(C)-THR(C)
+  137   139      1   0.35000  1250 ; THR(C)-LEU(C)
+  139   141      1   0.35000  1250 ; LEU(C)-GLU(C)
+  141   143      1   0.35000  1250 ; GLU(C)-GLU(C)
+  143   145      1   0.35000  1250 ; GLU(C)-MET(C)
+  145   147      1   0.35000  1250 ; MET(C)-MET(C)
+  147   149      1   0.35000  1250 ; MET(C)-THR(C)
+  149   151      1   0.35000  1250 ; THR(C)-ALA(C)
+  151   152      1   0.35000  1250 ; ALA(C)-CYS(C)
+  152   154      1   0.35000  1250 ; CYS(C)-GLN(C)
+; Sidechain bonds
+    3     4      1   0.25000  7500 ; SER
+    7     8      1   0.33000  7500 ; LEU
+    9    10      1   0.32000  7500 ; ASP
+   13    14      1   0.33000  5000 ; ARG
+   14    15      1   0.34000  5000 ; ARG
+   16    17      1   0.40000  5000 ; GLN
+   19    20      1   0.30000  7500 ; PRO
+   21    22      1   0.33000  5000 ; LYS
+   22    23      1   0.28000  5000 ; LYS
+   24    25      1   0.40000  5000 ; GLU
+   26    27      1   0.30000  7500 ; PRO
+   28    29      1   0.31000  7500 ; PHE
+   32    33      1   0.33000  5000 ; ARG
+   33    34      1   0.34000  5000 ; ARG
+   35    36      1   0.32000  7500 ; ASP
+   37    38      1   0.32000  5000 ; TYR
+   43    44      1   0.32000  7500 ; ASP
+   45    46      1   0.33000  5000 ; ARG
+   46    47      1   0.34000  5000 ; ARG
+   48    49      1   0.31000  7500 ; PHE
+   52    53      1   0.32000  5000 ; TYR
+   56    57      1   0.33000  5000 ; LYS
+   57    58      1   0.28000  5000 ; LYS
+   61    62      1   0.33000  7500 ; LEU
+   63    64      1   0.33000  5000 ; ARG
+   64    65      1   0.34000  5000 ; ARG
+   67    68      1   0.40000  5000 ; GLU
+   69    70      1   0.40000  5000 ; GLN
+   72    73      1   0.25000  7500 ; SER
+   74    75      1   0.40000  5000 ; GLN
+   76    77      1   0.40000  5000 ; GLU
+   80    81      1   0.33000  5000 ; LYS
+   81    82      1   0.28000  5000 ; LYS
+   83    84      1   0.32000  5000 ; ASN
+   85    86      1   0.30000  5000 ; TRP
+   90    91      1   0.40000  2500 ; MET
+   94    95      1   0.40000  5000 ; GLU
+   98    99      1   0.33000  7500 ; LEU
+  100   101      1   0.33000  7500 ; LEU
+  104   105      1   0.40000  5000 ; GLN
+  106   107      1   0.32000  5000 ; ASN
+  109   110      1   0.32000  5000 ; ASN
+  111   112      1   0.30000  7500 ; PRO
+  113   114      1   0.32000  7500 ; ASP
+  115   116      1   0.31000  7500 ; CYS
+  117   118      1   0.33000  5000 ; LYS
+  118   119      1   0.28000  5000 ; LYS
+  124   125      1   0.33000  7500 ; LEU
+  126   127      1   0.33000  5000 ; LYS
+  127   128      1   0.28000  5000 ; LYS
+  130   131      1   0.33000  7500 ; LEU
+  133   134      1   0.30000  7500 ; PRO
+  139   140      1   0.33000  7500 ; LEU
+  141   142      1   0.40000  5000 ; GLU
+  143   144      1   0.40000  5000 ; GLU
+  145   146      1   0.40000  2500 ; MET
+  147   148      1   0.40000  2500 ; MET
+  152   153      1   0.31000  7500 ; CYS
+  154   155      1   0.40000  5000 ; GLN
+
+[ constraints ]
+    1     2      1   0.26000 ; THR
+    5     6      1   0.31000 ; ILE
+   11    12      1   0.31000 ; ILE
+   29    30      1   0.27000 ; PHE
+   29    31      1   0.27000 ; PHE
+   30    31      1   0.27000 ; PHE
+   38    39      1   0.27000 ; TYR
+   38    40      1   0.27000 ; TYR
+   39    40      1   0.27000 ; TYR
+   41    42      1   0.26500 ; VAL
+   49    50      1   0.27000 ; PHE
+   49    51      1   0.27000 ; PHE
+   50    51      1   0.27000 ; PHE
+   53    54      1   0.27000 ; TYR
+   53    55      1   0.27000 ; TYR
+   54    55      1   0.27000 ; TYR
+   59    60      1   0.26000 ; THR
+   78    79      1   0.26500 ; VAL
+   86    87      1   0.27000 ; TRP
+   86    88      1   0.27000 ; TRP
+   87    88      1   0.27000 ; TRP
+   87    89      1   0.27000 ; TRP
+   88    89      1   0.27000 ; TRP
+   92    93      1   0.26000 ; THR
+   96    97      1   0.26000 ; THR
+  102   103      1   0.26500 ; VAL
+  120   121      1   0.26000 ; THR
+  122   123      1   0.31000 ; ILE
+  137   138      1   0.26000 ; THR
+  149   150      1   0.26000 ; THR
+
+[ angles ]
+; Backbone angles
+    1     3     5      2    127    20 ; THR(C)-SER(C)-ILE(C)
+    3     5     7      2    127    20 ; SER(C)-ILE(C)-LEU(C)
+    5     7     9      2    127    20 ; ILE(C)-LEU(C)-ASP(C)
+    7     9    11      2    127    20 ; LEU(C)-ASP(C)-ILE(C)
+    9    11    13      2    127    20 ; ASP(C)-ILE(C)-ARG(C)
+   11    13    16      2    127    20 ; ILE(C)-ARG(C)-GLN(C)
+   13    16    18      2    127    20 ; ARG(C)-GLN(C)-GLY(C)
+   16    18    19      2    127    20 ; GLN(C)-GLY(C)-PRO(C)
+   18    19    21      2    127    20 ; GLY(C)-PRO(C)-LYS(C)
+   19    21    24      2    127    20 ; PRO(C)-LYS(C)-GLU(C)
+   21    24    26      2    127    20 ; LYS(C)-GLU(C)-PRO(C)
+   24    26    28      2    127    20 ; GLU(C)-PRO(C)-PHE(C)
+   26    28    32      2    127    20 ; PRO(C)-PHE(C)-ARG(C)
+   28    32    35      2    127    20 ; PHE(C)-ARG(C)-ASP(C)
+   32    35    37      2    127    20 ; ARG(C)-ASP(C)-TYR(C)
+   35    37    41      2    127    20 ; ASP(C)-TYR(C)-VAL(C)
+   37    41    43      2    127    20 ; TYR(C)-VAL(C)-ASP(C)
+   41    43    45      2    127    20 ; VAL(C)-ASP(C)-ARG(C)
+   43    45    48      2    127    20 ; ASP(C)-ARG(C)-PHE(C)
+   45    48    52      2    127    20 ; ARG(C)-PHE(C)-TYR(C)
+   48    52    56      2    127    20 ; PHE(C)-TYR(C)-LYS(C)
+   52    56    59      2    127    20 ; TYR(C)-LYS(C)-THR(C)
+   56    59    61      2    127    20 ; LYS(C)-THR(C)-LEU(C)
+   59    61    63      2    127    20 ; THR(C)-LEU(C)-ARG(C)
+   61    63    66      2    127    20 ; LEU(C)-ARG(C)-ALA(C)
+   63    66    67      2    127    20 ; ARG(C)-ALA(C)-GLU(C)
+   66    67    69      2    127    20 ; ALA(C)-GLU(C)-GLN(C)
+   67    69    71      2    127    20 ; GLU(C)-GLN(C)-ALA(C)
+   69    71    72      2    127    20 ; GLN(C)-ALA(C)-SER(C)
+   71    72    74      2    127    20 ; ALA(C)-SER(C)-GLN(C)
+   72    74    76      2    127    20 ; SER(C)-GLN(C)-GLU(C)
+   74    76    78      2    127    20 ; GLN(C)-GLU(C)-VAL(C)
+   76    78    80      2    127    20 ; GLU(C)-VAL(C)-LYS(C)
+   78    80    83      2    127    20 ; VAL(C)-LYS(C)-ASN(C)
+   80    83    85      2    127    20 ; LYS(C)-ASN(C)-TRP(C)
+   83    85    90      2    127    20 ; ASN(C)-TRP(C)-MET(C)
+   85    90    92      2    127    20 ; TRP(C)-MET(C)-THR(C)
+   90    92    94      2    127    20 ; MET(C)-THR(C)-GLU(C)
+   92    94    96      2    127    20 ; THR(C)-GLU(C)-THR(C)
+   94    96    98      2    127    20 ; GLU(C)-THR(C)-LEU(C)
+   96    98   100      2    127    20 ; THR(C)-LEU(C)-LEU(C)
+   98   100   102      2    127    20 ; LEU(C)-LEU(C)-VAL(C)
+  100   102   104      2    127    20 ; LEU(C)-VAL(C)-GLN(C)
+  102   104   106      2    127    20 ; VAL(C)-GLN(C)-ASN(C)
+  104   106   108      2    127    20 ; GLN(C)-ASN(C)-ALA(C)
+  106   108   109      2    127    20 ; ASN(C)-ALA(C)-ASN(C)
+  108   109   111      2    127    20 ; ALA(C)-ASN(C)-PRO(C)
+  109   111   113      2    127    20 ; ASN(C)-PRO(C)-ASP(C)
+  111   113   115      2    127    20 ; PRO(C)-ASP(C)-CYS(C)
+  113   115   117      2    127    20 ; ASP(C)-CYS(C)-LYS(C)
+  115   117   120      2    127    20 ; CYS(C)-LYS(C)-THR(C)
+  117   120   122      2    127    20 ; LYS(C)-THR(C)-ILE(C)
+  120   122   124      2    127    20 ; THR(C)-ILE(C)-LEU(C)
+  122   124   126      2    127    20 ; ILE(C)-LEU(C)-LYS(C)
+  124   126   129      2    127    20 ; LEU(C)-LYS(C)-ALA(C)
+  126   129   130      2    127    20 ; LYS(C)-ALA(C)-LEU(C)
+  129   130   132      2    127    20 ; ALA(C)-LEU(C)-GLY(C)
+  130   132   133      2    127    20 ; LEU(C)-GLY(C)-PRO(C)
+  132   133   135      2    127    20 ; GLY(C)-PRO(C)-GLY(C)
+  133   135   136      2    127    20 ; PRO(C)-GLY(C)-ALA(C)
+  135   136   137      2    127    20 ; GLY(C)-ALA(C)-THR(C)
+  136   137   139      2    127    20 ; ALA(C)-THR(C)-LEU(C)
+  137   139   141      2    127    20 ; THR(C)-LEU(C)-GLU(C)
+  139   141   143      2    127    20 ; LEU(C)-GLU(C)-GLU(C)
+  141   143   145      2    127    20 ; GLU(C)-GLU(C)-MET(C)
+  143   145   147      2    127    20 ; GLU(C)-MET(C)-MET(C)
+  145   147   149      2    127    20 ; MET(C)-MET(C)-THR(C)
+  147   149   151      2    127    20 ; MET(C)-THR(C)-ALA(C)
+  149   151   152      2    127    20 ; THR(C)-ALA(C)-CYS(C)
+  151   152   154      2    127    20 ; ALA(C)-CYS(C)-GLN(C)
+; Backbone-sidechain angles
+    2     1     3      2    100    25 ; THR(C)-SER(C) SBB
+    1     3     4      2    100    25 ; THR(C)-SER(C) SBB
+    3     5     6      2    100    25 ; SER(C)-ILE(C) SBB
+    5     7     8      2    100    25 ; ILE(C)-LEU(C) SBB
+    7     9    10      2    100    25 ; LEU(C)-ASP(C) SBB
+    9    11    12      2    100    25 ; ASP(C)-ILE(C) SBB
+   11    13    14      2    100    25 ; ILE(C)-ARG(C) SBB
+   13    16    17      2    100    25 ; ARG(C)-GLN(C) SBB
+   18    19    20      2    100    25 ; GLY(C)-PRO(C) SBB
+   19    21    22      2    100    25 ; PRO(C)-LYS(C) SBB
+   21    24    25      2    100    25 ; LYS(C)-GLU(C) SBB
+   24    26    27      2    100    25 ; GLU(C)-PRO(C) SBB
+   26    28    29      2    100    25 ; PRO(C)-PHE(C) SBB
+   28    32    33      2    100    25 ; PHE(C)-ARG(C) SBB
+   32    35    36      2    100    25 ; ARG(C)-ASP(C) SBB
+   35    37    38      2    100    25 ; ASP(C)-TYR(C) SBB
+   37    41    42      2    100    25 ; TYR(C)-VAL(C) SBB
+   41    43    44      2    100    25 ; VAL(C)-ASP(C) SBB
+   43    45    46      2    100    25 ; ASP(C)-ARG(C) SBB
+   45    48    49      2    100    25 ; ARG(C)-PHE(C) SBB
+   48    52    53      2    100    25 ; PHE(C)-TYR(C) SBB
+   52    56    57      2    100    25 ; TYR(C)-LYS(C) SBB
+   56    59    60      2    100    25 ; LYS(C)-THR(C) SBB
+   59    61    62      2    100    25 ; THR(C)-LEU(C) SBB
+   61    63    64      2    100    25 ; LEU(C)-ARG(C) SBB
+   66    67    68      2    100    25 ; ALA(C)-GLU(C) SBB
+   67    69    70      2    100    25 ; GLU(C)-GLN(C) SBB
+   71    72    73      2    100    25 ; ALA(C)-SER(C) SBB
+   72    74    75      2    100    25 ; SER(C)-GLN(C) SBB
+   74    76    77      2    100    25 ; GLN(C)-GLU(C) SBB
+   76    78    79      2    100    25 ; GLU(C)-VAL(C) SBB
+   78    80    81      2    100    25 ; VAL(C)-LYS(C) SBB
+   80    83    84      2    100    25 ; LYS(C)-ASN(C) SBB
+   83    85    86      2    100    25 ; ASN(C)-TRP(C) SBB
+   85    90    91      2    100    25 ; TRP(C)-MET(C) SBB
+   90    92    93      2    100    25 ; MET(C)-THR(C) SBB
+   92    94    95      2    100    25 ; THR(C)-GLU(C) SBB
+   94    96    97      2    100    25 ; GLU(C)-THR(C) SBB
+   96    98    99      2    100    25 ; THR(C)-LEU(C) SBB
+   98   100   101      2    100    25 ; LEU(C)-LEU(C) SBB
+  100   102   103      2    100    25 ; LEU(C)-VAL(C) SBB
+  102   104   105      2    100    25 ; VAL(C)-GLN(C) SBB
+  104   106   107      2    100    25 ; GLN(C)-ASN(C) SBB
+  108   109   110      2    100    25 ; ALA(C)-ASN(C) SBB
+  109   111   112      2    100    25 ; ASN(C)-PRO(C) SBB
+  111   113   114      2    100    25 ; PRO(C)-ASP(C) SBB
+  113   115   116      2    100    25 ; ASP(C)-CYS(C) SBB
+  115   117   118      2    100    25 ; CYS(C)-LYS(C) SBB
+  117   120   121      2    100    25 ; LYS(C)-THR(C) SBB
+  120   122   123      2    100    25 ; THR(C)-ILE(C) SBB
+  122   124   125      2    100    25 ; ILE(C)-LEU(C) SBB
+  124   126   127      2    100    25 ; LEU(C)-LYS(C) SBB
+  129   130   131      2    100    25 ; ALA(C)-LEU(C) SBB
+  132   133   134      2    100    25 ; GLY(C)-PRO(C) SBB
+  136   137   138      2    100    25 ; ALA(C)-THR(C) SBB
+  137   139   140      2    100    25 ; THR(C)-LEU(C) SBB
+  139   141   142      2    100    25 ; LEU(C)-GLU(C) SBB
+  141   143   144      2    100    25 ; GLU(C)-GLU(C) SBB
+  143   145   146      2    100    25 ; GLU(C)-MET(C) SBB
+  145   147   148      2    100    25 ; MET(C)-MET(C) SBB
+  147   149   150      2    100    25 ; MET(C)-THR(C) SBB
+  151   152   153      2    100    25 ; ALA(C)-CYS(C) SBB
+  152   154   155      2    100    25 ; CYS(C)-GLN(C) SBB
+; Sidechain angles
+   13    14    15      2    180    25 ; ARG
+   21    22    23      2    180    25 ; LYS
+   28    29    30      2    150    50 ; PHE
+   28    29    31      2    150    50 ; PHE
+   32    33    34      2    180    25 ; ARG
+   37    38    39      2    150    50 ; TYR
+   37    38    40      2    150    50 ; TYR
+   45    46    47      2    180    25 ; ARG
+   48    49    50      2    150    50 ; PHE
+   48    49    51      2    150    50 ; PHE
+   52    53    54      2    150    50 ; TYR
+   52    53    55      2    150    50 ; TYR
+   56    57    58      2    180    25 ; LYS
+   63    64    65      2    180    25 ; ARG
+   80    81    82      2    180    25 ; LYS
+   85    86    87      2    210    50 ; TRP
+   85    86    88      2     90    50 ; TRP
+  117   118   119      2    180    25 ; LYS
+  126   127   128      2    180    25 ; LYS
+
+[ dihedrals ]
+; Backbone dihedrals
+; Sidechain improper dihedrals
+   28    30    31    29      2      0    50 ; PHE
+   37    39    40    38      2      0    50 ; TYR
+   48    50    51    49      2      0    50 ; PHE
+   52    54    55    53      2      0    50 ; TYR
+   85    87    88    86      2      0    50 ; TRP
+   86    87    89    88      2      0   200 ; TRP
+
+#ifdef POSRES
+#ifndef POSRES_FC
+#define POSRES_FC 1000.00
+#endif
+ [ position_restraints ]
+      1    1    POSRES_FC    POSRES_FC    POSRES_FC
+      3    1    POSRES_FC    POSRES_FC    POSRES_FC
+      5    1    POSRES_FC    POSRES_FC    POSRES_FC
+      7    1    POSRES_FC    POSRES_FC    POSRES_FC
+      9    1    POSRES_FC    POSRES_FC    POSRES_FC
+     11    1    POSRES_FC    POSRES_FC    POSRES_FC
+     13    1    POSRES_FC    POSRES_FC    POSRES_FC
+     16    1    POSRES_FC    POSRES_FC    POSRES_FC
+     18    1    POSRES_FC    POSRES_FC    POSRES_FC
+     19    1    POSRES_FC    POSRES_FC    POSRES_FC
+     21    1    POSRES_FC    POSRES_FC    POSRES_FC
+     24    1    POSRES_FC    POSRES_FC    POSRES_FC
+     26    1    POSRES_FC    POSRES_FC    POSRES_FC
+     28    1    POSRES_FC    POSRES_FC    POSRES_FC
+     32    1    POSRES_FC    POSRES_FC    POSRES_FC
+     35    1    POSRES_FC    POSRES_FC    POSRES_FC
+     37    1    POSRES_FC    POSRES_FC    POSRES_FC
+     41    1    POSRES_FC    POSRES_FC    POSRES_FC
+     43    1    POSRES_FC    POSRES_FC    POSRES_FC
+     45    1    POSRES_FC    POSRES_FC    POSRES_FC
+     48    1    POSRES_FC    POSRES_FC    POSRES_FC
+     52    1    POSRES_FC    POSRES_FC    POSRES_FC
+     56    1    POSRES_FC    POSRES_FC    POSRES_FC
+     59    1    POSRES_FC    POSRES_FC    POSRES_FC
+     61    1    POSRES_FC    POSRES_FC    POSRES_FC
+     63    1    POSRES_FC    POSRES_FC    POSRES_FC
+     66    1    POSRES_FC    POSRES_FC    POSRES_FC
+     67    1    POSRES_FC    POSRES_FC    POSRES_FC
+     69    1    POSRES_FC    POSRES_FC    POSRES_FC
+     71    1    POSRES_FC    POSRES_FC    POSRES_FC
+     72    1    POSRES_FC    POSRES_FC    POSRES_FC
+     74    1    POSRES_FC    POSRES_FC    POSRES_FC
+     76    1    POSRES_FC    POSRES_FC    POSRES_FC
+     78    1    POSRES_FC    POSRES_FC    POSRES_FC
+     80    1    POSRES_FC    POSRES_FC    POSRES_FC
+     83    1    POSRES_FC    POSRES_FC    POSRES_FC
+     85    1    POSRES_FC    POSRES_FC    POSRES_FC
+     90    1    POSRES_FC    POSRES_FC    POSRES_FC
+     92    1    POSRES_FC    POSRES_FC    POSRES_FC
+     94    1    POSRES_FC    POSRES_FC    POSRES_FC
+     96    1    POSRES_FC    POSRES_FC    POSRES_FC
+     98    1    POSRES_FC    POSRES_FC    POSRES_FC
+    100    1    POSRES_FC    POSRES_FC    POSRES_FC
+    102    1    POSRES_FC    POSRES_FC    POSRES_FC
+    104    1    POSRES_FC    POSRES_FC    POSRES_FC
+    106    1    POSRES_FC    POSRES_FC    POSRES_FC
+    108    1    POSRES_FC    POSRES_FC    POSRES_FC
+    109    1    POSRES_FC    POSRES_FC    POSRES_FC
+    111    1    POSRES_FC    POSRES_FC    POSRES_FC
+    113    1    POSRES_FC    POSRES_FC    POSRES_FC
+    115    1    POSRES_FC    POSRES_FC    POSRES_FC
+    117    1    POSRES_FC    POSRES_FC    POSRES_FC
+    120    1    POSRES_FC    POSRES_FC    POSRES_FC
+    122    1    POSRES_FC    POSRES_FC    POSRES_FC
+    124    1    POSRES_FC    POSRES_FC    POSRES_FC
+    126    1    POSRES_FC    POSRES_FC    POSRES_FC
+    129    1    POSRES_FC    POSRES_FC    POSRES_FC
+    130    1    POSRES_FC    POSRES_FC    POSRES_FC
+    132    1    POSRES_FC    POSRES_FC    POSRES_FC
+    133    1    POSRES_FC    POSRES_FC    POSRES_FC
+    135    1    POSRES_FC    POSRES_FC    POSRES_FC
+    136    1    POSRES_FC    POSRES_FC    POSRES_FC
+    137    1    POSRES_FC    POSRES_FC    POSRES_FC
+    139    1    POSRES_FC    POSRES_FC    POSRES_FC
+    141    1    POSRES_FC    POSRES_FC    POSRES_FC
+    143    1    POSRES_FC    POSRES_FC    POSRES_FC
+    145    1    POSRES_FC    POSRES_FC    POSRES_FC
+    147    1    POSRES_FC    POSRES_FC    POSRES_FC
+    149    1    POSRES_FC    POSRES_FC    POSRES_FC
+    151    1    POSRES_FC    POSRES_FC    POSRES_FC
+    152    1    POSRES_FC    POSRES_FC    POSRES_FC
+    154    1    POSRES_FC    POSRES_FC    POSRES_FC
+#endif
