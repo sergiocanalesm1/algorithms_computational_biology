@@ -1,0 +1,919 @@
+Only last frame
+1A43
+156
+real -2.4 data -0.08920914888635761
+TN
+159
+real -4.55 data -0.0902741196467271
+TN
+167
+real -4.55 data 0.06525845501836003
+FP
+184
+real -0.7 data -0.22710979840965334
+TN
+218
+real -3.7 data 0.030319112665882497
+FP
+1A5E
+15
+real 0.19 data -0.02379059250360227
+FN
+37
+real 0.81 data 0.13743735570397236
+TP
+121
+real 0.55 data -0.08497462623380853
+FN
+1AEP
+14
+real -1.18 data -0.040188960822823194
+TN
+28
+real 0.48 data -0.18481987066958583
+FN
+137
+real -1.4 data -0.06468209825032617
+TN
+141
+real -1.03 data -0.04244087656662332
+TN
+1AG2
+129
+real -0.11 data -0.015584406564407738
+TN
+175
+real -0.05 data -0.008053429435190607
+TN
+180
+real -0.25 data 0.15144513104383284
+FP
+183
+real -4.04 data 0.020084358533166813
+FP
+190
+real 0.19 data 0.08401967699264107
+TP
+198
+real -2.15 data -0.09428424998857621
+TN
+200
+real -0.23 data -0.0581303626765729
+TN
+208
+real -1.05 data 0.061187741130636464
+FP
+210
+real -0.07 data -0.02802908020188155
+TN
+217
+real -1.88 data 0.06029413634351555
+FP
+1AKY
+8
+real -1.2 data 0.02793661126382352
+FP
+48
+real -0.96 data -0.09759267617265144
+TN
+77
+real -0.9 data 0.030882628872348716
+FP
+110
+real -2.13 data -0.06632248225182397
+TN
+169
+real -2.15 data 0.07153085766550138
+FP
+213
+real -1.91 data 0.09262228776170911
+FP
+1B8E
+19
+real -3.45 data 0.0003801776303186122
+FP
+1BLC
+179
+real -0.44 data -0.055008390462150336
+TN
+1BOY
+200
+real 0.6 data -0.03890000616578049
+FN
+1CAH
+5
+real -1.8 data 0.090402362960734
+FP
+206
+real 2.35 data -0.03143749374233784
+FN
+1G4I
+22
+real 0.83 data 0.005384194137046383
+TP
+48
+real -0.49 data -0.07758275338110499
+TN
+106
+real 0.07 data -0.18760882753996339
+FN
+1HK0
+43
+real -0.7 data 0.002433267474253542
+FP
+54
+real 0.5 data 0.04252173030568929
+TP
+56
+real -1.2 data 0.03796412530228521
+FP
+79
+real -2.3 data 0.11739235597678621
+FP
+81
+real -2.6 data 0.05601557887180142
+FP
+132
+real -3.8 data -0.0011312561427753165
+TN
+143
+real -0.4 data 0.07283655440500203
+FP
+145
+real -2.6 data 0.01920227548685749
+FP
+147
+real -1.1 data -0.07303866618267174
+TN
+170
+real 1.3 data -0.06254657157332799
+FN
+1IET
+60
+real 0.14 data 0.08230346989563686
+TP
+1IMQ
+19
+real -1.82 data 0.026143503981889582
+FP
+25
+real -0.14 data -0.02723100491129493
+TN
+31
+real -0.67 data 0.10093138776043187
+FP
+34
+real 0.33 data -0.0673513595260199
+FN
+37
+real -0.26 data 0.047381587593833485
+FP
+41
+real 0.89 data -0.09658411123520094
+FN
+68
+real -0.81 data -0.04360868328124434
+TN
+71
+real 0.07 data 0.010412959588137038
+TP
+1LVE
+4
+real 1.04 data 0.04732261993666653
+TP
+1MSI
+23
+real -0.89 data 0.02444235384270571
+FP
+25
+real -0.09 data 0.031521493352647034
+FP
+36
+real 0.3 data -0.12829831798386887
+FN
+39
+real -0.8 data -0.07177571126211868
+TN
+47
+real -0.74 data 0.02950538851277812
+FP
+58
+real -0.2 data -0.036124252196225615
+TN
+1ONC
+23
+real -2.76 data 0.0985362572331342
+FP
+28
+real -5.0 data 0.05524781318771155
+FP
+36
+real -4.67 data -0.02120005505848921
+TN
+1P2P
+48
+real -0.64 data -0.0068236958140620585
+TN
+1PDO
+12
+real 1.79 data 0.03868924999931722
+TP
+33
+real -1.08 data -0.07667514866807701
+TN
+69
+real -2.15 data 0.0858555935252232
+FP
+1QND
+71
+real -1.38 data 0.07937126611188816
+FP
+1SSO
+29
+real -0.4 data 0.057706114939975406
+FP
+Graph Confusion Matrix 
+True Positives: 8, False Negatives: 29 
+False Positives: 10, True Negatives: 24
+Sensitivity  Specificity Precision
+   0.4444,    0.4528 ,   0.2162
+
+All frames
+1A43
+156
+real -2.4 data -0.023087712278859154
+TN
+159
+real -4.55 data -0.06396424426004538
+TN
+167
+real -4.55 data -0.0842697142771944
+TN
+184
+real -0.7 data -0.11420377242451735
+TN
+218
+real -3.7 data 0.014368537273789367
+FP
+1A5E
+15
+real 0.19 data -0.05095446460931036
+FN
+37
+real 0.81 data 0.03934908201265003
+TP
+121
+real 0.55 data -0.03166763272249973
+FN
+1AEP
+14
+real -1.18 data -0.017305868501187927
+TN
+28
+real 0.48 data -0.14061454739373377
+FN
+137
+real -1.4 data 0.09721879038775721
+FP
+141
+real -1.03 data -0.06454834905523138
+TN
+1AG2
+129
+real -0.11 data 0.004871293296284773
+FP
+175
+real -0.05 data 0.018427818209380442
+FP
+180
+real -0.25 data 0.04497339784080373
+FP
+183
+real -4.04 data -0.04685076677572325
+TN
+190
+real 0.19 data 0.03909297445535767
+TP
+198
+real -2.15 data -0.14265269815605058
+TN
+200
+real -0.23 data 0.02150851085034633
+FP
+208
+real -1.05 data 0.02620764559815847
+FP
+210
+real -0.07 data 0.00036834384909506523
+FP
+217
+real -1.88 data 0.07375154806887688
+FP
+1AKY
+8
+real -1.2 data 0.02785824268437348
+FP
+48
+real -0.96 data -0.02426012108148623
+TN
+77
+real -0.9 data 0.03251471109831189
+FP
+110
+real -2.13 data 0.030890605639247837
+FP
+169
+real -2.15 data 0.03107157360805954
+FP
+213
+real -1.91 data 0.1207661747376228
+FP
+1B8E
+19
+real -3.45 data 0.048576886863623936
+FP
+1BLC
+179
+real -0.44 data -0.02028905850019702
+TN
+1BOY
+200
+real 0.6 data -0.027963807527006668
+FN
+1CAH
+5
+real -1.8 data 0.009614708408473893
+FP
+206
+real 2.35 data -0.031572579206878726
+FN
+1G4I
+22
+real 0.83 data -0.3039715736543192
+FN
+48
+real -0.49 data -0.23444241721688305
+TN
+106
+real 0.07 data -0.2648700441278309
+FN
+1HK0
+43
+real -0.7 data -0.14158228262841055
+TN
+54
+real 0.5 data -0.1981629575536945
+FN
+56
+real -1.2 data -0.25523355722371693
+TN
+79
+real -2.3 data -0.20179458432862654
+TN
+81
+real -2.6 data -0.08727892468376386
+TN
+132
+real -3.8 data -0.2348447610101525
+TN
+143
+real -0.4 data 0.10320110821255696
+FP
+145
+real -2.6 data -0.21906384957656566
+TN
+147
+real -1.1 data -0.07696668305194593
+TN
+170
+real 1.3 data -0.15868405720796436
+FN
+1IET
+60
+real 0.14 data 0.05701892787205848
+TP
+1IMQ
+19
+real -1.82 data -0.0027083222903130644
+TN
+25
+real -0.14 data -0.01809738553541415
+TN
+31
+real -0.67 data -0.015357529958804697
+TN
+34
+real 0.33 data -0.012090023418406953
+FN
+37
+real -0.26 data 0.0009074530925005653
+FP
+41
+real 0.89 data -0.04525347267596638
+FN
+68
+real -0.81 data -0.028015669503640872
+TN
+71
+real 0.07 data -0.022942201431057185
+FN
+1LVE
+4
+real 1.04 data -0.008372914609849347
+FN
+1MSI
+23
+real -0.89 data -0.1788395909374696
+TN
+25
+real -0.09 data -0.04328197563738599
+TN
+36
+real 0.3 data -0.06935381603596519
+FN
+39
+real -0.8 data -0.1932311117520267
+TN
+47
+real -0.74 data -0.06070737994757133
+TN
+58
+real -0.2 data -0.04609806486737367
+TN
+1ONC
+23
+real -2.76 data 0.0528414341873818
+FP
+28
+real -5.0 data 0.055362612125779476
+FP
+36
+real -4.67 data -0.010402885656725536
+TN
+1P2P
+48
+real -0.64 data -0.225760622948881
+TN
+1PDO
+12
+real 1.79 data 0.04579735038274013
+TP
+33
+real -1.08 data -0.05623296991677629
+TN
+69
+real -2.15 data 0.050221408350057284
+FP
+1QND
+71
+real -1.38 data 0.04159389550854781
+FP
+1SSO
+29
+real -0.4 data 0.0959777755836837
+FP
+Graph Confusion Matrix 
+True Positives: 4, False Negatives: 23 
+False Positives: 14, True Negatives: 30
+
+Sensitivity  Specificity Precision
+   0.2222,    0.5660 ,   0.1481
+
+1A43
+156
+real -2.4 data 0.262397
+FP
+159
+real -4.55 data 0.557025
+FP
+167
+real -4.55 data 0.077106
+FP
+184
+real -0.7 data 0.43004
+FP
+218
+real -3.7 data 3.6956
+FP
+1A5E
+15
+real 0.19 data -0.164412
+FN
+37
+real 0.81 data 1.32573
+TP
+121
+real 0.55 data 0.721027
+TP
+1AEP
+14
+real -1.18 data 2.97345
+FP
+28
+real 0.48 data 0.815993
+TP
+137
+real -1.4 data -0.23425
+TN
+141
+real -1.03 data 0.617133
+FP
+1AG2
+129
+real -0.11 data 0.26784
+FP
+175
+real -0.05 data 10.3457
+FP
+180
+real -0.25 data -0.348264
+TN
+183
+real -4.04 data 0.0350193
+FP
+190
+real 0.19 data 0.0887785
+TP
+198
+real -2.15 data 3.94671
+FP
+200
+real -0.23 data 0.592842
+FP
+208
+real -1.05 data 0.30292
+FP
+210
+real -0.07 data -0.213174
+TN
+217
+real -1.88 data -0.247268
+TN
+1AKY
+8
+real -1.2 data 0.128908
+FP
+48
+real -0.96 data -0.850219
+TN
+77
+real -0.9 data -0.600173
+TN
+110
+real -2.13 data -0.91958
+TN
+169
+real -2.15 data -0.243076
+TN
+213
+real -1.91 data 4.41672
+FP
+1B8E
+19
+real -3.45 data 2.56708
+FP
+1BLC
+179
+real -0.44 data 0.46649
+FP
+1BOY
+200
+real 0.6 data 2.59234
+TP
+1CAH
+5
+real -1.8 data 0.602446
+FP
+206
+real 2.35 data 0.932941
+TP
+1CSE
+14
+real -1.04 data 0.661393
+FP
+18
+real -1.2 data 1.59336
+FP
+27
+real -0.16 data 0.324598
+FP
+54
+real -1.58 data 3.82101
+FP
+62
+real -1.01 data 1.0242
+FP
+1G4I
+22
+real 0.83 data 0.845751
+TP
+48
+real -0.49 data 1.16334
+FP
+106
+real 0.07 data 1.6263
+TP
+1HK0
+43
+real -0.7 data 3.78047
+FP
+54
+real 0.5 data 0.342891
+TP
+56
+real -1.2 data 3.06634
+FP
+79
+real -2.3 data 1.21209
+FP
+81
+real -2.6 data 3.80188
+FP
+132
+real -3.8 data 3.27173
+FP
+143
+real -0.4 data -0.00291348
+TN
+145
+real -2.6 data 2.45139
+FP
+147
+real -1.1 data 2.45197
+FP
+170
+real 1.3 data 2.6024
+TP
+1IET
+60
+real 0.14 data -2.40328
+FN
+1IMQ
+19
+real -1.82 data -0.493275
+TN
+25
+real -0.14 data -1.86094
+TN
+31
+real -0.67 data -0.138963
+TN
+34
+real 0.33 data -0.393223
+FN
+37
+real -0.26 data -0.64832
+TN
+41
+real 0.89 data -0.15863
+FN
+68
+real -0.81 data -0.257576
+TN
+71
+real 0.07 data 3.004
+TP
+1LVE
+4
+real 1.04 data -3.49672
+FN
+1MSI
+23
+real -0.89 data 0.451256
+FP
+25
+real -0.09 data -0.20854
+TN
+36
+real 0.3 data 0.444365
+TP
+39
+real -0.8 data -0.0721206
+TN
+47
+real -0.74 data 1.47414
+FP
+58
+real -0.2 data -0.11858
+TN
+1ONC
+23
+real -2.76 data -0.2106
+TN
+28
+real -5.0 data 3.8251
+FP
+36
+real -4.67 data -0.214935
+TN
+1P2P
+48
+real -0.64 data 0.263911
+FP
+1PDO
+12
+real 1.79 data -0.158977
+FN
+33
+real -1.08 data -0.450525
+TN
+69
+real -2.15 data -0.119918
+TN
+1QND
+71
+real -1.38 data -0.0244044
+TN
+1SSO
+29
+real -0.4 data 0.627319
+FP
+FoldX Confusion Matrix 
+True Positives: 12, False Negatives: 36 
+False Positives: 6, True Negatives: 22
+Sensitivity  Specificity Precision
+   0.6667,    0.3793 ,   0.2500
+
+1A43
+156
+real -2.4 data -1.97
+TN
+159
+real -4.55 data -0.48
+TN
+167
+real -4.55 data -1.25
+TN
+184
+real -0.7 data -1.97
+TN
+218
+real -3.7 data 1.03
+FP
+1A5E
+15
+real 0.19 data -2.17
+FN
+37
+real 0.81 data -3.97
+FN
+121
+real 0.55 data -2.36
+FN
+1AEP
+14
+real -1.18 data -2.13
+TN
+28
+real 0.48 data -0.83
+FN
+137
+real -1.4 data -1.05
+TN
+141
+real -1.03 data -0.77
+TN
+1AG2
+129
+real -0.11 data -0.16
+TN
+175
+real -0.05 data -1.16
+TN
+180
+real -0.25 data -0.68
+TN
+183
+real -4.04 data -2.95
+TN
+190
+real 0.19 data -0.4
+FN
+198
+real -2.15 data -2.24
+TN
+200
+real -0.23 data -0.33
+TN
+208
+real -1.05 data -1.27
+TN
+210
+real -0.07 data -0.06
+TN
+217
+real -1.88 data -1.81
+TN
+1AKY
+8
+real -1.2 data -1.01
+TN
+48
+real -0.96 data 1.0
+FP
+77
+real -0.9 data -2.01
+TN
+110
+real -2.13 data -1.8
+TN
+169
+real -2.15 data -1.94
+TN
+213
+real -1.91 data -1.71
+TN
+1B8E
+19
+real -3.45 data -1.66
+TN
+1BLC
+179
+real -0.44 data -1.98
+TN
+1BOY
+200
+real 0.6 data -0.81
+FN
+1CAH
+5
+real -1.8 data 0.87
+FP
+206
+real 2.35 data -0.51
+FN
+1G4I
+22
+real 0.83 data -0.77
+FN
+48
+real -0.49 data -1.28
+TN
+106
+real 0.07 data -0.42
+FN
+1HK0
+43
+real -0.7 data -2.61
+TN
+54
+real 0.5 data -2.58
+FN
+56
+real -1.2 data -2.23
+TN
+79
+real -2.3 data -1.59
+TN
+81
+real -2.6 data -1.95
+TN
+132
+real -3.8 data -2.56
+TN
+143
+real -0.4 data -0.15
+TN
+145
+real -2.6 data -2.37
+TN
+147
+real -1.1 data -0.53
+TN
+170
+real 1.3 data -2.77
+FN
+1IET
+60
+real 0.14 data -0.79
+FN
+1IMQ
+19
+real -1.82 data -0.38
+TN
+25
+real -0.14 data -1.16
+TN
+31
+real -0.67 data 0.63
+FP
+34
+real 0.33 data 0.33
+TP
+37
+real -0.26 data 0.67
+FP
+41
+real 0.89 data 0.99
+TP
+68
+real -0.81 data -1.51
+TN
+71
+real 0.07 data -1.05
+FN
+i_mut Confusion Matrix 
+True Positives: 2, False Negatives: 5 
+False Positives: 13, True Negatives: 35
+Sensitivity  Specificity Precision
+   0.1333,    0.8750 ,   0.2857

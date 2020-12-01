@@ -43,7 +43,38 @@ import networkx as nx
 
 if __name__ == "__main__":
     #filename = "water_prot"
+    with open("./Test_NetworkX.pdb","r") as tes_nwt:
+        content= tes_nwt.readlines()
+        
+        
+    t0 = time.time()
+    G_class = G.Graph(content, "Protein_A_networkx.itp")
+    lj_graph = G_class.createEdges(G_class.LJ, 15)
+    
+    g = nx.DiGraph()
+    g.add_nodes_from(lj_graph.keys())
+    for k,v in lj_graph.items():
+        for int_list in v:
+            
+            g.add_edges_from([(k,int_list[0])],weight=int_list[1])
+    
+    netx_clust = nx.clustering(g)
+    print("time networkx",time.time()-t0)
+        
+# %%##     
+        
+    t0 = time.time()
+    G_class = G.Graph(content, "Protein_A_networkx.itp")
+    lj_graph = G_class.createEdges(G_class.LJ, 15)
+    
+    local_our = []
+    for k in lj_graph.keys():
+        local_our.append(antx.local_density(lj_graph,k,G_class.prot_end-1))
+    print("time basic alg",time.time()-t0)
+        
 
+    
+    '''
     path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
     #path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
     #pdbs = ["1A43","1B8E" ]
@@ -254,7 +285,7 @@ if __name__ == "__main__":
     print("End of script")
     print(time.time()-t0)
 
-
+    '''
 def analyze(filename, graph):
     #degrees = antx.nodes_degree( graph, filename )
     global_density = antx.global_density(graph)
@@ -284,5 +315,6 @@ def RepresentGrap(graph_data, type_g):
     plt.axis("off")
     plt.show()
 # Holaalskjdh
-RepresentGrap(distance_graph,"bonds")
+#RepresentGrap(distance_graph,"bonds")
+
 #epresentGrap(lj_graph,"Electric")
