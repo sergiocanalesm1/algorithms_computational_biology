@@ -11,23 +11,12 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 
 
 public class LJGraph {
-	private double cutOff;
-
-
-	private Map<Atom, Map<Atom, Double>> LJ_Graph = new HashMap<>();
-	public LJGraph() {
-		this.cutOff = cutOff;
-	}
-	
-
-	
-
-	public HashMap<Integer, String> Read_Itp(){
+	public static HashMap<Integer, String> Read_Itp(){
 		HashMap<Integer, String> Atom_dict = new HashMap<>();
 		try{
 			// Open the file that is the first 
 			// command line parameter
-			FileInputStream fstream = new FileInputStream("/home/david/Documents/BionIF/Algortimos/Proyecto/GraphCG/data/Protein_A.itp");
+			FileInputStream fstream = new FileInputStream("data/Protein_A.itp");
 			// Get the object of DataInputStream
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -64,8 +53,8 @@ public class LJGraph {
 		return Atom_dict;
 
 	}
-	
-	
+
+
 
 
 
