@@ -25,21 +25,23 @@ import Analysis_Networks as antx
 import networkx as nx
 
 if __name__ == "__main__":
-    path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
+    #path = "/home/david/Documents/BionIF/Algortimos/Proyecto/MD/MD_dataset/"
+    path="/hpcfs/home/bcom4006/estudiantes/DRFB/Proyecto/MD/MD_Dataset/"
     print("begin of the script")
-    t0 = time.time()
+    t_ini = time.time()
+
     #pdbs= os.listdir(path)
-    #pdbs=np.loadtxt("../../MD_Dataset/Proteins_For_Analysis",dtype=string)
-    #with open("../../MD_Dataset/Proteins_For_Analysis","r") as prots:
-    #    pdbs_t=prots.readlines()
-    #pdbs=[]
-    #for name in pdbs_t:
+    #pdbs=np.loadtxt("../../MD_Dataset/Set_Pro_t1")#,dtype=String)
+    with open("../../MD_Dataset/Set_Pro_t1","r") as prots:
+        pdbs_t=prots.readlines()
+    pdbs=[]
+    for name in pdbs_t:
     #print(name[:-1])
-    #    pdbs.append(name[:-1])
-    #print(pdbs)
-    pdbs = ["1A43"]
-    stop_frame = 1
-    with open("results_2.txt", "w") as results_file:
+        pdbs.append(name[:-1])
+    print(pdbs)
+    #pdbs = ["1A43"]
+    stop_frame = 20
+    with open("results_20frame_closenes.txt", "w") as results_file:
         results_file.write("Struct(WT-C-Num-new-Nd) global centrality        " +
                            "local centrality        closeness             frame       E_LJ  " +
                            "      E_C            ET  \n")
@@ -228,3 +230,5 @@ if __name__ == "__main__":
                                                    str(data_energy[int(frame)][1:][2]) +
                                                    "\n")
                             print(f"  {time.time()-t_c:.4f} ")
+
+
