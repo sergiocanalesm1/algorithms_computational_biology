@@ -21,6 +21,8 @@ def read_real_results( path ):
         lines = file_data.readlines()
     for line in lines:
         line = line.split()
+        if( line[ 0 ].startswith( "Struct" ) or len( line ) < 2 ):
+            continue
         # que hacer con el archivo?
         protein = line[ 0 ].split( "." )[ 0 ]  # example: from '1A43.pdb' to 1A43
         mutant_name = line[ 2 ]  # example GA156A
@@ -76,8 +78,9 @@ def setup_proteins( path ):
         line = line.split()
         node = line[ 0 ]
         local_centrality = float( line[ 2 ] )
-        frame = float( line[ 3 ] )
-        energy = float( line[ 6 ] )
+        closeness = float( line[ 3 ] )
+        frame = float( line[ 4 ] )
+        energy = float( line[ 7 ] )
 
         type = mutant_string
         if node.startswith( "WT" ):
@@ -91,7 +94,8 @@ def setup_proteins( path ):
                 node : {
                     "local_centrality" : local_centrality,
                     "frame" : frame,
-                    "energy" : energy
+                    "energy" : energy,
+                    "closeness" : closeness
                 }
             }
         #TODO : hacer que solo obtenga el primer frame de cada nodo para compara frame 0 con frame 57.
@@ -99,7 +103,8 @@ def setup_proteins( path ):
             proteins[ protein_name ][ type ][ prot_name ][ node ] = {
                 "local_centrality": local_centrality,
                 "frame": frame,
-                "energy": energy
+                "energy": energy,
+                "closeness": closeness,
             }
             current_max_energy = proteins[ protein_name ][ type ][ prot_name ][ "max_energy" ]
             current_min_energy = proteins[ protein_name ][ type ][ prot_name ][ "min_energy" ]
@@ -128,8 +133,9 @@ def setup_proteins_all_frames( path ):
         line = line.split()
         node = line[ 0 ]
         local_centrality = float( line[ 2 ] )
-        frame = float( line[ 3 ] )
-        energy = float( line[ 6 ] )
+        closeness = float( line[ 3 ] )
+        frame = float( line[ 4 ] )
+        energy = float( line[ 7 ] )
 
         type = mutant_string
         if node.startswith( "WT" ):
@@ -146,7 +152,8 @@ def setup_proteins_all_frames( path ):
                     "local_centrality" : local_centrality,
                     "frame" : frame,
                     "energy" : energy,
-                    "node_index" : node_index
+                    "node_index" : node_index,
+                    "closeness": closeness,
                 }
             proteins[ protein_name ][ type ][ prot_name ] = [
                 general_info,node 
@@ -154,6 +161,7 @@ def setup_proteins_all_frames( path ):
         else:
             node = {
                     "local_centrality" : local_centrality,
+                    "closeness" : closeness,
                     "frame" : frame,
                     "energy" : energy,
                      "node_index" : node_index
@@ -182,19 +190,24 @@ def normalize_nodes( dict_with_nodes ):
       '159': 0.5209813999353262
     }
     '''
-    proteins = {}
+    measurements_dict = {}
     prots = list( dict_with_nodes.keys() )
     for protein in prots :
         #max = dict_with_nodes[ protein ][ "max_energy" ]
         #min = dict_with_nodes[ protein ][ "min_energy" ]
         acumulated_centrality = 0
+        acumulated_closeness = 0
         total_nodes = 0
         for node in dict_with_nodes[ protein ] :
             if node not in [ "max_energy", "min_energy", "max_frame" ]:
                 acumulated_centrality += dict_with_nodes[ protein ][ node ][ "local_centrality" ] #* local_centrality_percentage( max, min, dict_with_nodes[ protein ][ node ][ "energy" ] )
+                acumulated_closeness += dict_with_nodes[ protein ][ node ][ "closeness" ]
                 total_nodes += 1
-        proteins[ re.sub( "[^0-9]", "", protein ) ] =  acumulated_centrality / total_nodes # example: re.sub converts from WT156 to 156
-    return proteins
+        measurements_dict[ re.sub( "[^0-9]", "", protein ) ] = { "local_centrality" : acumulated_centrality / total_nodes,
+                                                               "closeness" : acumulated_closeness / total_nodes} # example: re.sub converts from WT156 to 156
+        #closeness_dict[ re.sub("[^0-9]", "", protein ) ] = acumulated_closeness / total_nodes
+
+    return measurements_dict
 
 
 def normalize_nodes_all_frames( dict_with_nodes ):
@@ -216,67 +229,84 @@ def normalize_nodes_all_frames( dict_with_nodes ):
     for protein in prots :
         max = dict_with_nodes[ protein ][0][ "max_energy" ]
         min = dict_with_nodes[ protein ][0][ "min_energy" ]
-        acumulated_centrality = 0
         total_nodes = 0
         
-        acumulated_centrality_dict = {}
+        acumulated_measurements_dict = {}
         for node in dict_with_nodes[ protein ] :
             #if node.co not in [ "max_energy", "min_energy", "max_frame" ]:
-            if not any([i in node for i in list_info]):
+            if not any( [ i in node for i in list_info ] ):
                 #acumulated_centrality +=  node[ "local_centrality" ] * local_centrality_percentage( max, min, node[ "energy" ] )
-                if node['node_index'] not in acumulated_centrality_dict:
-                    acumulated_centrality_dict[node["node_index"]] = node[ "local_centrality" ] * local_centrality_percentage( max, min, node[ "energy" ] )
+                percentage = local_centrality_percentage(max, min, node["energy"])
+                if node[ 'node_index' ] not in acumulated_measurements_dict:
+                    acumulated_measurements_dict[ node[ "node_index" ] ] = {
+                        "local_centrality": node["local_centrality"] * percentage,
+                        "closeness": node["closeness"] * percentage
+                    }
+
                     total_nodes += 1
                     total_frame += 1
                 else:
-                    acumulated_centrality_dict[node["node_index"]] += node[ "local_centrality" ] * local_centrality_percentage( max, min, node[ "energy" ] )
+                    acumulated_measurements_dict[ node[ "node_index" ] ][ "local_centrality" ] += node[ "local_centrality" ] * percentage
+                    acumulated_measurements_dict[ node[ "node_index" ] ][ "closeness" ] += node[ "closeness" ] * percentage
                     total_frame += 1
-        total_frame = total_frame/total_nodes 
+        total_frame = total_frame / total_nodes
  
         acumulated_centrality = 0
-        for k in acumulated_centrality_dict.values():
-            acumulated_centrality += k
-        acumulated_centrality = acumulated_centrality/total_frame
-        proteins[ re.sub( "[^0-9]", "", protein ) ] =  acumulated_centrality / total_nodes # example: re.sub converts from WT156 to 156
+        acumulated_closeness = 0
+        for v in acumulated_measurements_dict.values():
+            acumulated_centrality += v[ "local_centrality" ]
+            acumulated_closeness += v[ "closeness" ]
+        acumulated_centrality = acumulated_centrality / total_frame
+        acumulated_closeness = acumulated_closeness / total_frame
+        proteins[ re.sub( "[^0-9]", "", protein ) ] = { "local_centrality" : acumulated_centrality / total_nodes,
+                                                        "closeness" : acumulated_closeness / total_nodes
+                                                        } # example: re.sub converts from WT156 to 156
     return proteins
 
 def read_graph_results( path ):
-    graph_stability = {}
+    graph_measurements = {}
     proteins = setup_proteins( path )
     wt_string = "wild_types"
     mutant_string = "mutants"
     for protein_name, types in proteins.items():
-        graph_stability[ protein_name ] = {}
+        graph_measurements[ protein_name ] = {}
         wild_types_dict_with_nodes = types[ wt_string ]
         mutants_dict_with_nodes = types[ mutant_string ]
-        wild_types = normalize_nodes( wild_types_dict_with_nodes )
-        mutants = normalize_nodes( mutants_dict_with_nodes )
-        for protein_number, mutant_centrality in mutants.items():
-            if protein_number in wild_types :
-                graph_stability[ protein_name ][ protein_number ] = mutant_centrality - wild_types[ protein_number ]
+        wild_types_normalized = normalize_nodes( wild_types_dict_with_nodes )
+        mutants_normalized = normalize_nodes( mutants_dict_with_nodes )
+        keys = list( mutants_normalized.keys() )
+        for i in range( len( keys ) ):
+            protein_number = keys[ i ]
+            mutant_centrality = mutants_normalized[ protein_number ][ "local_centrality" ]
+            mutant_closeness = mutants_normalized[ protein_number ][ "closeness" ]
+            if protein_number in wild_types_normalized:
+                graph_measurements[ protein_name ][ protein_number ] = {
+                    "local_centrality": mutant_centrality - wild_types_normalized[ protein_number ][ "local_centrality" ],
+                    "closeness": mutant_closeness - wild_types_normalized[ protein_number ][ "closeness" ] }
             else:
                 print( "graph error: la mutante no se encuentra en el WT" )
-    return graph_stability
+    return graph_measurements
 
 
 
 def read_graph_results_all_frames( path ):
-    graph_stability = {}
+    graph_measurements = {}
     proteins = setup_proteins_all_frames( path )
     wt_string = "wild_types"
     mutant_string = "mutants"
     for protein_name, types in proteins.items():
-        graph_stability[ protein_name ] = {}
+        graph_measurements[ protein_name ] = {}
         wild_types_dict_with_nodes = types[ wt_string ]
         mutants_dict_with_nodes = types[ mutant_string ]
         wild_types = normalize_nodes_all_frames( wild_types_dict_with_nodes )
         mutants = normalize_nodes_all_frames( mutants_dict_with_nodes )
-        for protein_number, mutant_centrality in mutants.items():
+        for protein_number, mutant_measurement in mutants.items():
             if protein_number in wild_types :
-                graph_stability[ protein_name ][ protein_number ] = mutant_centrality - wild_types[ protein_number ]
+                graph_measurements[ protein_name ][ protein_number ] = {"local_centrality": mutant_measurement["local_centrality"] - wild_types[protein_number]["local_centrality"],
+                 "closeness": mutant_measurement["closeness"] - wild_types[protein_number]["closeness"]}
             else:
                 print( "graph error: la mutante no se encuentra en el WT" )
-    return graph_stability
+    return graph_measurements
 
 def local_centrality_percentage( max_energy, min_energy, energy, min_percentage=0.6 ) :
     max = np.abs( max_energy )
@@ -284,7 +314,7 @@ def local_centrality_percentage( max_energy, min_energy, energy, min_percentage=
     x = np.abs( energy )
     return ( ( x - min ) / ( max - min ) ) * ( 1 - min_percentage ) + min_percentage
 
-def create_confusion_matrix( real_data_results, data_results ) :
+def create_confusion_matrix( real_data_results, data_results, measurement="" ) :
     true_positives = 0
     true_negatives = 0
     false_negatives = 0
@@ -292,22 +322,26 @@ def create_confusion_matrix( real_data_results, data_results ) :
 
     for protein, v in data_results.items() :
         if protein in real_data_results :
-            mutants = list( real_data_results[ protein ].keys() )
+
             #print(protein)
-            for mutant in mutants:
+            for mutant in data_results[ protein ].keys():
+                if measurement != "":
+                    result = data_results[ protein ][ mutant ][ measurement ]
+                else:
+                    result = data_results[ protein ][ mutant ]
                 #print(mutant)
                 if mutant in real_data_results[ protein ]:
                     #print("real",real_data_results[ protein ][ mutant ],"data",data_results[ protein ][ mutant ])
-                    if real_data_results[ protein ][ mutant ] > 0 and data_results[ protein ][ mutant ] > 0:
+                    if real_data_results[ protein ][ mutant ] > 0 and result > 0:
                         true_positives += 1
                         #print("TP")
-                    elif real_data_results[ protein ][ mutant ] < 0 and data_results[ protein ][ mutant ] < 0:
+                    elif real_data_results[ protein ][ mutant ] < 0 and result < 0:
                         true_negatives += 1
                         #print("TN")
-                    elif real_data_results[ protein ][ mutant ] > 0 and data_results[ protein ][ mutant ] < 0:
+                    elif real_data_results[ protein ][ mutant ] > 0 and result < 0:
                         false_negatives += 1
                         #print("FN")
-                    elif real_data_results[ protein ][ mutant ] < 0 and data_results[ protein ][ mutant ] > 0:
+                    elif real_data_results[ protein ][ mutant ] < 0 and result > 0:
                         false_positives += 1
                         #print("FP")
                     else:
@@ -368,18 +402,20 @@ def bar_stats_graph( graph_stats, foldx_stats , title ):
     fig.tight_layout()
     plt.show()
 
-def bar_stats_graph_3( graph_stats, foldx_stats,i_mut_stats , title ):
+def bar_stats_graph_3( graph_stats_local_centrality, graph_stats_closeness, foldx_stats,i_mut_stats , title ):
     labels = [ "Sensitivity", "Specificity", "Precision" ]
     x = np.arange( len( labels ) )
-    width = 0.3
+    width = 0.2
     fig, ax = plt.subplots(figsize=(9,5))
-    ax.bar( x - width , graph_stats, width, label='Graph' )
+    ax.bar( x - 2*width , graph_stats_local_centrality, width, label='Graph Local Centrality' )
+    ax.bar(x - width, graph_stats_closeness, width, label='Graph Closeness')
     ax.bar( x, foldx_stats, width, label='FoldX' )
     ax.bar( x + width , i_mut_stats, width, label='i-Mut' )
     ax.set_title(f"Statistics Comparison {title}" )
     ax.set_xticks( x )
     ax.set_xticklabels( labels)
     ax.set_ylim( [ 0, 1 ] )
+    ax.legend()
     #ax.legend(loc=(1.05,0.5))
     
     fig.tight_layout()
@@ -405,7 +441,7 @@ if __name__ == "__main__":
     # rutas en cluster
     real_data_path = "./Results/RealData.txt"#"../../../FoldX/RealData.txt"
     foldX_data_path = "./Results/ddg_protein_analysis_FOLDX_RESULTS.txt"#"../../../FoldX/ddg_protein_analysis_FOLDX_RESULTS.txt"
-    graph_data_path = "./Results/graph_results.txt"#"results.txt"
+    graph_data_path = "./results_10frame_closenes.txt"#"results.txt"
     i_mut_data_path = "./Results/i_Mut_final_data.txt"
     
     
@@ -415,12 +451,19 @@ if __name__ == "__main__":
     
     print("Only last frame")
     graph_data_results = read_graph_results( graph_data_path )
-    true_positives_lf, false_positives_lf, false_negatives_lf, true_negatives_lf = create_confusion_matrix( real_data_results, graph_data_results )
-    g_sensitivity_lf, g_specificity_lf, g_precision_lf = statistics( true_positives_lf, false_positives_lf, false_negatives_lf, true_negatives_lf )
-    print_matrix( "Graph", true_positives_lf, false_positives_lf, false_negatives_lf, true_negatives_lf )   
-    
-    print("Sensitivity" , " Specificity", "Precision")
-    print("   {:.4f},    {:.4f} ,   {:.4f}".format(g_sensitivity_lf, g_specificity_lf, g_precision_lf))
+    tp_lf_ld, fp_lf_ld, fn_lf_ld, tn_lf_ld = create_confusion_matrix( real_data_results, graph_data_results, measurement="local_centrality" )
+    tp_lf_c, fp_lf_c, fn_lf_c, tn_lf_c = create_confusion_matrix(real_data_results, graph_data_results, measurement="closeness" )
+    g_sensitivity_lf_ld, g_specificity_lf_ld, g_precision_lf_ld = statistics( tp_lf_ld, fp_lf_ld, fn_lf_ld, tn_lf_ld )
+    g_sensitivity_lf_c, g_specificity_lf_c, g_precision_lf_c = statistics( tp_lf_c, fp_lf_c, fn_lf_c, tn_lf_c )
+    print_matrix( "\nGraph Local Centrality", tp_lf_ld, fp_lf_ld, fn_lf_ld, tn_lf_ld )
+    print_matrix( "\nGraph Closeness", tp_lf_c, fp_lf_c, fn_lf_c, tn_lf_c )
+
+    print( "\nLocal Centrality" )
+    print( "Sensitivity" , " Specificity", "Precision" )
+    print( "   {:.4f},    {:.4f} ,   {:.4f}".format( g_sensitivity_lf_ld, g_specificity_lf_ld, g_precision_lf_ld ) )
+    print( "\nCloseness" )
+    print("Sensitivity", " Specificity", "Precision")
+    print("   {:.4f},    {:.4f} ,   {:.4f}".format( g_sensitivity_lf_c, g_specificity_lf_c, g_precision_lf_c ) )
     
     print()
    
@@ -430,23 +473,30 @@ if __name__ == "__main__":
       
     
     
-    print("All frames")
+    print("\nAll frames")
     graph_data_results = read_graph_results_all_frames( graph_data_path )
-    true_positives, false_positives, false_negatives, true_negatives = create_confusion_matrix( real_data_results, graph_data_results )
-    g_sensitivity, g_specificity, g_precision = statistics( true_positives, false_positives, false_negatives, true_negatives )
-    print_matrix( "Graph", true_positives, false_positives, false_negatives, true_negatives )
+    #for local density
+    tp_af_ld, fp_af_ld, fn_af_ld, tn_af_ld = create_confusion_matrix( real_data_results, graph_data_results, measurement="local_centrality" )
+    g_sensitivity_af_ld, g_specificity_af_ld, g_precision_af_ld = statistics( tp_af_ld, fp_af_ld, fn_af_ld, tn_af_ld )
+    tp_af_c, fp_af_c, fn_af_c, tn_af_c = create_confusion_matrix(real_data_results, graph_data_results, measurement="closeness" )
+    g_sensitivity_af_c, g_specificity_af_c, g_precision_af_c = statistics( tp_af_c, fp_af_c, fn_af_c, tn_af_c )
+    print_matrix( "\nGraph Local Centrality", tp_af_ld, fp_af_ld, fn_af_ld, tn_af_ld )
+    print_matrix( "\nGraph Closeness", tp_af_c, fp_af_c, fn_af_c, tn_af_c )
     print()
     #foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives = create_confusion_matrix( real_data_results, foldX_data_results )
     #print_matrix( "FoldX", foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
 
-    print("Sensitivity" , " Specificity", "Precision")
-    print("   {:.4f},    {:.4f} ,   {:.4f}".format(g_sensitivity, g_specificity, g_precision))
-    print()
+    print( "\nLocal Centrality" )
+    print( "Sensitivity" , " Specificity", "Precision" )
+    print( "   {:.4f},    {:.4f} ,   {:.4f}".format( g_sensitivity_af_ld, g_specificity_af_ld, g_precision_af_ld ) )
+    print( "\nCloseness" )
+    print("Sensitivity", " Specificity", "Precision")
+    print("   {:.4f},    {:.4f} ,   {:.4f}".format( g_sensitivity_af_c, g_specificity_af_c, g_precision_af_c ) )
     
     
     foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives = create_confusion_matrix( real_data_results, foldX_data_results )
     foldx_sensitivity, foldx_specificity, foldx_precision = statistics( foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
-    print_matrix( "FoldX", foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )   
+    print_matrix( "\nFoldX", foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives )
     #bar_stats_graph( [ g_sensitivity, g_specificity, g_precision ], [ foldx_sensitivity, foldx_specificity, foldx_precision ] , "All frames")  
     #bar_graph( [ true_positives, false_positives, false_negatives, true_negatives ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , "All frames")
         
@@ -461,18 +511,18 @@ if __name__ == "__main__":
 
     i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives = create_confusion_matrix( real_data_results, i_mut_data_results )
     i_mut_sensitivity, i_mut_specificity, i_mut_precision = statistics( i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives )
-    print_matrix( "i_mut", i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives )
+    print_matrix( "\ni_mut", i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives )
     print("Sensitivity" , " Specificity", "Precision")
     print("   {:.4f},    {:.4f} ,   {:.4f}".format(i_mut_sensitivity, i_mut_specificity, i_mut_precision))
     
     
     
-    bar_stats_graph_3( [ g_sensitivity, g_specificity, g_precision ], [ foldx_sensitivity, foldx_specificity, foldx_precision ], [ i_mut_sensitivity, i_mut_specificity, i_mut_precision ] , "All frames")
-    bar_graph_3( [ true_positives, false_positives, false_negatives, true_negatives ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , [ i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives ] ,  "All frames" )
+    bar_stats_graph_3( [ g_sensitivity_af_ld, g_specificity_af_ld, g_precision_af_ld ],[ g_sensitivity_af_c, g_specificity_af_c, g_precision_af_c ], [ foldx_sensitivity, foldx_specificity, foldx_precision ], [ i_mut_sensitivity, i_mut_specificity, i_mut_precision ] , "All frames")
+    #bar_graph_3( [ true_positives, false_positives, false_negatives, true_negatives ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , [ i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives ] ,  "All frames" )
    
     
-    bar_stats_graph_3( [ g_sensitivity_lf, g_specificity_lf, g_precision_lf ], [ foldx_sensitivity, foldx_specificity, foldx_precision ], [ i_mut_sensitivity, i_mut_specificity, i_mut_precision ] , "Last Frame")
-    bar_graph_3( [ true_positives_lf, false_positives_lf, false_negatives_lf, true_negatives_lf ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , [ i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives ] ,  "Last Frames" )   
+    bar_stats_graph_3( [ g_sensitivity_lf_ld, g_specificity_lf_ld, g_precision_lf_ld ],[ g_sensitivity_lf_c, g_specificity_lf_c, g_precision_lf_c ], [ foldx_sensitivity, foldx_specificity, foldx_precision ], [ i_mut_sensitivity, i_mut_specificity, i_mut_precision ] , "Last Frame")
+    #bar_graph_3( [ true_positives_lf, false_positives_lf, false_negatives_lf, true_negatives_lf ], [ foldx_true_positives, foldx_false_positives, foldx_false_negatives, foldx_true_negatives ] , [ i_mut_true_positives, i_mut_false_positives, i_mut_false_negatives, i_mut_true_negatives ] ,  "Last Frames" )
     
     data_perf=np.genfromtxt("./Results/Size_timeG_time_Cent")
     plt.scatter(data_perf[:,0],data_perf[:,1])
